@@ -961,3 +961,207 @@ INFO: [ app_end ] --START--
 INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000361s ]
 INFO: [ app_end ] --END-- [ RunTime:0.000387s ]
 
+[ 2020-01-16T14:40:01+08:00 ] 127.0.0.1 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000414s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000643s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000722s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+
+[ 2020-01-16T14:40:02+08:00 ] 127.0.0.1 /index.php?m=Home&c=Public&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000487s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000656s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000753s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001347s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.001415s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000441s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000487s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002352s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000805s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000016s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.002851s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001552s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001710s ]
+
+[ 2020-01-16T14:40:20+08:00 ] 127.0.0.1 /index.php?m=Admin&c=Login&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000463s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000543s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000603s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: Login D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Admin\Controller\AdminController.class.php 第 91 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 6 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [2] file_get_contents():  D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 1280 行.
+NOTIC: [2] file_get_contents(http://www.yueai.me/index.php?s=/Home/Yueaime/justcheck/host/xiangqin.com:8088):  D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 1280 行.
+NOTIC: [2] unlink(./Runtime/Temp/a/b/ab06451a7b2018e53bda5f99295dac6a.php): No such file or directory D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 157 行.
+NOTIC: [2] unlink(./Runtime/Temp/6/e/6e2baaf3b97dbeef01c0043275f9a0e7.php): No such file or directory D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 157 行.
+NOTIC: [2] unlink(./Runtime/Temp/a/0/a00f1193c56233f42cdd51a42fe4bd02.php): No such file or directory D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 157 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000557s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.000588s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000207s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000227s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000573s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000617s ]
+
+[ 2020-01-16T14:40:20+08:00 ] 127.0.0.1 /index.php/Home/Site/verifyCode.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000377s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000558s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000636s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000611s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000667s ]
+
+[ 2020-01-16T14:40:35+08:00 ] 127.0.0.1 /index.php/Admin/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000219s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000279s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000314s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: Login D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Admin\Controller\AdminController.class.php 第 91 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000024s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000062s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.027182s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027237s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000215s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000239s ]
+
+[ 2020-01-16T14:40:43+08:00 ] 127.0.0.1 /index.php/Admin/Login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000214s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000279s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000311s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: Login D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Admin\Controller\AdminController.class.php 第 91 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000482s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.000512s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000179s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000199s ]
+
+[ 2020-01-16T14:40:46+08:00 ] 127.0.0.1 /index.php/Home/Site/verifyCode.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000441s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001714s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001991s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000832s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000987s ]
+
+[ 2020-01-16T14:40:52+08:00 ] 127.0.0.1 /index.php/Home/Site/verifyCode.html&0.6395847509559716
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000255s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000380s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000427s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+ERR: 非法操作:verifyCode.html&0.6395847509559716
+
+[ 2020-01-16T14:40:53+08:00 ] 127.0.0.1 /index.php/Home/Site/verifyCode.html&0.3937903137637375
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000222s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000293s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000327s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+ERR: 非法操作:verifyCode.html&0.3937903137637375
+
+[ 2020-01-16T14:40:53+08:00 ] 127.0.0.1 /index.php/Home/Site/verifyCode.html&0.5997302974341048
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000225s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000305s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000343s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+ERR: 非法操作:verifyCode.html&0.5997302974341048
+
+[ 2020-01-16T14:40:54+08:00 ] 127.0.0.1 /index.php?m=Admin&c=Login&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000300s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000346s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000410s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: Login D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Admin\Controller\AdminController.class.php 第 91 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000845s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.000917s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000227s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000249s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000356s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000382s ]
+
+[ 2020-01-16T14:40:54+08:00 ] 127.0.0.1 /index.php/Home/Site/verifyCode.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000555s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000674s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000772s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002064s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002154s ]
+
