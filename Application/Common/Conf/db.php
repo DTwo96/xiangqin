@@ -7,7 +7,7 @@ return array(
 
     'DB_HOST'=>'127.0.0.1', // 服务器地址 localhost
 
-    'DB_NAME'=>'xq', // 数据库名
+    'DB_NAME'=>'test4_xqidong_co', // 数据库名
 
     'DB_USER'=>'root', // 用户名
 

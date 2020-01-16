@@ -1,0 +1,963 @@
+[ 2020-01-16T10:35:54+08:00 ] 127.0.0.1 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000567s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000703s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000819s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+ERR: Unknown database 'xq'
+
+[ 2020-01-16T10:39:03+08:00 ] 127.0.0.1 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000418s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000352s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000387s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 36 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+
+[ 2020-01-16T10:39:04+08:00 ] 127.0.0.1 /index.php?m=Home&c=Public&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000756s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000862s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000941s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000193s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000272s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016034s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016094s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000357s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000396s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000055s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.004902s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.003653s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000848s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000013s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.004162s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000693s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000769s ]
+
+[ 2020-01-16T10:39:11+08:00 ] 127.0.0.1 /index.php?m=Home&c=Public&a=login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000235s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000308s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000348s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000026s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000061s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005586s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005624s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000196s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000217s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000431s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000326s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000563s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000343s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000368s ]
+
+[ 2020-01-16T10:39:19+08:00 ] 127.0.0.1 /index.php?m=Home&c=Ajax&a=login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000385s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000321s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000358s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+
+[ 2020-01-16T10:39:30+08:00 ] 127.0.0.1 /index.php?m=Home&c=Ajax&a=login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000246s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000274s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000302s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 90011 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 54 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined offset: 0 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PublicController.class.php 第 470 行.
+NOTIC: [8] Undefined offset: 0 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PublicController.class.php 第 472 行.
+
+[ 2020-01-16T10:39:30+08:00 ] 127.0.0.1 /index.php?m=Home&c=Index&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000210s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000509s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000580s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined variable: area2 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 475 行.
+NOTIC: [8] Undefined index: id D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 118 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 134 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 10 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 100 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 1117 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 169 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 191 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 666 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 122 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000049s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000083s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007910s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007966s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000384s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000423s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000702s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000617s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000009s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000933s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000068s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.007476s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006813s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001539s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000009s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.007965s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000041s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.011547s ]
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 5 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 6 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 7 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 8 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 9 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002920s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.008577s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000009s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.011093s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000499s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000544s ]
+
+[ 2020-01-16T10:39:32+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001488s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000470s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000531s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 64 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 70 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 71 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined offset: 0 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\UserController.class.php 第 71 行.
+NOTIC: [8] Undefined offset: 0 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\UserController.class.php 第 73 行.
+NOTIC: [8] Undefined index: ltfl D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 1700 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000052s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000087s ]
+NOTIC: [8] Undefined variable: isqd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\d5f793942a0f99f63ffe478e0b8ba738.php 第 48 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007735s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.007786s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000349s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000377s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000894s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000521s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000011s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001092s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001186s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001681s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.002526s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000538s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000579s ]
+
+[ 2020-01-16T10:39:34+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=VipCenter
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000032s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000725s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000297s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000332s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 120 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 40 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000092s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000145s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016666s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016723s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000315s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000349s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000772s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000538s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000011s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001017s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001018s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001567s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.002254s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000485s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000547s ]
+
+[ 2020-01-16T10:39:36+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=dopay
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000467s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000572s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000635s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: WIDshow_url D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 47 行.
+NOTIC: [8] Undefined index: WIDbody D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 51 行.
+NOTIC: [8] Undefined index: WIDit_b_pay D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 55 行.
+NOTIC: [8] Undefined index: WIDextern_token D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 59 行.
+
+[ 2020-01-16T10:39:54+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=VipCenter
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000466s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001431s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001555s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001626s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.001871s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001005s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001078s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002387s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001346s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000010s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.002632s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000618s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.003918s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.003404s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001071s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001108s ]
+
+[ 2020-01-16T10:39:56+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=dopay
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000206s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001291s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001444s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: WIDshow_url D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 47 行.
+NOTIC: [8] Undefined index: WIDbody D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 51 行.
+NOTIC: [8] Undefined index: WIDit_b_pay D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 55 行.
+NOTIC: [8] Undefined index: WIDextern_token D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 59 行.
+
+[ 2020-01-16T10:40:08+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=VipCenter
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000359s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000470s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000529s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001461s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.001548s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000439s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000485s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004852s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000744s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000014s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.005196s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001165s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.005930s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000013s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.006648s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000704s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000762s ]
+
+[ 2020-01-16T10:40:14+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=VipCenter&type=1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000212s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000270s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000299s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 43 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000727s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.000765s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000219s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000242s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000399s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000362s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000005s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000529s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000571s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000887s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000005s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001221s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000496s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000527s ]
+
+[ 2020-01-16T10:40:17+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=dopay
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000228s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000263s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000291s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: WIDshow_url D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 47 行.
+NOTIC: [8] Undefined index: WIDbody D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 51 行.
+NOTIC: [8] Undefined index: WIDit_b_pay D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 55 行.
+NOTIC: [8] Undefined index: WIDextern_token D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\PayController.class.php 第 59 行.
+
+[ 2020-01-16T10:40:25+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=VipCenter&type=1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000478s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000591s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000657s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006712s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006914s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000364s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000402s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004085s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000599s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000014s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.004332s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000994s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.004971s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000012s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.005590s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000417s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000456s ]
+
+[ 2020-01-16T10:40:27+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=VipCenter
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000203s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000289s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000318s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001110s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.001172s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000309s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000343s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000674s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000507s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000009s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000878s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000841s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001386s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000010s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001917s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000686s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000738s ]
+
+[ 2020-01-16T10:40:28+08:00 ] 127.0.0.1 /index.php?m=Home&c=User&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000215s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000271s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000301s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined offset: 0 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\UserController.class.php 第 71 行.
+NOTIC: [8] Undefined offset: 0 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\UserController.class.php 第 73 行.
+NOTIC: [8] Undefined index: ltfl D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 1700 行.
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: isqd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\d5f793942a0f99f63ffe478e0b8ba738.php 第 48 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001029s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.001060s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000242s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000262s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000412s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000380s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000549s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000570s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000916s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001241s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000417s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000451s ]
+
+[ 2020-01-16T10:40:30+08:00 ] 127.0.0.1 /index.php?m=Home&c=Index&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000204s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000264s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000295s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined variable: area2 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 475 行.
+NOTIC: [8] Undefined index: id D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 118 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 134 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 191 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.001701s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.001740s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000232s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000252s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000430s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000372s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000571s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002280s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000934s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000012s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.003040s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 5 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 6 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 7 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 8 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 9 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000686s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.003499s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.003950s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000711s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000778s ]
+
+[ 2020-01-16T10:40:35+08:00 ] 127.0.0.1 /index.php?m=Home&c=Nearby&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000260s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000345s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000389s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined variable: area2 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 475 行.
+NOTIC: [8] Undefined index: type D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 91 行.
+NOTIC: [8] Undefined index: id D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 91 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 156 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= or u.cityid=0) ) LIMIT 1' at line 1
+ [ SQL语句 ] : SELECT COUNT(*) AS tp_count FROM lx_user_profile p INNER JOIN lx_users as u ON u.id=p.uid  WHERE ( u.sex =  2 and (u.= or u.cityid=0) ) LIMIT 1  
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 109 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 334 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= or u.cityid=0) ) ORDER BY u.ismj asc,u.user_rank desc,u.last_login_time desc,i' at line 1
+ [ SQL语句 ] : SELECT u.id,u.idmd5,u.jifen,u.sex,u.last_login_time,u.user_rank,u.user_nicename,u.avatar,u.age,u.provinceid,u.cityid,p.astro,p.monolog FROM lx_user_profile p INNER JOIN lx_users as u ON u.id=p.uid  WHERE ( u.sex =  2 and (u.= or u.cityid=0) ) ORDER BY u.ismj asc,u.user_rank desc,u.last_login_time desc,id desc LIMIT 0,15  
+NOTIC: [8] Undefined variable: area2 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 475 行.
+NOTIC: [8] Undefined index: type D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 91 行.
+NOTIC: [8] Undefined index: id D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 91 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 10 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 132 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 109 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 3995 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 310 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined index: km D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 145 行.
+NOTIC: [8] Undefined index: city D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 527 行.
+NOTIC: [8] Undefined variable: cityname D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined variable: provincename D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined index: km D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 145 行.
+NOTIC: [8] Undefined index: city D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 527 行.
+NOTIC: [8] Undefined variable: cityname D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined variable: provincename D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined index: km D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 145 行.
+NOTIC: [8] Undefined index: city D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 527 行.
+NOTIC: [8] Undefined variable: cityname D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined variable: provincename D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined index: km D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 145 行.
+NOTIC: [8] Undefined index: city D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 527 行.
+NOTIC: [8] Undefined variable: cityname D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined variable: provincename D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined index: km D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 145 行.
+NOTIC: [8] Undefined index: city D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 527 行.
+NOTIC: [8] Undefined variable: cityname D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined variable: provincename D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined index: km D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 145 行.
+NOTIC: [8] Undefined index: city D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 527 行.
+NOTIC: [8] Undefined variable: cityname D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined variable: provincename D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 549 行.
+NOTIC: [8] Undefined index: km D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 145 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 130 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\NearbyController.class.php 第 157 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 6 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000031s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000062s ]
+NOTIC: [8] Undefined index: inapp D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\dfc7f2a0e4eb0bf6b65156997f6e6770.php 第 121 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004821s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004853s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000194s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000215s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000020s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.003399s ]
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 6 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 7 行.
+NOTIC: [8] Undefined index: iszhd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 20 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 6 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 7 行.
+NOTIC: [8] Undefined index: iszhd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 20 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 6 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 7 行.
+NOTIC: [8] Undefined index: iszhd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 20 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 6 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 7 行.
+NOTIC: [8] Undefined index: iszhd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 20 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 6 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 7 行.
+NOTIC: [8] Undefined index: iszhd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 20 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 6 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 7 行.
+NOTIC: [8] Undefined index: iszhd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 20 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 6 行.
+NOTIC: [8] Use of undefined constant idmd5 - assumed 'idmd5' D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 7 行.
+NOTIC: [8] Undefined index: iszhd D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\fe94728f1ff75251defeb231d6cddb37.php 第 20 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.003673s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000329s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.003809s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000776s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.004156s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000007s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.004738s ]
+
+[ 2020-01-16T10:40:44+08:00 ] 127.0.0.1 /index.php?m=Home&c=Index&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000218s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000397s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000455s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined variable: area2 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\SiteController.class.php 第 475 行.
+NOTIC: [8] Undefined index: id D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 118 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 134 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\IndexController.class.php 第 191 行.
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000914s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.000972s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000307s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000342s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000767s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000537s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000016s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000992s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000936s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001586s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.002200s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 5 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 6 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 7 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 8 行.
+NOTIC: [8] Undefined variable: nav D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 9 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000631s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.002700s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000005s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.002986s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000680s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000747s ]
+
+[ 2020-01-16T10:43:32+08:00 ] 127.0.0.1 /index.php?m=Home&c=Wechat&a=sixin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000255s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000311s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000342s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 68 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 103 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 168 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 67 行.
+NOTIC: [8] Undefined variable: arr D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 77 行.
+NOTIC: [2] array_unique() expects parameter 1 to be array, null given D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 77 行.
+NOTIC: [2] implode(): Invalid arguments passed D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 79 行.
+NOTIC: [8] Undefined variable: arr2 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 81 行.
+NOTIC: [2] implode(): Invalid arguments passed D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 81 行.
+NOTIC: [8] Undefined variable: userarr D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 90 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 90 行.
+NOTIC: [8] Undefined variable: list2 D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 99 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 99 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 107 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 166 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000039s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000106s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004683s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004720s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000174s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000194s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000649s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000310s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000011s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000808s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000021s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.003795s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002818s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001189s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.003855s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000019s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.006879s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002708s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.004172s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.006716s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000642s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.007032s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.007498s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000359s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000383s ]
+
+[ 2020-01-16T10:43:34+08:00 ] 127.0.0.1 /index.php?m=Home&c=Wechat&a=subscribe
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001325s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000337s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 93 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 200 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 212 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000028s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000078s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004937s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005007s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000345s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000942s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000570s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000018s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001236s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000723s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001794s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.002192s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000032s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.005775s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.003247s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.002698s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000011s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.005642s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000953s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.006198s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000007s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.006830s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000396s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000430s ]
+
+[ 2020-01-16T10:43:35+08:00 ] 127.0.0.1 /index.php?m=Home&c=Gift&a=giftlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000235s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000385s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000432s ]
+NOTIC: [2048] Declaration of Home\Controller\GiftController::show() should be compatible with Think\Controller::show($content, $charset = '', $contentType = '', $prefix = '') D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\GiftController.class.php 第 13 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as s' at line 1
+ [ SQL语句 ] : SHOW COLUMNS FROM lx_giftlist as s
+NOTIC: [8] unserialize(): Error at offset 0 of 90 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 238 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\GiftController.class.php 第 159 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000028s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000065s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005091s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005137s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000133s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000153s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000429s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000264s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000005s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000562s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000464s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000816s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000005s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001145s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000020s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.004084s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002997s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001403s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000008s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.004283s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000627s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.004612s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000007s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.005105s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000395s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000420s ]
+
+[ 2020-01-16T10:43:37+08:00 ] 127.0.0.1 /index.php?m=Home&c=Wechat&a=system
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000064s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000962s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000302s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000339s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 49 行.
+NOTIC: [8] Undefined index: mjpass D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Common\Controller\BaseController.class.php 第 55 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 87 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] unserialize(): Error at offset 0 of 131 bytes D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\ThinkPHP\Library\Think\Cache\Driver\File.class.php 第 104 行.
+NOTIC: [8] Undefined variable: arr D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 290 行.
+NOTIC: [2] implode(): Invalid arguments passed D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 290 行.
+NOTIC: [8] Undefined index: p D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Application\Home\Controller\WechatController.class.php 第 298 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000026s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000077s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004799s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004850s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000144s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000164s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000432s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000283s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.000582s ]
+INFO: [ view_parse ] --START--
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000489s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.000855s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001197s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000017s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.004260s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.002610s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.001470s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000009s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.003945s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: dw D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 45 行.
+NOTIC: [8] Undefined variable: qg D:\MyselfProject\xiangqinPHP\xiangqin\xiangqin\Runtime\Cache\Home\790ff478b1983d6e92bf7e00b16c0783.php 第 51 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.000603s ]
+INFO: [ view_parse ] --END-- [ RunTime:-0.004235s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000006s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.004690s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000361s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000387s ]
+
