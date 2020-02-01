@@ -3,11 +3,11 @@ return array(
 
     /* 数据库配置 */
 
-    'DB_TYPE'=>'mysql', // 数据库类型
+    'DB_TYPE'=>'mysqli', // 数据库类型
 
     'DB_HOST'=>'127.0.0.1', // 服务器地址 localhost
 
-    'DB_NAME'=>'test4_xqidong_co', // 数据库名
+    'DB_NAME'=>'test', // 数据库名
 
     'DB_USER'=>'root', // 用户名
 

@@ -19,7 +19,7 @@
      <div class="zhuce_a">
        <p><img src="images/yingdao_logo.png" alt=""><?php echo C("site_title");?></p>
      </div>
-	 
+
 	  <div class="zhuce_b" id="new_zhuce_b">
 	    <p class="xuanzei">请正确选择您的年龄</p>
 	    <span class="xuanzeinianl cb">
@@ -66,12 +66,12 @@
        </ul>
 
 	    </span>
-	    
+
         <a href="javascript:;" id="next01" >下一步</a>
         <br><br><br>
      </div>
-	 
-	 
+
+
      <div class="zhuce_b" style=" display: none">
         <div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号" maxlength="11" ></div>
         <div class="baikuang"><input type="text" id="yzm" placeholder="请输入验证码" style="color:#999"> <input type="button" id="btn" class="btn_yzm_03 fr" value="获取验证码" /></div>
@@ -84,7 +84,7 @@
 <input  type="hidden" name="age" id="age" value="20"/>
 
 <style>
-#ljreg.ccc{ background: #ccc; border: 2px solid #ccc}	
+#ljreg.ccc{ background: #ccc; border: 2px solid #ccc}
 </style>
 </div>
 <script type="text/javascript">
@@ -95,10 +95,10 @@
 
 
 var wait=60;
-document.getElementById("btn").disabled = false;   
+document.getElementById("btn").disabled = false;
 function time(o) {
         if (wait == 0) {
-            o.removeAttribute("disabled");           
+            o.removeAttribute("disabled");
             o.value="获取验证码";
             wait = 60;
         } else {
@@ -124,45 +124,45 @@ document.getElementById("btn").onclick=function(){
 
 $(function(){
 	$("#ljreg").click(function(){
-		if($(this).hasClass('ccc')){			
+		if($(this).hasClass('ccc')){
 			return false;
 		}
-		
+
 		var sex = '{$sex}';
 		var age = $("#age").val();
-		var yzm = $("#yzm").val();		
+		var yzm = $("#yzm").val();
 		var pass = $("#pass").val();
 		var mob = $("#mob").val();
-		
+
 		if(!mob){
 			alert('请填写手机号码');
 			return false;
 		}
-		
+
 		if(!yzm){
 			alert('请输入验证码');
 			return false;
 		}
-		
+
 		if(!pass){
 			alert('请填写密码');
 			return false;
 		}
 		$(this).addClass('ccc').html('提交中，请稍后……');
-		$.post("{:U('Ajax/reg')}",{mob:mob,yzm:yzm,pass:pass,age:age,sex:sex},function(data){			
+		$.post("{:U('Ajax/reg')}",{mob:mob,yzm:yzm,pass:pass,age:age,sex:sex},function(data){
 			if(data.status==1){
-			window.location.href='{:U("Index/index")}';	
-			}	
+			window.location.href='{:U("Index/index")}';
+			}
 			else{
-			$("#ljreg").removeClass('ccc').html('立即注册');	
+			$("#ljreg").removeClass('ccc').html('立即注册');
 			alert(data.info);
 			}
-		},'json');		
+		},'json');
 	});
-		
+
 	$("#next01").click(function(){
-		$(".zhuce_b").toggle();	
-		document.getElementById("mob").focus()	
+		$(".zhuce_b").toggle();
+		document.getElementById("mob").focus()
 	});
 
   $(".xuanzeinianl ul li").click(function(){
