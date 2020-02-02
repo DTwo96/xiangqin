@@ -28,11 +28,11 @@ class AjaxController extends SiteController {
 
 		$mob = I("post.mob");		
 
-		if(!$this->CheckCaptcha()){
+		/*if(!$this->CheckCaptcha()){
 
 			 $this->ajaxReturn(array('status'=>-1,'msg'=>"请输入正确的验证码！"));
 
-		}
+		}*/
 
 		
 
@@ -92,7 +92,7 @@ class AjaxController extends SiteController {
 
 		$type = I('post.type',0,'intval');//接收类型   用于判断是    注册时  的还是   修改密码 		
 
-	    if($type == 1){	//忘记密码  和修改密码    需要对手机号进行处理		
+	    /*if($type == 1){	//忘记密码  和修改密码    需要对手机号进行处理
 
 			//if( C() ==  ){  //后期开关								
 
@@ -106,7 +106,7 @@ class AjaxController extends SiteController {
 
 			//}							
 
-		}	
+		}*/
 
 		return true;
 
@@ -201,18 +201,24 @@ class AjaxController extends SiteController {
 		
 
 	}	
-
-	
-
+    /**
+     * 用户登录
+     * @return array
+     * @author：Enthusiasm
+     * @date：2020/2/1
+     * @time：18:08
+     */
 	public function login(){
 
 		$mob = I("post.mob",'','trim');
 
 		$pass = I("post.pass",'','trim');
 
-		$w['user_login']=$mob;	
-
-			
+		$w['user_login']=$mob;
+        //用户昵称
+        $w['user_nicename'] = $mob;
+		//或者查询
+        $w['_logic'] = 'or';
 
 		$temp = S("logtimes".$mob);
 
@@ -223,12 +229,14 @@ class AjaxController extends SiteController {
 		S("logtimes".$mob,$temp,86400);
 
 		if($temp>=20) $this->error("今日登陆请求超过20次，已被禁止登陆，请明日再试。");
-
+        //检查用户输入的手机号码或者昵称是否存在
 		$re = M("Users")->where($w)->find();
 
 		if($re){
 
-			if ($re ['user_pass'] == md5 ( $mob . $pass . C ( 'PWD_SALA' ) )){
+		    $user_login =  $re['user_login'];
+
+			if ($re ['user_pass'] == md5 ( $user_login . $pass . C ( 'PWD_SALA' ) )){
 
 				cookie('renwu'.$re['id'],1,86400*30);
 
