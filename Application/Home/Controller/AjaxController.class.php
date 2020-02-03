@@ -55,7 +55,40 @@ class AjaxController extends SiteController {
 
 		}
         //获取短信登录的验证码
-		if ($login_type == 'message') {
+		if ($login_type == 'message'){
+
+		    if (!is_mobile($mob)) {
+		        $this->error('手机号码格式错误');
+            }
+
+            $user_info = D('Users')->where(array('user_login' => $mob))->find();
+
+		    if (!$user_info) {
+		        $this->error('该手机号码没有注册！');
+            }
+
+		    $start_time = date('Y-m-d',time()).'00:00:00';
+		    $end_time   = date('Y-m-d',time()).'23:59:59';
+
+            $where = array();
+            $where['input_time'] = array('between',strtotime($start_time).','.strtotime($end_time));
+            $where['phone']      = $mob;
+            $where['status']     = 1;
+
+            $count = D('SmsLog')->where($where)->count();
+
+            if ($count > 5) {
+                $this->error('今日获取短信次数已用完，请明日再试');
+            }
+
+            $res = send_sms(3,$mob);
+
+            if ($res) {
+                $this->success('获取成功');
+            } else {
+                $this->error('获取失败');
+            }
+
         }
 
 
@@ -218,6 +251,8 @@ class AjaxController extends SiteController {
 
 		$pass = I("post.pass",'','trim');
 
+		$login_type = I("post.login_type");
+
 		$w['user_login']=$mob;
         //用户昵称
         $w['user_nicename'] = $mob;
@@ -237,28 +272,47 @@ class AjaxController extends SiteController {
 		$re = M("Users")->where($w)->find();
 
 		if($re){
+            //当是短信登录的时候
+            if ($login_type == 'message') {
+                if (empty($pass)) {
+                    $this->error('请输入验证码');
+                }
+                //检查验证码是否正确
+                $where = array();
+                $where['phone']  = $re['user_login'];
+                $where['code']   = $pass;
+                $where['status'] = 1;
 
-		    $user_login =  $re['user_login'];
+                $sms_info = D('SmsLog')->where($where)->find();
+                if ($sms_info) {
+                    //检查验证码是否过期
+                    $interval_time = (time() - $sms_info['input_time']) / 60;
+                    if ($interval_time > 10) {
+                        $this->error('验证码已过期,请重新获取');
+                    }
+                } else {
+                    $this->error('验证码错误');
+                }
 
-			if ($re ['user_pass'] == md5 ( $user_login . $pass . C ( 'PWD_SALA' ) )){
+            } else {
+                $user_login =  $re['user_login'];
+                //密码登录的时候
+                if ($re ['user_pass'] != md5 ( $user_login . $pass . C ( 'PWD_SALA' ) )){
+                    $this->error("登录失败，请检查您的账户和密码是否正确！");
+                }
 
-				cookie('renwu'.$re['id'],1,86400*30);
+            }
 
-				A("Public")->loginbyname($re,0);
+            cookie('renwu'.$re['id'],1,86400*30);
 
-				$this->success("ok");
+            A("Public")->loginbyname($re,0);
 
-				exit;
+            $this->success("ok");
 
-			}else{
-
-				$this->error("登录失败，请检查您的账户和密码是否正确！");	
-
-			}
 
 		}else{
 
-			$this->error("登录失败，请检查您的账户和密码是否正确！");
+			$this->error("登录失败，请检查您的账户是否正确！");
 
 		}
 
