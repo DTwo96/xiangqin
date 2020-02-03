@@ -563,15 +563,118 @@ function getPhotoTitle($type=0){
  * @date：2020/2/2
  * @time：22:24
  */
-function send_sms($sms_type = 1){
-    if ($sms_type == 3) {
-        $checkUser = D('Users')->find();
-        if (!$checkUser) {
-            return '没有查询到此用户的信息';
-        }
+function send_sms($sms_type = 1,$phone){
+
+    if (!is_mobile($phone)) {
+        return false;
+    }
+
+    $code = rand(1000,9999);
+
+    $content = "您的验证码是：【".$code."】。10分钟有效,请不要把验证码泄露给其他人。如非本人操作，可不用理会！";
+
+    $url = 'http://106.dxton.com/webservice/sms.asmx/Submit?account='.C('mobaccount').'&password='.C('mobpass').'&mobile='.$phone.'&content='.$content;
+
+    //写入日志
+    $sqlMap = array();
+    $sqlMap['content'] = $content;
+    $sqlMap['phone']   = $phone;
+    $sqlMap['type']    = $sms_type;
+    $sqlMap['ip']      = get_ip();
+    $sqlMap['code']    = $code;
+    $sqlMap['input_time'] = time();
+
+    $sms_id = D('SmsLog')->add($sqlMap);
+
+    $res = curl_get_contents($url);
+
+    $res = json_decode(json_encode((array) simplexml_load_string($res)), true);
+
+    if ($res['result'] == 100) {
+        //更新短信发送状态
+        D('SmsLog')->where(array('id' => $sms_id))->save(array('status' => '1'));
+        return true;
+    } else {
+        //发送错误时记录错误信息
+        $error_msg = '错误码: 【' . $res['result']  .'】,'.$res['message'];
+        D('SmsLog')->where(array('id' => $sms_id))->save(array('error_msg' => $error_msg,'status' => '-1'));
+        return false;
     }
 }
+/**
+ * 手机号码判断
+ * @param int | string $string验证的数据
+ * @return bool
+ * @author：Enthusiasm
+ * @date：2020/2/3
+ * @time：12:51
+ */
+function is_mobile($string)
+{
+    if (!empty($string)) {
+        return preg_match('/^(1(([356789][0-9])|(47)|[8][0126789]))\d{8}$/', $string);
+    }
+    return false;
+}
+/**
+ * 请求接口
+ * @param string $url 接口地址
+ * @return bool | array
+ * @author：Enthusiasm
+ * @date：2020/2/3 0003
+ * @time：13:00
+ */
+function curl_get_contents($url){
 
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+
+    curl_setopt($ch, CURLOPT_USERAGENT, "IE 6.0");
+
+    $r = curl_exec($ch);
+
+    curl_close($ch);
+
+    if($r===false) return file_get_contents($url);
+
+    return $r;
+
+}
+/**
+ * 获取IP
+ * @return string
+ * @author：Enthusiasm
+ * @date：2020/2/3 0003
+ * @time：13:39
+ */
+
+function get_ip()
+{
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        $pos = array_search('unknown', $arr);
+        if (false !== $pos) {
+            unset($arr[$pos]);
+        }
+        $ip = trim(current($arr));
+    } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    } else {
+        $ip = '127.0.0.1';
+    }
+    return $ip;
+}
 
 
 

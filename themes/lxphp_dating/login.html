@@ -98,27 +98,32 @@
             $(function () {
 			    //切换登录方式
 			    $('.login-btn').on('click',function () {
-                    var loginType =  $(this).data('login_type');
+                    var login_type =  $(this).data('login_type');
 
 			        $(this).siblings().removeClass('active');
 					$(this).addClass('active');
 
 					$('.input-block').hide();
-					$('.' + loginType + '-input').show();
+					$('.' + login_type + '-input').show();
                 });
-
+				//获取验证码
 			    $('#yzm-btn').on('click',function () {
                     var el    = $(this)
                         ,time = 60
 						,login_type = $('.active').data('login_type')
 						,mob  = $('.' + login_type + '-input #mob').val();
 
+                    if (mob == '') {
+                        alert('手机号码不能为空！');
+                        return;
+					}
+
                     var param = {
                         mob:mob,
 						login_type:login_type,
 					};
 
-					$(this).attr('disabled',true);
+					el.attr('disabled',true);
 
                     $.post("{:U('Ajax/getvcodebymob')}",param,function(data){
                         if (data.status==1) {
@@ -133,17 +138,24 @@
                             },1000);
                         }else{
                             el.attr('disabled',false);
-                            alert(data.msg);
+                            alert(data.info);
                         }
                     },'json')
                 });
-
+				//执行登录
 				$("#ljlogin").click(function() {
-					var pass = $("#pass").val();
-					$.post("{:U('Ajax/login')}",{
-						mob: $("#mob").val(),
-						pass: pass
-					}, function(data) {
+
+					var login_type = $('.active').data('login_type')
+                        ,mob  = $('.' + login_type + '-input #mob').val()
+						,pass = $('.' + login_type + '-input #pass').val();
+
+                    var param = {
+                        mob:mob,
+                        login_type:login_type,
+						pass:pass,
+                    };
+
+					$.post("{:U('Ajax/login')}",param, function(data) {
 						if (data.status == 1) {
 							window.location.href = '{:U("Index/index")}';
 						} else {
