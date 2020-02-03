@@ -555,6 +555,22 @@ function getPhotoTitle($type=0){
 	}
 	return '';
 }
+/**
+ * 发送短信
+ * @param int $sms_type 发送短信的类型  1 注册类  2 修改密码 3 短信登录
+ * @return bool | string
+ * @author：Enthusiasm
+ * @date：2020/2/2
+ * @time：22:24
+ */
+function send_sms($sms_type = 1){
+    if ($sms_type == 3) {
+        $checkUser = D('Users')->find();
+        if (!$checkUser) {
+            return '没有查询到此用户的信息';
+        }
+    }
+}
 
 
 

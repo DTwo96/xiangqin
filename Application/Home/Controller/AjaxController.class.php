@@ -26,7 +26,9 @@ class AjaxController extends SiteController {
 
 		
 
-		$mob = I("post.mob");		
+		$mob = I("post.mob");
+        //登录的类型  message短信登录  account账号登录
+        $login_type = I("post.login_type");
 
 		/*if(!$this->CheckCaptcha()){
 
@@ -34,7 +36,6 @@ class AjaxController extends SiteController {
 
 		}*/
 
-		
 
 		$type = I('post.type',0,'intval');//接收类型   用于判断是    注册时  的还是   修改密码	
 
@@ -53,6 +54,9 @@ class AjaxController extends SiteController {
 			}
 
 		}
+        //获取短信登录的验证码
+		if ($login_type == 'message') {
+        }
 
 
 
