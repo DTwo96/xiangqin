@@ -7,11 +7,11 @@
 // | Author: Enthusiasm
 // +----------------------------------------------------------------------
 namespace Home\Controller;
+use Home\Controller\SiteController;
 
-class TestController
-{
+class OfflineDatingListController  extends SiteController {
     public function index()
     {
-        
+
     }
 }
