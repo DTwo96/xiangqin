@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>线下活动</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css">
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+</head>
+
+<body>
+    <button id="btn">1111</button>
+    <ul id="newsList" class="news">
+        <li class="list list-right-img">
+            <div class="left">
+                <div class="new">
+                    <p class="title list-ellipsis-1">这是风水堪舆</p>
+                    <p class="content">
+                        风水之法，得水为上，藏风次之。”后世术家兼作“堪舆”的代称，相宅、相墓之法，辨证研究风水，去其糟粕，取其精华，用科学合理的方法来解释风水现象，只可用于趋吉避凶，不可痴迷其中。</p>
+                </div>
+                <span class="time">2018-10-22</span>
+            </div>
+            <div class="right">
+                <img src="./images/daili.jpg" alt="">
+            </div>
+        </li>
+    </ul>
+
+</body>
+
+</html>
+
+<script>
+    $("#btn").click(function () {
+        alert("111");
+        debugger
+        var htmlappend = "";
+        for (var i = 0; i++; i < 3) {
+            var html = '   <li id="' + i + '" class="list list-right-img"> <div class="left">  <div class="new"> ';
+            html += ' <p class="title list-ellipsis-1">' + i + '标题</p>';
+            html += '  <p class="content">' + i + '内容</p>   </div>';
+            html += '  <span class="time">' + i + '时间</span><div>';
+            html += '<div class="right">' + i + '图片<div></li>';
+            htmlappend = html;
+        }
+        $("#newsList").append(htmlappend);
+    })
+
+
+</script>
+<style>
+    /* 新闻 */
+
+    .news {
+        background: #fff;
+    }
+
+    .news .list {
+        display: flex;
+        display: -webkit-flex;
+        padding: 10px 5px 5px;
+        margin: 0 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .news .list:last-child {
+        border: 0;
+    }
+
+    /* 无图纯文字模式 */
+    .list-no-img {
+        flex-direction: column;
+    }
+
+    .list-no-img .top .title {
+        font-weight: bold;
+        height: 30%;
+        font-size: 14px;
+    }
+
+    .list-no-img .top .content {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        line-height: 20px;
+        font-size: 14px;
+        margin-bottom: 5px;
+        color: #666;
+        margin: 5px 0;
+    }
+
+    .list-no-img .info {
+        font-size: 10px;
+        color: #bbb;
+        display: flex;
+    }
+
+    .list-no-img .info .info-r-5 {
+        margin-right: 5px;
+    }
+
+    .list-no-img .info .list-ellipsis-1 {
+        max-width: 40%;
+    }
+
+    /* 无图纯文字模式结束 */
+
+
+    /* 右图模式 */
+
+    .list-right-img .left {
+        width: 60%;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .list-right-img .left .title {
+        font-weight: bold;
+        height: 30%;
+        font-size: 14px;
+    }
+
+    .list-right-img .left .content {
+        font-size: 12px;
+        color: #888;
+        margin: 5px 0;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        line-height: 16px;
+    }
+
+    .list-right-img .left .time {
+        font-size: 10px;
+        color: #bbb;
+    }
+
+    .list-right-img .right {
+        width: 40%;
+        margin-left: 10px;
+    }
+
+    .list-right-img .right img {
+        width: 100%;
+        height: 80px;
+    }
+
+    /* 右图模式结束 */
+
+
+    /* 下三图模式 */
+    .list-bottom-tri {
+        flex-direction: column;
+    }
+
+    .list-bottom-tri .title {
+        font-weight: bold;
+        height: 30%;
+        font-size: 14px;
+    }
+
+    .list-bottom-tri .img-wrap {
+        display: flex;
+        margin: 5px 0;
+    }
+
+    .list-bottom-tri .img-wrap img {
+        width: 100%;
+        height: 80px;
+    }
+
+    .list-bottom-tri .info {
+        font-size: 10px;
+        color: #bbb;
+        display: flex;
+    }
+
+    .list-bottom-tri .info .info-r-5 {
+        margin-right: 5px;
+    }
+
+    .list-bottom-tri .info .list-ellipsis-1 {
+        max-width: 40%;
+    }
+
+    /* 下三图模式结束 */
+
+    /* 其他 */
+
+    /* 单行省略 */
+    .list-ellipsis-1 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    /* 两行省略 */
+    .list-ellipsis-2 {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    /* 平分3个 */
+    .list-col-xs-4 {
+        width: 33.333%;
+        padding: 0 2px;
+    }
+</style>
