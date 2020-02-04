@@ -675,6 +675,22 @@ function get_ip()
     }
     return $ip;
 }
+/**
+ * 格式化时间戳
+ * @param string | int $time 时间戳
+ * @param string $format 日期格式
+ * @return string
+ * @author：Enthusiasm
+ * @date：2020/2/4 0004
+ * @time：21:51
+ */
+function timeFormat($time,$format='Y-m-d H:i:s'){
+    if (empty($time)) {
+        return date($format,time());
+    } else {
+        return date($format,$time);
+    }
+}
 
 
 

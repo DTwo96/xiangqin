@@ -1,0 +1,27 @@
+<h3>添加情感文章</h3>
+<admin:form url="{:U()}" method="post" id="form" >
+    <div class="g-main-body">
+        <div class="g-main-content m-form-horizontal">
+            <admin:panel >
+                <admin:formrow title="标题" tip="请填写标题">
+                    <admin:text name="title" value="{$info.title}" len="300" datatype="*"  />
+                </admin:formrow>
+                <admin:formrow title="作者" tip="请填写作者">
+                    <admin:text name="author" value="{$info.author}" len="300" datatype="*"  />
+                </admin:formrow>
+                <admin:formrow title="内容">
+                    <admin:textarea name="content" class="u-editor" rows="20">{$info.content}</admin:textarea>
+                </admin:formrow>
+                <admin:formsubmit/>
+            </admin:panel>
+        </div>
+    </div>
+    <input type="hidden" value="{$info.id}" name="id">
+</admin:form>
+</admin:panel>
+<script>
+    Do.ready('base', function () {
+        //表单综合处理
+        $('#form').duxFormPage();
+    });
+</script>

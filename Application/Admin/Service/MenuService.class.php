@@ -314,7 +314,23 @@ class MenuService{
 					),                   
                 )
             ),
-
+            'Article' => array(
+                'name' => '文章管理',
+                //'icon' => 'u-icon-list',
+                'order' => 11,
+                'menu' => array(
+                    array(
+                        'name' => '情感文章管理',
+                        'url' => U('/Admin/Article/articleLists'),
+                        'order' => 1
+                    ),
+                    array(
+                        'name' => '线下活动管理',
+                        'url' => U('/Admin/Article/articleAdd'),
+                        'order' => 2
+                    ),
+                )
+            ),
         );
 	}
 	
