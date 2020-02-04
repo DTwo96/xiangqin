@@ -7,11 +7,13 @@
 // | Author: Enthusiasm
 // +----------------------------------------------------------------------
 namespace Home\Controller;
+
 use Home\Controller\SiteController;
 
-class TestController extends SiteController {
+class OfflineDatingListController  extends SiteController
+{
     public function index()
     {
-        $this -> siteDisplay('test');
+        $this->siteDisplay('xianxiahuodong');
     }
 }
