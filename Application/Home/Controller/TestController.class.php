@@ -7,10 +7,12 @@
 // | Author: Enthusiasm
 // +----------------------------------------------------------------------
 namespace Home\Controller;
-class TestController {
+use Home\Controller\SiteController;
+
+class TestController extends SiteController {
     public function index()
     {
-
+        $this -> siteDisplay('test');
     }
 }
 ?>
