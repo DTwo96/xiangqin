@@ -1,2 +1,3 @@
 .vscode
 /Runtime
+/Application/Common/Conf/db.php
