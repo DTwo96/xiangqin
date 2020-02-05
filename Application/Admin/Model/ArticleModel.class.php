@@ -39,12 +39,13 @@ class ArticleModel extends Model {
     /**
      * 删除文章
      * @param int $id
+     * @param int $type 【1】 删除单条数据 【2】 删除多条数据
      * @return bool
      * @author：Enthusiasm
      * @date：2020/2/4
      * @time：22:06
      */
-    public function _del($id)
+    public function _del($id,$type = 1)
     {
         $rs = $this->where(array('id' => $id))->delete();
 

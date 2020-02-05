@@ -9,13 +9,20 @@
         </select>
     </admin:tabletool>
 
-    <admin:table id="table" show="编号|80,作者,文章标题,添加时间,操作|130">
+    <admin:table id="table" show="选择|30,编号|80,作者,文章标题,添加时间,操作|130">
         <foreach name="lists" item="vo">
             <tr>
+                <td>
+                    <input type="checkbox" name="id[]" value="{$vo.id}" />
+                </td>
                 <td>{$vo.id}</td>
                 <td>{$vo.author}</td>
                 <td>{$vo.title}</td>
-                <td><?php echo timeFormat($vo['input_time']);?></td>
+                <td>
+                    <?php if (!empty($vo['input_time'])){
+                        echo timeFormat($vo['input_time']);
+                    }?>
+                </td>
                 <td>
                     <a class="u-btn u-btn-primary u-btn-small" href="{:U('articleEdit',array('id'=>$vo['id']))}">修改</a>
                     <a class="u-btn u-btn-danger u-btn-small del" href="javascript:;" data="{$vo.id}">删除</a>
@@ -23,12 +30,16 @@
             </tr>
         </foreach>
     </admin:table>
-    <admin:tablefoot action="false" />
+    <admin:tablefoot action="true" item="删除" value="1" />
 </admin:panel>
 <script>
     Do.ready('base',function() {
         $('#table').duxTable({
-            deleteUrl: "{:U('del')}"
+            actionUrl: "{:U('del')}",
+            deleteUrl: "{:U('del')}",
+            actionParameter : function(){
+                return {'class_id' : $('#selectAction').next('#class_id').val()};
+            }
         });
     });
 </script>

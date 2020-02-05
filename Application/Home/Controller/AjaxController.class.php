@@ -1244,6 +1244,49 @@ class AjaxController extends SiteController {
 		}
 
 	}
+    /**
+     * 获取文章或者线下活动数据
+     * @param int $page 当前页数
+     * @param int $limit 显示的数据条数
+     * @param int $type 【1】情感文章 【2】线下活动
+     * @return array
+     * @author：Enthusiasm
+     * @date：2020/2/5 0005
+     * @time：12:31
+     */
+    public function getArticleLists()
+    {
+        $res = array();
+
+        if (IS_POST) {
+
+            $page  = I('page',1);
+            $limit = I('limit',10);
+            $type  = I('type');
+
+            $lists = D('Admin/Article')->page($page,$limit)->select();
+
+            foreach ($lists as $k => $v) {
+                if ($k == 'input_time') {
+                    $res[$k] = timeFormat($v);
+                }
+            }
+
+            $res['status'] = 1;
+            $res['lists']  = $lists;
+            $res['hasNextPage'] = $lists ? true : false;
+
+            $this->ajaxReturn($res);
+
+        } else {
+
+            $res['status'] = 0;
+            $res['lists']  = [];
+            $res['hasNextPage'] = false;
+
+            $this->ajaxReturn($res);
+        }
+	}
 
 	
 
