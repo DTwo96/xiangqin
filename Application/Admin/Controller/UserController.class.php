@@ -436,8 +436,10 @@ class UserController extends AdminController
 		}
 
 		
-
-		
+        //年龄段
+        $ages = C('Ages');
+        //学历
+        $education = C('Education');
 
 		if(!empty($keyword)){
 
@@ -593,13 +595,15 @@ class UserController extends AdminController
 
 	    }
 
-		
-
 		//dump($list);
 
 		$this->assign('province',$province);  //省
 
 		$this -> assign('sort',$sort);
+
+		$this->assign('ages',$ages);
+
+		$this->assign('education',$education);
 
 		$this->assign('page',$this->getPageShow($pageMaps));
 

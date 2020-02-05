@@ -1,4 +1,4 @@
-<h3>情感文章列表</h3>
+<h3>线下活动列表</h3>
 <admin:panel >
     <form class="search" method="post" action="{:U('')}" style="margin-bottom: 20px; margin-top: 10px;">
         <select name="search_type" class="form-element">
@@ -10,7 +10,7 @@
         <input type="text" class="form-element" name="keyword" value="{$param.keyword}">
         <button class="u-btn u-btn-primary" type="submit">搜索</button>
     </form>
-    <admin:table id="table" show="选择|30,编号|80,作者,文章标题,添加时间,操作|130">
+    <admin:table id="table" show="选择|30,编号|80,作者,活动标题,添加时间,操作|130">
         <foreach name="lists" item="vo">
             <tr>
                 <td>
@@ -25,7 +25,7 @@
                     }?>
                 </td>
                 <td>
-                    <a class="u-btn u-btn-primary u-btn-small" href="{:U('articleEdit',array('id'=>$vo['id']))}">修改</a>
+                    <a class="u-btn u-btn-primary u-btn-small" href="{:U('edit',array('id'=>$vo['id']))}">修改</a>
                     <a class="u-btn u-btn-danger u-btn-small del" href="javascript:;" data="{$vo.id}">删除</a>
                 </td>
             </tr>

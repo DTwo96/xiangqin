@@ -571,7 +571,7 @@ function send_sms($sms_type = 1,$phone){
 
     $code = rand(1000,9999);
 
-    $content = "您的验证码是：【".$code."】。10分钟有效,请不要把验证码泄露给其他人。如非本人操作，可不用理会！";
+    $content = "您的验证码是：【".$code."】。请不要把验证码泄露给其他人。如非本人操作，可不用理会！";
 
     $url = 'http://106.dxton.com/webservice/sms.asmx/Submit?account='.C('mobaccount').'&password='.C('mobpass').'&mobile='.$phone.'&content='.$content;
 

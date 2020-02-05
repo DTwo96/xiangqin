@@ -326,7 +326,7 @@ class MenuService{
                     ),
                     array(
                         'name' => '线下活动管理',
-                        'url' => U('/Admin/Article/articleAdd'),
+                        'url' => U('/Admin/Activity/lists'),
                         'order' => 2
                     ),
                 )

@@ -1,6 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | 情感文章控制器
+// | 线下活动控制器
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -9,25 +9,25 @@
 namespace Admin\Controller;
 use Think\Think;
 
-class ArticleController extends AdminController{
+class ActivityController extends AdminController{
     /**
      * 当前模块操作项参数
      */
     protected function _infoModule(){
         return array(
             'info' => array(
-                'name' => '情感文章管理',
-                'description' => '用于情感文章展示',
+                'name' => '线下活动管理',
+                'description' => '用于线下活动展示',
             ),
             'menu' => array(
                 array(
-                    'name' => '文章列表',
-                    'url' => U('articleLists'),
+                    'name' => '线下活动列表',
+                    'url' => U('lists'),
                     'icon' => 'list',
                 ),
                 array(
-                    'name' => '添加情感文章',
-                    'url' => U('articleAdd'),
+                    'name' => '添加线下活动',
+                    'url' => U('add'),
                     'icon' => 'plus',
                 ),
             ),
@@ -40,10 +40,10 @@ class ArticleController extends AdminController{
      * @date：2020/2/4
      * @time：19:01
      */
-    public function articleLists()
+    public function lists()
     {
         //定位当前位置
-        $breadCrumb = array('文章列表' => U(''));
+        $breadCrumb = array('线下活动列表' => U(''));
 
         $this->assign('breadCrumb',$breadCrumb);
 
@@ -55,7 +55,7 @@ class ArticleController extends AdminController{
 
         $where = array();
 
-        $where['type'] = 1;
+        $where['type'] = 2;
 
         //搜索条件
         if (!empty($param['search_type']) && !empty($param['keyword'])) {
@@ -98,10 +98,10 @@ class ArticleController extends AdminController{
      * @date：2020/2/4
      * @time：19:44
      */
-    public function articleAdd()
+    public function add()
     {
         //定位当前位置
-        $breadCrumb = array('添加情感文章' => U('articleAdd'));
+        $breadCrumb = array('添加线下活动' => U('add'));
 
         $this->assign('breadCrumb',$breadCrumb);
 
@@ -109,7 +109,7 @@ class ArticleController extends AdminController{
 
             $param = I('post.');
             //标记文章类型  【1】情感文章 【2】线下活动
-            $param['type'] = 1;
+            $param['type'] = 2;
 
             $rs = D('Article')->_add($param);
 
@@ -176,7 +176,7 @@ class ArticleController extends AdminController{
      * @date：2020/2/4
      * @time：22:10
      */
-    public function articleEdit()
+    public function edit()
     {
         $id = (int)I('id');
 
