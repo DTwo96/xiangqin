@@ -94,4 +94,31 @@ class ArticleModel extends Model {
 
         return $rs;
     }
+    /**
+     * 获取一条数据
+     * @return array | bool
+     * @author：Enthusiasm
+     * @date：2020/2/7 0007
+     * @time：21:28
+     */
+    public function _info($id)
+    {
+        $id = (int) $id;
+
+        $info = $this->where(array('id' => $id))->find();
+
+        foreach ($info as $k => $v) {
+            if ($k == 'input_time' || $k == 'update_time') {
+                $info[$k] = timeFormat($v);
+            }
+            if ($k == 'read' && $v > 999) {
+                $info[$k] = '999+';
+            }
+            if ($k == 'content') {
+                $info[$k] = htmlspecialchars_decode($v);
+            }
+        }
+
+        return $info;
+    }
 }

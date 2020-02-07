@@ -343,9 +343,7 @@ class UserController extends AdminController
 
 		$vip = I('request.vip',0,'intval');
 
-		
-
-		
+		$ages = I('request.ages');
 
         $breadCrumb = array('用户列表' => U());
 
@@ -379,8 +377,40 @@ class UserController extends AdminController
 
 		$pageMaps['vip'] = $vip;
 
+		$pageMaps['ages'] = $ages;
+
 		$where = array();
 
+		if (!empty($ages)) {
+
+            $s = date('Y',time());
+
+            switch ($ages) {
+                case 1:
+                    $where['_string'] = "age <= ".($s - 17)." and age > ".($s-25);
+                    break;
+                case 2:
+                    $where['_string'] = "age <= ".($s - 25)." and age > ".($s-30);
+                    break;
+                case 3:
+                    $where['_string'] = "age <= ".($s - 30)." and age > ".($s-35);
+                    break;
+                case 4:
+                    $where['_string'] = "age <= ".($s - 35)." and age > ".($s-40);
+                    break;
+                case 5:
+                    $where['_string'] = "age <= ".($s - 40)." and age > ".($s-45);
+                    break;
+                case 6:
+                    $where['_string'] = "age <= ".($s - 45)." and age > ".($s-50);
+                    break;
+                case 7:
+                    $where['age'] = array('elt',$s - 50);
+                    break;
+            }
+        }
+
+        //dump($where);exit;
 		
 
 		if(empty($sort)){  //会员
@@ -538,8 +568,6 @@ class UserController extends AdminController
         $count = D('Users')->countList($where);
 
         $limit = $this->getPageLimit($count,20);
-
-		
 
 	    $order = $order? $order: 'id desc';
 

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/Public/mui/css/mui.css">
+    <title>Document</title>
+    <style type="text/css">
+        body,.mui-content{
+            background-color: #fff;
+        }
+        .mui-bar-nav {
+            background-color: #f03b57;
+        }
+        .mui-icon-left-nav,.mui-title {
+            color: #fff;
+        }
+        .nav-title {
+            font-size: 17px;
+        }
+        .mui-content {
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 54px !important;
+        }
+        .tit {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .tag {
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        /*.tag p {
+            margin-right: 20px;
+        }*/
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a id="back" href="{U(':index')}" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-btn"><span class="nav-title">详情</span></a>
+</header>
+<div class="mui-content">
+    <span class="tit">{$info.title}</span>
+    <div class="tag" style="overflow: hidden;">
+        <p class="mui-pull-left">来源：{$info.author}&nbsp;|&nbsp;</p>
+        <p class="mui-pull-left">时间：{$info.input_time}</p>
+    </div>
+    <div class="art-content">
+        {$info.content}
+    </div>
+</div>
+<script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/Public/mui/js/mui.js"></script>
+</body>
+</html>

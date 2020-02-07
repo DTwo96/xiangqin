@@ -1260,21 +1260,48 @@ class AjaxController extends SiteController {
 
         if (IS_POST) {
 
-            $page  = I('page',1);
-            $limit = I('limit',10);
-            $type  = I('type');
+            $page   = I('page',1);
+            $limit  = I('limit',10);
+            $type   = I('type');
+            $action = I('action','');
 
-            $lists = D('Admin/Article')->page($page,$limit)->select();
+            if ($action == 'now') { //获取最新数据
+
+                $where = [];
+                $where['type'] = 1;
+                $where['input_time'] = array('egt',time());
+
+                $lists = D('Admin/Article')->where($where)->select();
+
+                $res['status'] = 1;
+                $res['lists']  = !empty($lists) ? $lists : [];
+
+                return $this->ajaxReturn($res);
+            }
+
+            $cnt = D('Admin/Article')->where(array('type' => $type))->count();
+
+            $pages = ceil($cnt/$limit);
+
+            $lists = D('Admin/Article')->where(array('type' => $type))->page($page,$limit)->select();
 
             foreach ($lists as $k => $v) {
-                if ($k == 'input_time') {
-                    $res[$k] = timeFormat($v);
+                foreach ($v as $kk => $vv) {
+                   if ($kk == 'input_time' || $kk == 'update_time') {
+                       $lists[$k][$kk] = timeFormat($vv);
+                   }
+                   if ($kk == 'content') {
+                       $lists[$k][$kk] = htmlspecialchars_decode($vv);
+                   }
+                   if ($kk == 'read' && $vv > 999) {
+                       $lists[$k][$kk] = '999+';
+                   }
                 }
             }
 
             $res['status'] = 1;
-            $res['lists']  = $lists;
-            $res['hasNextPage'] = $lists ? true : false;
+            $res['lists']  = !empty($lists) ? $lists : [];
+            $res['hasNextPage'] = ($page > $pages) ? false : true;
 
             $this->ajaxReturn($res);
 
@@ -1287,8 +1314,21 @@ class AjaxController extends SiteController {
             $this->ajaxReturn($res);
         }
 	}
+    /**
+     * 增加文章阅读人数
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/2/7
+     * @time：20:14
+     */
+    public function setArticleRead()
+    {
+        $id = (int)I('post.id');
 
-	
+        D('Admin/Article')->where(array('id' => $id))->increment('read');
+
+        $this->success('操作成功');
+    }
 
 	public function ggisread(){
 

@@ -14,4 +14,22 @@ class TestController extends SiteController {
     {
         $this -> siteDisplay('test');
     }
+    /**
+     * 文章详情
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/2/7 0007
+     * @time：21:08
+     */
+    public function articleInfo()
+    {
+        $id = (int) I('id');
+
+        $info = D('Admin/Article')->_info($id);
+
+        $this->assign('info',$info);
+
+        $this->siteDisplay('articleInfo');
+
+    }
 }

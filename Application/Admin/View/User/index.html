@@ -24,7 +24,13 @@
         <option <if condition="$vo['areaid'] eq $info['cityid']">selected</if>  value="{$vo.areaid}">{$vo.areaname}</option>
       </volist>
     </select>
-    
+      <!--年龄筛选-->
+      <select name="ages" id="ages" class="form-element" >
+          <option value="0">==年龄==</option>
+          <volist name="ages" id="vo">
+              <option value="{$i}" <if condition="$i eq $pageMaps['ages']">selected</if>>{$vo}</option>
+          </volist>
+      </select>
     <admin:select name="sex"  item="==性别==,男,女" value="0,1,2" selected="$pageMaps['sex']" />
   	<admin:select name="status"  item="==状态==,正常,未验证,禁止" value="0,1,2,3" selected="$pageMaps['status']" />
   </admin:tabletool>
