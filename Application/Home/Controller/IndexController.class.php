@@ -57,13 +57,19 @@ class IndexController extends SiteController {
 
 			cookie('defsex',$sex,3600);
 
-		}		
+		}
+		//电话号码或者编号搜索
+        $phone = I('post.phone','','trim');
+		if (!empty($phone)) {
+            $where .= "and (user_login=".$phone . " or id=" . $phone.")";
+        }
 
-		if($sex>0)
+
+            if($sex>0)
 
 		$where.=" and sex=".$sex;
 		
-		$where.=" and ismj=1";
+		//$where.=" and ismj=1";
 		
 		$age = I("post.age",'','intval');	
 
@@ -141,7 +147,7 @@ class IndexController extends SiteController {
 
 		$show = $Page -> show();				
 		
-		$list = $User->cache(true,300)->field('id,user_nicename,avatar,idmd5')-> where($where) -> order('type desc,last_login_time desc,id desc') -> limit($Page -> firstRow . ',' . $Page -> listRows) -> select();	
+		$list = $User->cache(true,300)->field('id,user_nicename,avatar,idmd5')-> where($where) -> order('type desc,last_login_time desc,id desc') -> limit($Page -> firstRow . ',' . $Page -> listRows) -> select();
 
 		if(!$list && $w != 2) {			
 
@@ -201,6 +207,8 @@ class IndexController extends SiteController {
 		$this -> assign('sex', $sex);
 
 		$this -> assign('age', $age);
+
+		$this -> assign('phone',$phone);
 
 		
 

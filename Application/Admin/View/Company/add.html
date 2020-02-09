@@ -1,0 +1,26 @@
+<h3>添加招商项目</h3>
+<admin:form url="{:U()}" method="post" id="form" >
+    <div class="g-main-body">
+        <div class="g-main-content m-form-horizontal">
+            <admin:panel >
+                <admin:formrow title="标题" tip="请填写标题">
+                    <admin:text name="title" value="" len="300" datatype="*"  />
+                </admin:formrow>
+                <admin:formrow title="来源" tip="请填写来源">
+                    <admin:text name="author" value="" len="300" datatype="*"  />
+                </admin:formrow>
+                <admin:formrow title="内容">
+                    <admin:textarea name="content" class="u-editor" rows="20"></admin:textarea>
+                </admin:formrow>
+                <admin:formsubmit/>
+            </admin:panel>
+        </div>
+    </div>
+</admin:form>
+</admin:panel>
+<script>
+    Do.ready('base', function () {
+        //表单综合处理
+        $('#form').duxFormPage();
+    });
+</script>

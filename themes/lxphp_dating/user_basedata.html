@@ -86,8 +86,22 @@
 					     		    <option value="{$vo.areaid}" <!--{if condition="$base['cityid']==$vo['areaid']"}-->selected<!--{/if}--> >{$vo.areaname}</option>
 					     		<!--{/foreach}--> 
 				         	</select>
-						</li>	
-						
+						</li>
+						<li><div>身高</div>
+							<input class="jibenziliao_input" style="width: 60px;" type="text" name="height" value="{$base['height']}"> CM
+						</li>
+						<li>
+							<div>学历</div>
+							<select name="education">
+								<option value="0" >请选择</option>
+								<!--{foreach name="education_setting" key="k" item="vo" }-->
+								<option value="{$k}" <!--{if condition="$base['education']==$k"}-->selected<!--{/if}--> >{$vo}</option>
+								<!--{/foreach}-->
+							</select>
+						</li>
+						<li><div>月收入</div>
+							<input class="jibenziliao_input" style="width: 60px;" type="text" name="month_income" value="{$base['month_income']}"> 元
+						</li>
 						<!--{foreach name="profile" key="key" item="val"}-->
 						<li>
 						   <div>{$val.name}</div>
@@ -167,11 +181,16 @@
 					var code2 =  $(".code2").val();;
 					var code3 =  $(".code3").val();;
 					var code4 =  $(".code4").val();;
+
+					var education = $("[name='education']").val();
+					var height    = $("[name='height']").val();
+					var month_income = $("[name='month_income']").val();
+
 					
 					$.ajax({
 						type:"post",
 						url:"{:U()}",
-						data:{uid:uid,user_nicename:user_nicename,sex:sex,astro:astro,birthday:birthday,provinceid:provinceid,cityid:cityid,code1:code1,code2:code2,code3:code3,code4:code4},
+						data:{education:education,height:height,month_income:month_income,uid:uid,user_nicename:user_nicename,sex:sex,astro:astro,birthday:birthday,provinceid:provinceid,cityid:cityid,code1:code1,code2:code2,code3:code3,code4:code4},
 						dataType: "json",
 						success:function(msg){
 							if( msg.type == 3 ){

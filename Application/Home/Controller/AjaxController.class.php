@@ -1251,7 +1251,7 @@ class AjaxController extends SiteController {
      * @param int $type 【1】情感文章 【2】线下活动
      * @return array
      * @author：Enthusiasm
-     * @date：2020/2/5 0005
+     * @date：2020/2/5
      * @time：12:31
      */
     public function getArticleLists()
@@ -1265,13 +1265,23 @@ class AjaxController extends SiteController {
             $type   = I('type');
             $action = I('action','');
 
+            $order_by = 'id desc';
+
             if ($action == 'now') { //获取最新数据
 
                 $where = [];
                 $where['type'] = 1;
                 $where['input_time'] = array('egt',time());
 
-                $lists = D('Admin/Article')->where($where)->select();
+                $lists = D('Admin/Article')->where($where)->order($order_by)->select();
+
+                foreach($lists as $k => $v) {
+                    foreach ($v as $kk => $vv) {
+                        if ($kk == 'content') {
+                            $lists[$k][$kk] = strip_tags(htmlspecialchars_decode($vv));
+                        }
+                    }
+                }
 
                 $res['status'] = 1;
                 $res['lists']  = !empty($lists) ? $lists : [];
@@ -1283,7 +1293,7 @@ class AjaxController extends SiteController {
 
             $pages = ceil($cnt/$limit);
 
-            $lists = D('Admin/Article')->where(array('type' => $type))->page($page,$limit)->select();
+            $lists = D('Admin/Article')->where(array('type' => $type))->order($order_by)->page($page,$limit)->select();
 
             foreach ($lists as $k => $v) {
                 foreach ($v as $kk => $vv) {
@@ -1291,9 +1301,9 @@ class AjaxController extends SiteController {
                        $lists[$k][$kk] = timeFormat($vv);
                    }
                    if ($kk == 'content') {
-                       $lists[$k][$kk] = htmlspecialchars_decode($vv);
+                       $lists[$k][$kk] =  strip_tags(htmlspecialchars_decode($vv));
                    }
-                   if ($kk == 'read' && $vv > 999) {
+                   if ($kk == 'read_num' && $vv > 999) {
                        $lists[$k][$kk] = '999+';
                    }
                 }
@@ -1325,7 +1335,7 @@ class AjaxController extends SiteController {
     {
         $id = (int)I('post.id');
 
-        D('Admin/Article')->where(array('id' => $id))->increment('read');
+        M('Article')->where('id ='.$id)->setInc('read_num',1);
 
         $this->success('操作成功');
     }

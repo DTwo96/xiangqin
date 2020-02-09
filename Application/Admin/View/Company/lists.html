@@ -1,0 +1,46 @@
+<h3>招商项目列表</h3>
+<admin:panel >
+    <form class="search" method="post" action="{:U('')}" style="margin-bottom: 20px; margin-top: 10px;">
+        <select name="search_type" class="form-element">
+            <option value="" <?php if($param['search_type'] == ''){echo selected;}?>>==筛选条件==</option>
+            <option value="id" <?php if($param['search_type'] == 'id'){echo selected;}?>>编号</option>
+            <option value="author" <if condition="$param['search_type'] eq author">selected</if>>作者</option>
+            <option value="title" <if condition="$param['search_type'] eq title">selected</if>>标题</option>
+        </select>
+        <input type="text" class="form-element" placeholder="请填写关键字" name="keyword" value="{$param.keyword}">
+        <button class="u-btn u-btn-primary" type="submit">搜索</button>
+    </form>
+    <admin:table id="table" show="选择|30,编号|80,来源,标题,添加时间,操作|130">
+        <foreach name="lists" item="vo">
+            <tr>
+                <td>
+                    <input type="checkbox" name="id[]" value="{$vo.id}" />
+                </td>
+                <td>{$vo.id}</td>
+                <td>{$vo.author}</td>
+                <td>{$vo.title}</td>
+                <td>
+                    <?php if (!empty($vo['input_time'])){
+                        echo timeFormat($vo['input_time']);
+                    }?>
+                </td>
+                <td>
+                    <a class="u-btn u-btn-primary u-btn-small" href="{:U('edit',array('id'=>$vo['id']))}">修改</a>
+                    <a class="u-btn u-btn-danger u-btn-small del" href="javascript:;" data="{$vo.id}">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </admin:table>
+    <admin:tablefoot action="true" item="删除" value="1" />
+</admin:panel>
+<script>
+    Do.ready('base',function() {
+        $('#table').duxTable({
+            actionUrl: "{:U('del')}",
+            deleteUrl: "{:U('del')}",
+            actionParameter : function(){
+                return {'class_id' : $('#selectAction').next('#class_id').val()};
+            }
+        });
+    });
+</script>

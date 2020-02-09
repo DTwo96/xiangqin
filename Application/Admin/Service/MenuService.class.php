@@ -315,19 +315,29 @@ class MenuService{
                 )
             ),
             'Article' => array(
-                'name' => '文章管理',
+                'name' => '运营管理',
                 //'icon' => 'u-icon-list',
                 'order' => 11,
                 'menu' => array(
                     array(
+                        'name' => '公司简介',
+                        'url' => U('/Admin/AboutCompany/introduction'),
+                        'order' => 1
+                    ),
+                    array(
                         'name' => '情感文章管理',
                         'url' => U('/Admin/Article/articleLists'),
-                        'order' => 1
+                        'order' => 2
                     ),
                     array(
                         'name' => '线下活动管理',
                         'url' => U('/Admin/Activity/lists'),
-                        'order' => 2
+                        'order' => 3
+                    ),
+                    array(
+                        'name' => '招商合作管理',
+                        'url' => U('/Admin/Company/lists'),
+                        'order' => 4
                     ),
                 )
             ),

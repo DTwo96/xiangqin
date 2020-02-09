@@ -345,6 +345,8 @@ class UserController extends AdminController
 
 		$ages = I('request.ages');
 
+		$education = I('request.education');
+
         $breadCrumb = array('用户列表' => U());
 
         $this->assign('breadCrumb', $breadCrumb);
@@ -379,6 +381,8 @@ class UserController extends AdminController
 
 		$pageMaps['ages'] = $ages;
 
+		$pageMaps['education'] = $education;
+
 		$where = array();
 
 		if (!empty($ages)) {
@@ -387,25 +391,25 @@ class UserController extends AdminController
 
             switch ($ages) {
                 case 1:
-                    $where['_string'] = "age <= ".($s - 17)." and age > ".($s-25);
+                    $where['_string'] = "age <= ".($s - 17)." and age >= ".($s-25);
                     break;
                 case 2:
-                    $where['_string'] = "age <= ".($s - 25)." and age > ".($s-30);
+                    $where['_string'] = "age <= ".($s - 26)." and age >= ".($s-30);
                     break;
                 case 3:
-                    $where['_string'] = "age <= ".($s - 30)." and age > ".($s-35);
+                    $where['_string'] = "age <= ".($s - 31)." and age >= ".($s-35);
                     break;
                 case 4:
-                    $where['_string'] = "age <= ".($s - 35)." and age > ".($s-40);
+                    $where['_string'] = "age <= ".($s - 36)." and age > ".($s-40);
                     break;
                 case 5:
-                    $where['_string'] = "age <= ".($s - 40)." and age > ".($s-45);
+                    $where['_string'] = "age <= ".($s - 41)." and age > ".($s-45);
                     break;
                 case 6:
-                    $where['_string'] = "age <= ".($s - 45)." and age > ".($s-50);
+                    $where['_string'] = "age <= ".($s - 46)." and age >= ".($s-50);
                     break;
                 case 7:
-                    $where['age'] = array('elt',$s - 50);
+                    $where['age'] = array('lt',$s - 50);
                     break;
             }
         }
@@ -433,6 +437,9 @@ class UserController extends AdminController
 
 		}
 
+		if (!empty($education)) {
+            $where['education'] = $education;
+        }
 		
 
 		if(!empty($provinceid)){  

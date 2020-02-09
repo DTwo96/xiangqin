@@ -1,0 +1,19 @@
+<h3>公司简介</h3>
+<admin:form url="{:U('save')}" method="post" id="form" >
+    <div class="g-main-body">
+        <div class="g-main-content m-form-horizontal">
+            <admin:panel >
+                <admin:textarea name="company_setting" class="u-editor" rows="10">{$setting}</admin:textarea>
+                <admin:formsubmit/>
+            </admin:panel>
+        </div>
+        <input type="hidden" name="type" value="company">
+    </div>
+</admin:form>
+</admin:panel>
+<script>
+    Do.ready('base', function () {
+        //表单综合处理
+        $('#form').duxFormPage();
+    });
+</script>

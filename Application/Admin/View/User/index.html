@@ -31,6 +31,13 @@
               <option value="{$i}" <if condition="$i eq $pageMaps['ages']">selected</if>>{$vo}</option>
           </volist>
       </select>
+      <!--学历筛选-->
+      <select name="education" id="education" class="form-element" >
+          <option value="0">==学历==</option>
+          <volist name="education" id="vo">
+              <option value="{$i}" <if condition="$i eq $pageMaps['education']">selected</if>>{$vo}</option>
+          </volist>
+      </select>
     <admin:select name="sex"  item="==性别==,男,女" value="0,1,2" selected="$pageMaps['sex']" />
   	<admin:select name="status"  item="==状态==,正常,未验证,禁止" value="0,1,2,3" selected="$pageMaps['status']" />
   </admin:tabletool>

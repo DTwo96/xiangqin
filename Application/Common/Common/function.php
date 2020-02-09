@@ -691,8 +691,57 @@ function timeFormat($time,$format='Y-m-d H:i:s'){
         return date($format,$time);
     }
 }
+/**
+ * 生成短链接
+ * @param string $url链接
+ * @return string
+ * @author：Enthusiasm
+ * @date：2020/2/9
+ * @time：12:10
+ */
+function get_t_url($url = '')
+{
+    if ($url == '') {
+        //当前网址域名
+        $url = 'http://' . $_SERVER['HTTP_HOST'];
+    }
+    if (!preg_match('/^http/', $url)) {
+        $url = 'http:' . $url;
+    }
+    $contents = @file_get_contents('http://api.t.sina.com.cn/short_url/shorten.json?source='.C('SINA_APP_KEY').'&url_long=' . $url);
+    if (!$contents) {
+        return '';
+    }
+    $contents = json_decode($contents, true);
 
-
+    return $contents[0]['url_short'];
+}
+/**
+ * 数组转换
+ * @param array $data
+ * @return string
+ * @author：Enthusiasm
+ * @date：2020/2/9
+ * @time：12:10
+ */
+function arrayToString($data, $isformdata = 1) {
+    if($data == '') return '';
+    if($isformdata) $data = dstripslashes($data);
+    return var_export($data, TRUE);
+}
+/**
+ * 过滤一些特殊字符
+ * @param string $string
+ * @return string
+ * @author：Enthusiasm
+ * @date：2020/2/9
+ * @time：12:10
+ */
+function dstripslashes($string) {
+    if(!is_array($string)) return stripslashes($string);
+    foreach($string as $key => $val) $string[$key] = dstripslashes($val);
+    return $string;
+}
 
 
 

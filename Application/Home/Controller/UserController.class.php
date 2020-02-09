@@ -1310,7 +1310,7 @@ class UserController extends SiteController {
 
 			$where['A.id'] = $uid;
 
-			$base = M('Users')->alias('A')->join('__USER_PROFILE__  B on A.id = B.uid')->field('A.user_nicename,A.sex,A.provinceid,A.cityid,B.birthday,B.astro,B.code1,B.code2,B.code3,B.code4')->where($where)->find();
+			$base = M('Users')->alias('A')->join('__USER_PROFILE__  B on A.id = B.uid')->field('A.user_nicename,A.sex,A.provinceid,A.cityid,A.education,A.height,A.month_income,B.birthday,B.astro,B.code1,B.code2,B.code3,B.code4')->where($where)->find();
 
 //			$base['age'] = date('Y',time())-$base['age'];
 
@@ -1352,10 +1352,7 @@ class UserController extends SiteController {
 
 			$SetProfile = C('SetProfile');
 
-			
-
-			
-
+            $this->assign('education_setting',C('Education'));
 			//echo $this->get_xingzuo(substr($base['birthday'],-5));
 
 			$this -> assign('profile',$SetProfile);
@@ -1411,6 +1408,12 @@ class UserController extends SiteController {
 			$data['provinceid'] = I('post.provinceid',0,'intval'); //省份id
 
 			$data['cityid'] = I('post.cityid',0,'intval'); //城市id
+
+            $data['month_income'] = I('post.month_income',0,'intval');//月收入
+
+            $data['height'] = I('post.height',0,'intval'); //身高
+
+            $data['education'] = I('post.education',0,'intval');//学历
 
 			$user = M('Users');//Users表   需要的字段  age  sex  user_nicename
 
@@ -1489,7 +1492,7 @@ class UserController extends SiteController {
 			$res = $user -> where('id = '.$uid) -> save($data);
 
 			
-
+            dump(I('post.'));
 			
 
 			if($res === false){

@@ -18,8 +18,8 @@
 <a href="{:U('Home/Ranking/Charmlist',array('type' => 4))}" class="shangchen shangchen1" style="top: 35%;  display: block;"><img src="images/paihang.png" alt=""></a>
 
  <a href="{:U('Home/Gift/index')}" class="shangchen" style="top: 35%;"><img src="images/shangcenruk.png" alt=""></a>-->
- 
- 
+
+
       <div class="index_header cb" style="  overflow: hidden;">
          <div class="fl" id="ddd" onclick="getLocation();"><img src="images/fujin.png" alt="">{$area}</div>
          <span  class="fr shuaxuan">条件刷选<img src="images/shouyejiantou.png" alt=""></sapn>
@@ -30,28 +30,28 @@
 <form action="__SELF__" method="post" id="form">
           <div class="shuaxuan_dangchu">
             <p class="kandao">想看到的用户</p>
-            <div class="nnnn dedede">    
-			<span <!--{if condition="$sex lt 1"}--> class="hot" <!--{/if}--> >全部</span>          
+            <div class="nnnn dedede">
+			<span <!--{if condition="$sex lt 1"}--> class="hot" <!--{/if}--> >全部</span>
               <span <!--{if condition="$sex eq 1"}--> class="hot" <!--{/if}-->>男</span>
-			  <span <!--{if condition="$sex eq 2"}--> class="hot" <!--{/if}-->>女</span>              
+			  <span <!--{if condition="$sex eq 2"}--> class="hot" <!--{/if}-->>女</span>
             </div>
             <p class="kandao">所在地区筛选</p>
              <form name="dequ">
              <div class="dequ">
-			 
+
               <select id="s1">
 			    <!--{foreach name="province" item="vo" }-->
-			     
+
             <option <!--{if condition="$vo['areaid'] eq $areaarr['provinceid']"}--> selected="selected" <!--{/if}--> value="{$vo.areaid}">{$vo.areaname}</option>
-        
+
 				<!--{/foreach}-->
 			  </select>
               <select id="s2">
-			  	
-				 <!--{foreach name="city" item="vo" }-->			     
-            <option <!--{if condition="$vo['areaid'] eq $areaarr['cityid']"}--> selected="selected" <!--{/if}--> value="{$vo.areaid}">{$vo.areaname}</option>        
+
+				 <!--{foreach name="city" item="vo" }-->
+            <option <!--{if condition="$vo['areaid'] eq $areaarr['cityid']"}--> selected="selected" <!--{/if}--> value="{$vo.areaid}">{$vo.areaname}</option>
 				<!--{/foreach}-->
-				
+
 			  </select>
               </div>
              </form>
@@ -66,17 +66,19 @@
                  <li <!--{if condition="$age eq 5"}--> class="hot" <!--{/if}-->>50岁以上</li>
                </ul>
              </div>
+              <p class="kandao">手机号码或者编号</p>
+              <input type="text" name="phone" value="{$phone}" style="border:none;border:1px solid #dfdfdf; padding: 6px; width:158px;border-radius: 2px;margin-bottom: 8px">
              <br>
 			 <input name="sex" id="sex" value="{$sex}" type="hidden"/>
-			
+
 			 <input name="provinceid" id="provinceid" value="{$areaarr.provinceid}" type="hidden"/>
 			 <input name="cityid" id="cityid" value="{$areaarr.cityid}" type="hidden"/>
 			 <input name="age" id="age" value="{$age}" type="hidden"/>
              <div class="nianli"><a href="javascript:;" class="guangbi_be">取消</a><a href="javascript:$('#form').submit();">确认</a></div>
           </div>
 		  </form>
-      </div> 
-     
+      </div>
+
  <script type="text/javascript">
       $(".shuaxuan").click(function(){
         $(".shangchen1").hide(100);
@@ -93,15 +95,15 @@
       var index= $(this).index();
       $(".dedede span").removeClass("hot").eq(index).addClass("hot");
 	  if(index==0) index--;
-	  $("#sex").val(index); 
+	  $("#sex").val(index);
       })
      $(".nianli ul li").click(function(){
       var index= $(this).index();
-      $(".nianli ul li").removeClass("hot").eq(index).addClass("hot"); 
+      $(".nianli ul li").removeClass("hot").eq(index).addClass("hot");
 	   if(index==0) index--;
-	   $("#age").val(index); 
+	   $("#age").val(index);
       })
-	  
+
 	  $('#s1').change(function(){
 			var url = "{:U('Home/Ajax/ajax_get_city')}";
 		    var provinceid =  $(this).val();
@@ -110,28 +112,28 @@
 			$("#cityid").val('0');
 			$.post(url,{provinceid:provinceid},function(json){
 				html = '<option value="0">请选择</option>';
-				if(json){					
+				if(json){
 					$.each(json, function(idx, item) {
 						html += '<option value="'+item.areaid+'">'
 								+ item.areaname + '</option>';
 					});
-	               
+
 					$("#s2").html(html);
 				}
-		
-				
+
+
 			},'json');
-			
-			
+
+
 		})
-				
+
 		$('#s2').change(function(){
 		 	 var cityid =  $(this).val();
 		    if(!cityid) return false;
 			$("#cityid").val(cityid);
-			
+
 		 })
-		 
+
 		   var demo = document.getElementById("demo");
                 var demo1 = document.getElementById("demo1");
                 var demo2 = document.getElementById("demo2");
@@ -147,18 +149,18 @@
                 var myvar = setInterval(Marquee, 30);
 				var id = '{$gg.content_id}';
                 $(".xx_hide").click(function(){
-                	$(".new-gonggao").hide(200);					
+                	$(".new-gonggao").hide(200);
 					$.post("{:U('Ajax/ggisread')}",{id:id},function(data){
-						
+
 					},'json')
                 })
-		var showgg = "<?php echo cookie('gg'); ?>";	
+		var showgg = "<?php echo cookie('gg'); ?>";
 		if(showgg!=id) $(".new-gonggao").show();
       </script>
       <script type="text/javascript">
 var ss = 0;
 $(window).scroll(function(){
-  var sss = ss;  
+  var sss = ss;
 var s=document.body.scrollTop;
     ss = s;
 if(sss>s){

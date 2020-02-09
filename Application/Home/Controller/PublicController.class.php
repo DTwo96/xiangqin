@@ -59,9 +59,33 @@ class PublicController extends SiteController {
 		$this -> siteDisplay('reg_01');
 
 	}
+    /**
+     * 完善用户资料
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/2/9
+     * @time：15:58
+     */
+    public function setInformation()
+    {
+        if ($this -> uinfo) {
 
+            redirect(U('Home/Index/index'));
 
+            exit ;
 
+        }
+
+        $media = $this -> getMedia('会员注册');
+
+        $sex  = I('sex','1');
+
+        $this->assign('media',$media);
+
+        $this->assign('sex',$sex);
+
+        $this -> siteDisplay('reg_04');
+    }
 	public function log(){
 
 		//dump($this->get_areaid_byname('丰台'));

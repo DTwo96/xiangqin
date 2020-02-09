@@ -2,7 +2,7 @@
 return array(
 	//'配置项'=>'配置值'
     'TMPL_TEMPLATE_SUFFIX'=>'.html',
-    'LOAD_EXT_CONFIG' => 'performance,shield,db',
+    'LOAD_EXT_CONFIG' => 'performance,shield,db,hongniang,company',
     'VAR_SESSION_ID' => 'session_id',
 	'SITE_URL' => '',
 	'SITE_HASH_KEY' => 'pass003',//加密字符串，不可修改
@@ -188,11 +188,11 @@ return array(
 		//年龄段
 		'Ages' => array(
             1 => '17-25岁',
-            2 => '25-30岁',
-            3 => '30-35岁',
-            4 => '35-40岁',
-            5 => '40-45岁',
-            6 => '45-50岁',
+            2 => '26-30岁',
+            3 => '31-35岁',
+            4 => '36-40岁',
+            5 => '41-45岁',
+            6 => '46-50岁',
             7 => '50岁以上',
         ),
 		//个人资料设置

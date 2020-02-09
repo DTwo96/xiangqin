@@ -7,10 +7,10 @@
             <option value="author" <if condition="$param['search_type'] eq author">selected</if>>作者</option>
             <option value="title" <if condition="$param['search_type'] eq title">selected</if>>标题</option>
         </select>
-        <input type="text" class="form-element" name="keyword" value="{$param.keyword}">
+        <input type="text" class="form-element" placeholder="请填写关键字" name="keyword" value="{$param.keyword}">
         <button class="u-btn u-btn-primary" type="submit">搜索</button>
     </form>
-    <admin:table id="table" show="选择|30,编号|80,作者,活动标题,添加时间,操作|130">
+    <admin:table id="table" show="选择|30,编号|80,来源,活动标题,添加时间,操作|130">
         <foreach name="lists" item="vo">
             <tr>
                 <td>

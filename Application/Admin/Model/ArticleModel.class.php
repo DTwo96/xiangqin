@@ -111,7 +111,7 @@ class ArticleModel extends Model {
             if ($k == 'input_time' || $k == 'update_time') {
                 $info[$k] = timeFormat($v);
             }
-            if ($k == 'read' && $v > 999) {
+            if ($k == 'read_num' && $v > 999) {
                 $info[$k] = '999+';
             }
             if ($k == 'content') {
