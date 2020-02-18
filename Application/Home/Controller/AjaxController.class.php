@@ -161,7 +161,7 @@ class AjaxController extends SiteController {
 
 		$age = I("post.age",'','intval');
 
-		if(!$sex) $this->error('性别未填');
+		//if(!$sex) $this->error('性别未填');
 
 		if(!$mob) $this->error('手机号必填');
 
@@ -189,7 +189,7 @@ class AjaxController extends SiteController {
 
 		}
 
-		if(!$age) $this->error('年龄必填');
+		//if(!$age) $this->error('年龄必填');
 
 		$uid = D("Users")->reg($mob,$pass,$sex,$age);
 
@@ -225,7 +225,7 @@ class AjaxController extends SiteController {
 
 			cookie('renwu'.$uid,1,86400*30);
 
-			$this->success("ok");
+			$this->success($uid);
 
 		}		
 
@@ -237,7 +237,56 @@ class AjaxController extends SiteController {
 
 		
 
-	}	
+	}
+    /**
+     * 设置用户信息
+     * @return array | bool
+     * @author：Enthusiasm
+     * @date：2020/2/18
+     * @time：13:52
+     */
+    public function setUserInformation()
+    {
+        if (IS_POST) {
+            $param = I('post.');
+
+            if (!empty($param['sex'])) $this->error('请选择性别');
+            if (!empty($param['age'])) $this->error('请填写年龄');
+
+            $info  = D("Users")->where(['id' => (int)$param['userid']])->field('id')->find();
+
+            if (!$info) $this->error('没有此用户信息');
+
+            $pre = [];
+            $map = [];
+            //更新副表数据
+            $pre['height']   = $param['height'];
+            $pre['code4']    = $param['code4'];
+            $pre['birthday'] = $param['birthday'];
+            //更新主表数据
+            $map['age']          = $param['age'];
+            $map['month_income'] = $param['month_income'];
+            $map['education']    = $param['education'];
+            $map['sex']          = $param['sex'];
+
+            M()->startTrans();
+
+            $rs1 = M("UserProfile")->where(['uid' => $info['id']])->save($pre);
+
+            $rs2 = M('Users')->where(['id' => $info['id']])->save($map);
+
+            if (!$rs1 || !$rs2) {
+                M()->rollback();
+                $this->error('ERROR');
+                return false;
+            }
+
+            M()->commit();
+
+            $this->success('SUCCESS');
+
+        }
+	}
     /**
      * 用户登录
      * @return array

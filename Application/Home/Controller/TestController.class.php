@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 namespace Home\Controller;
 use Home\Controller\SiteController;
+use Think\Exception;
 
 class TestController extends SiteController {
     public function index()
@@ -41,5 +42,16 @@ class TestController extends SiteController {
 
         $this->siteDisplay('articleInfo');
 
+    }
+
+    public function test2()
+    {
+        //用户身高
+        /*$sql = 'ALTER TABLE `lx_users`
+ADD COLUMN `height`  int(3) NOT NULL DEFAULT 0 COMMENT \'身高\' AFTER `user_number`;';
+        M()->query($sql);*/
+
+        $sql = 'ALTER TABLE `lx_users` DROP COLUMN `height`;';
+        M()->query($sql);
     }
 }

@@ -20,7 +20,7 @@
        <p><img src="images/yingdao_logo.png" alt=""><?php echo C("site_title");?></p>
      </div>
 
-	  <div class="zhuce_b" id="new_zhuce_b">
+	  <div class="zhuce_b" id="new_zhuce_b" style="display: none;">
 	    <p class="xuanzei">请正确选择您的年龄</p>
 	    <span class="xuanzeinianl cb">
 	    <ul>
@@ -72,7 +72,7 @@
      </div>
 
 
-     <div class="zhuce_b" style=" display: none">
+     <div class="zhuce_b">
         <div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号" maxlength="11" ></div>
         <div class="baikuang"><input type="text" id="yzm" placeholder="请输入验证码" style="color:#999"> <input type="button" id="btn" class="btn_yzm_03 fr" value="获取验证码" /></div>
         <div class="baikuang"><input type="password" id="pass" placeholder="请输入6到16位密码"></div>
@@ -151,7 +151,8 @@ $(function(){
 		$(this).addClass('ccc').html('提交中，请稍后……');
 		$.post("{:U('Ajax/reg')}",{mob:mob,yzm:yzm,pass:pass,age:age,sex:sex},function(data){
 			if(data.status==1){
-			window.location.href='{:U("Index/index")}';
+			    var url = '{:U("Public/setInformation")}';
+				window.location.href= url + '&userid=' + data.info;
 			}
 			else{
 			$("#ljreg").removeClass('ccc').html('立即注册');

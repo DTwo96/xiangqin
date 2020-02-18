@@ -7,35 +7,114 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
     <link rel="stylesheet" href="/Public/mui/plugin/picker/dist/css/mui.picker.min.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
     <title>{$media.title}</title>
     <style type="text/css">
+        ul li {
+           list-style: none;
+        }
+        ul {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
         .mui-bar-nav {
             background-color: #f03b57;
         }
         .mui-icon-left-nav,.mui-title {
             color: #fff;
         }
-        .nav-title {
-            font-size: 17px;
+        .item-t {
+            color: #f03b57;
+            display: inline-block;
+            width: 68px;
+            margin-right: 2px;
+        }
+        select {
+            border: 1px solid rgba(0, 0, 0, .2) !important;
+        }
+        select,input {
+            width: 70% !important;
+        }
+        .sex-item {
+            margin-top: 10px;
+            padding: 10px 0px;
+            margin-bottom: 15px;
+        }
+        .sex-item a {
+            margin-right: 20px;
+        }
+        .s-active {
+            color: #f03b57 !important;
+        }
+        .sub-btn {
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 20px;
+            border: 1px solid #f03b57;
+            background-color: #f03b57;
+            line-height: 2;
+        }
+        body,input,select {
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 <header class="mui-bar mui-bar-nav">
-    <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <h1 id="title" class="mui-title">注册</h1>
+   <!-- <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <h1 id="title" class="mui-title">完善资料</h1>
 </header>
-<div class="mui-content">
-    <h5 class="mui-content-padded">设定年份区间</h5>
-    <button id='demo2' data-options='{"type":"date","beginYear":1900,"endYear":2020}' class="btn mui-btn mui-btn-block">选择日期 ...</button>
-</div>
+<ul class="mui-content">
+    <li class="sex-item">
+        <span class="item-t">性别</span>
+        <a class="boy sex-btn" data-sex="1"><i class="iconfont iconnan2"></i>男</a>
+        <a class="girl sex-btn" data-sex="2"><i class="iconfont iconnv1"></i>女</a>
+    </li>
+    <li>
+        <span class="item-t">年龄</span>
+        <input type="number" name="age" class="mui-input-clear">
+    </li>
+    <li>
+        <span class="item-t">生日</span>
+        <input type="text" name="birthday" data-options='{"type":"date","beginYear":1900,"endYear":2020}' class="btn">
+    </li>
+    <li>
+        <span class="item-t">身高</span>
+        <input type="number" name="height" class="mui-input-clear">
+    </li>
+    <li>
+        <span class="item-t">学历</span>
+        <select name="education">
+            <option value="">--请选择--</option>
+            <!--{foreach name="education" key="k" item="vo" }-->
+            <option value="{$k}">{$vo}</option>
+            <!--{/foreach}-->
+        </select>
+    </li>
+    <li>
+        <span class="item-t">婚姻状态</span>
+
+        <select name="code4">
+            <option value="volvo">--请选择--</option>
+            <!--{foreach name="code4" key="k" item="vo" }-->
+            <option value="{$k}">{$vo}</option>
+            <!--{/foreach}-->
+        </select>
+    </li>
+    <li>
+        <span class="item-t">月收入</span>
+        <input type="number" name="month_income">
+    </li>
+    <input type="hidden" name="userid"  value="{$userid}">
+
+    <button type="button" class="mui-btn mui-btn-danger sub-btn">提交</button>
+</ul>
 <script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/Public/mui/plugin/picker/dist/js/mui.picker.min.js"></script>
 <script>
     (function($) {
         $.init();
-        var result = $('#result')[0];
         var btns = $('.btn');
         btns.each(function(i, btn) {
             btn.addEventListener('tap', function() {
@@ -58,8 +137,8 @@
                      * rs.h 时，用法同年
                      * rs.i 分（minutes 的第二个字母），用法同年
                      */
-                    console.log(rs);
-                    result.innerText = '选择结果: ' + rs.text;
+                    //$("#demo2").val(rs.text);
+                    btn.value = rs.text;
                     /*
                      * 返回 false 可以阻止选择框的关闭
                      * return false;
@@ -75,6 +154,75 @@
             }, false);
         });
     })(mui);
+
+    (function ($) {
+
+        var lock = false;
+
+        $('.sex-btn').on('click',function () {
+           $(this).siblings().removeClass('s-active');
+           $(this).addClass('s-active');
+
+           var sex = $(this).data('sex')  == 1 ? '男' : '女';
+
+            mui.toast('您选择了' + sex,{ duration:'short'})
+        });
+
+        $('.sub-btn').on('click',function () {
+
+            var el = $(this);
+
+            var sex           = $('.sex-btn[class*="s-active"]').data('sex') || ''
+                ,age          = $('[name="age"]').val() || ''
+                ,birthday     = $('[name="birthday"]').val()
+                ,height       = $('[name="height"]').val()
+                ,education    = $('[name="education"]').val()
+                ,code4        = $('[name="code4"]').val()
+                ,month_income = $('[name="month_income"]').val()
+                ,userid       = $('[name="userid"]').val();
+
+            var param = {
+                sex:sex,
+                age:age,
+                birthday:birthday,
+                height:height,
+                education:education,
+                code4:code4,
+                month_income:month_income,
+                userid:userid,
+            };
+
+            if (lock) return false;
+
+            if (sex == '') {
+                mui.toast('请选择性别',{ duration:'short'});
+                return false;
+            }
+
+            if (age == '') {
+                mui.toast('请填写年龄',{ duration:'short'});
+                return false;
+            }
+
+            el.text('正在提交...').addClass('mui-disabled').attr('disable',true);
+            lock = true;
+
+            $.post('{:U("ajax/setUserInformation")}',param,function (res) {
+                lock = false;
+                el.text('提交').removeClass('mui-disabled').attr('disable',false);
+                if (res.status) {
+                    mui.toast('保存成功，正在跳转到首页...',{ duration:'short'});
+                    setTimeout(function () {
+                        window.location.href = '{:U("Index/index")}';
+                    },1000);
+                } else {
+                    mui.toast(res.info,{ duration:'short'});
+                }
+            },'json')
+
+        });
+
+    })(jQuery);
 </script>
 </body>
 </html>

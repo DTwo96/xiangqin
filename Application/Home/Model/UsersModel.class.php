@@ -43,8 +43,8 @@ class UsersModel extends Model {
 			if($re2)
 			$arr ['parent_id'] = $parent_id;
 		}		
-		$arr ['sex'] = $sex;
-		$arr ['age'] = $age;
+		//$arr ['sex'] = $sex;
+	    //$arr ['age'] = $age;
 		$arr ['idmd5'] = md5($log. C ( 'PWD_SALA' ).$pwd);
 		$arr ['last_login_time'] = time ();
 		$arr ['user_pass'] = md5 ( $log . $pwd . C ( 'PWD_SALA' ) );

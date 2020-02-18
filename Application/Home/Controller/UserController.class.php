@@ -1401,17 +1401,16 @@ class UserController extends SiteController {
 
 			$pro['code4'] = I('post.code4',0,'intval');
 
-			
+            $pro['height'] = I('post.height',0,'intval'); //身高
 
 			
+
 
 			$data['provinceid'] = I('post.provinceid',0,'intval'); //省份id
 
 			$data['cityid'] = I('post.cityid',0,'intval'); //城市id
 
             $data['month_income'] = I('post.month_income',0,'intval');//月收入
-
-            $data['height'] = I('post.height',0,'intval'); //身高
 
             $data['education'] = I('post.education',0,'intval');//学历
 
@@ -1491,10 +1490,6 @@ class UserController extends SiteController {
 
 			$res = $user -> where('id = '.$uid) -> save($data);
 
-			
-            dump(I('post.'));
-			
-
 			if($res === false){
 
 				$returnmsg = array('type' => 3);  //失败的情况
@@ -1503,7 +1498,7 @@ class UserController extends SiteController {
 
 			}else{
 
-				$re = $profile -> where('uid = '.$uid) -> save($pro);			
+				$re = $profile -> where('uid = '.$uid) -> save($pro);
 
 				if($re === false){
 

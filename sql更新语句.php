@@ -13,7 +13,7 @@ ADD COLUMN `height`  int(3) NOT NULL DEFAULT 0 COMMENT \'身高\' AFTER `user_nu
 M()->query($sql);
 //月收入
 $sql = 'ALTER TABLE `lx_users`
-ADD COLUMN `month_income`  int(11) NOT NULL DEFAULT 0 COMMENT \'月收入\' AFTER `height`,';
+ADD COLUMN `month_income`  int(11) NOT NULL DEFAULT 0 COMMENT \'月收入\' AFTER `height`;';
 M()->query($sql);
 //学历
 $sql = 'ALTER TABLE `lx_users`
@@ -52,6 +52,9 @@ $sql = 'CREATE TABLE `lx_article` (
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COMMENT=\'情感文章和线下活动表\';';
 M()->query($sql);
 
+//删除会员主表下面的身高字段
+$sql = 'ALTER TABLE `lx_users` DROP COLUMN `height`;';
+M()->query($sql);
 ?>
 
 

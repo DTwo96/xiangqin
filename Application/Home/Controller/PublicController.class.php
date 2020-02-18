@@ -68,18 +68,21 @@ class PublicController extends SiteController {
      */
     public function setInformation()
     {
-        if ($this -> uinfo) {
+        $userid = (int)I('userid');
 
-            redirect(U('Home/Index/index'));
+        if (!$userid) $this->error('参数错误');
 
-            exit ;
+        $media = $this -> getMedia('完善资料');
 
-        }
-
-        $media = $this -> getMedia('会员注册');
-
-        $sex  = I('sex','1');
-
+        $sex       = I('sex','1');
+        $code4     = C('SetProfile.code4')['info'];
+        $education = C('Education');
+        //婚姻状态
+        $this->assign('code4',$code4);
+        //学历
+        $this->assign('education',$education);
+        //用户ID
+        $this->assign('userid',$userid);
         $this->assign('media',$media);
 
         $this->assign('sex',$sex);
