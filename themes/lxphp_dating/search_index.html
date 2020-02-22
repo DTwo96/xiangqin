@@ -10,60 +10,174 @@
     <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
     <title>{$media.title}</title>
     <style type="text/css">
+        body,.mui-content {
+            background-color: #fff;
+        }
+        /*>>>>>>>>>>主要内容<<<<<<<<<<*/
         .mui-bar-nav {
             background-color: #f03b57;
         }
         .mui-icon-left-nav,.mui-title {
             color: #fff;
         }
-        .content {
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
         .mui-table-view-chevron .mui-table-view-cell {
-            padding-right: 15px;
+            /*padding-right: 15px;*/
         }
         .show-block {
             margin-top: 6px;
         }
         .search-input {
-            width: 80% !important;
+            width: 76% !important;
             border-radius: 20px !important;
             margin-top: 7px !important;
             height: 30px !important;
             margin-bottom: 0px !important;
             font-size: 14px;
+            border: none !important;
+            margin-left: 6px;
         }
-        body,.mui-content {
-            background-color: #fff;
+        .search-btn {
+            color: #fff;
+            display: inline-block;
+            background-color: rgba(0,0,0,.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-left: 2px;
         }
         .map-block {
             border-bottom: 1px solid #e2e2e2;
             overflow: hidden;
-            padding: 6px 0px;
-            background-color: rgba(226,226,226,.3);
+            padding: 6px 15px;
+            background-color: rgba(226,226,226,.2);
             color: #000;
+        }
+        .search-more i{
+            vertical-align: middle;
+        }
+        .mui-table-view-cell:after {
+            left: 0px !important;
+        }
+        /*>>>>>>>>>>滑动栏<<<<<<<<<<*/
+        #offCanvasSide {
+            background-color: #fff !important;
+            width: 100% !important;
+        }
+        #offCanvasSideScroll {
+            color: #000;
+        }
+        #offCanvasSideScroll .mui-bar {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        #offCanvasSideScroll .mui-bar a{
+            color: #000;
+            font-weight: bold;
+        }
+        #offCanvasSideScroll .mui-bar h1{
+            color: #000;
+        }
+        #offCanvasSideScroll .mui-table-view-cell:after {
+            background-color: #eee !important;
+        }
+        #offCanvasSideScroll .mui-table-view-cell {
+            padding-top: 14px;
+            padding-bottom: 14px;
         }
     </style>
 </head>
 <body>
-<header class="mui-bar mui-bar-nav">
-    <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <input type="text" class="search-input" placeholder="请输入用户手机号或ID">
-    <a href="">搜索</a>
-</header>
-<div class="mui-content">
-    <div class="map-block">
-        <a class="mui-pull-right">条件筛选 <i class="iconfont "></i></a>
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+    <!--侧滑菜单部分-->
+    <aside id="offCanvasSide" class="mui-off-canvas-left">
+        <div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <header class="mui-bar mui-bar-nav">
+                    <a id="offCanvasHide" class="mui-icon mui-icon-closeempty mui-pull-right "></a>
+                    <h1 class="mui-title">条件筛选</h1>
+                </header>
+                <div class="mui-content">
+                    <div class="slide-content" style="margin-top: 0px;">
+                        <form class="content">
+                            <ul class="mui-table-view">
+                                <li class="mui-table-view-cell">
+                                    <a class="mui-navigate-right">
+                                        身高
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell">
+                                    <a class="mui-navigate-right">
+                                        年龄
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell">
+                                    <a class="mui-navigate-right">
+                                        学历
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell">
+                                    <a class="mui-navigate-right">
+                                        居住地
+                                    </a>
+                                </li>
+                                <li class="mui-table-view-cell">
+                                    <a class="mui-navigate-right">
+                                        婚姻状况
+                                    </a>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <!--主界面部分-->
+    <div class="mui-inner-wrap">
+        <header class="mui-bar mui-bar-nav">
+            <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <input type="text" class="search-input" placeholder="请输入用户手机号或ID">
+            <a href="" class="search-btn">搜索</a>
+        </header>
+        <div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="map-block">
+                    <a class="mui-pull-right search-more" id="offCanvasShow"><i class="iconfont iconquerycriteria"></i> 条件筛选</a>
+                </div>
+                <div class="mui-content-padded">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!--#include file="footer.html"-->
 <script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
 <script type="text/javascript">
+    mui('.slide-content').on('tap','li',function () {
+        mui.alert()
+    });
+    mui.init();
+    //侧滑容器父节点
+    var offCanvasWrapper = mui('#offCanvasWrapper');
+    //主界面容器
+    var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+    console.log(offCanvasInner);
+    //菜单容器
+    var offCanvasSide = document.getElementById("offCanvasSide");
+    //屏蔽侧滑关闭
+    offCanvasSide.addEventListener('drag',function (event) {
+        event.stopPropagation();
+    });
+    //主界面‘显示侧滑菜单’按钮的点击事件
+    document.getElementById('offCanvasShow').addEventListener('tap', function() {
+        offCanvasWrapper.offCanvas('show');
+    });
+    //菜单界面，‘关闭侧滑菜单’按钮的点击事件
+    document.getElementById('offCanvasHide').addEventListener('tap', function() {
+        offCanvasWrapper.offCanvas('close');
+    });
+    //主界面和侧滑菜单界面均支持区域滚动；
+    mui('#offCanvasSideScroll').scroll();
+    mui('#offCanvasContentScroll').scroll();
 </script>
 </body>
 </html>

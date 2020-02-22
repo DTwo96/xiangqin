@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "631503",
+      "name": "查询条件",
+      "font_class": "querycriteria",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "11062260",
+      "name": "过滤",
+      "font_class": "filtration",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
       "icon_id": "335683",
       "name": "评论",
       "font_class": "pinglun",
