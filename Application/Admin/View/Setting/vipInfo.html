@@ -1,0 +1,23 @@
+<h3>vip特权说明</h3>
+<admin:form url="{:U('')}" method="post" id="form" >
+  <div class="g-main-body">
+    <div class="g-main-content m-form-horizontal">
+      <admin:panel >
+        <admin:textarea name="vip_info" class="u-editor" rows="10">{$info}</admin:textarea>
+        <admin:formsubmit/>
+      </admin:panel>
+    </div>
+    <input type="hidden" name="type" value="hongniang">
+  </div>
+</admin:form>
+</admin:panel>
+<script>
+    Do.ready('base', function () {
+        //表单综合处理
+        $('#form').duxFormPage();
+    });
+</script>
+
+
+
+

@@ -48,11 +48,11 @@ exit;
 				cookie('assecp_flv',1,360*86400);
 				redirect(U("Admin/Index/systemTj"));
     	exit;
-			}			
+			}
 			 $this->display('falv');
 			 exit;
 		}
-    	
+
     	
      	
     	//设置目录导航

@@ -2326,7 +2326,7 @@ $ext=strrchr($url,".");
 
 	public function VipCenter(){
 
-		$media = $this->getMedia ( '充值中心', '', '', '充值中心', 'ismenu' );
+		$media = $this->getMedia ( 'VIP会员', '', '', '充值中心', 'ismenu' );
 
 		$this->assign ( 'media', $media );
 
@@ -2334,7 +2334,12 @@ $ext=strrchr($url,".");
 
 		$this->assign ( 'type', $type );
 
-		
+		//vip特权说明
+        $vip_info = M('Config')->where(array('name' => 'vip_info'))->getField('data');
+        if (!empty($vip_info)) {
+            $vip_info = htmlspecialchars_decode($vip_info);
+        }
+		$this->assign('vip_info',$vip_info);
 
 	    $info = M('Users')->field('avatar,user_nicename,money,user_rank,rank_time')->where('id = '.$this->uinfo['id'])->find();	    
 

@@ -250,8 +250,8 @@ class AjaxController extends SiteController {
         if (IS_POST) {
             $param = I('post.');
 
-            if (!empty($param['sex'])) $this->error('请选择性别');
-            if (!empty($param['age'])) $this->error('请填写年龄');
+            if (empty($param['sex'])) $this->error('请选择性别');
+            if (empty($param['age'])) $this->error('请填写年龄');
 
             $info  = D("Users")->where(['id' => (int)$param['userid']])->field('id')->find();
 

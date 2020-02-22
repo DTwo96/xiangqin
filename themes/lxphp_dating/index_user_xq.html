@@ -33,9 +33,9 @@
 				<div class="uesr_tx">
 
 					<img src="{$info.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt="" class="uesr_tx_a">
-					<a href="{:U('Wechat/index',array('uid'=>$info[idmd5]))}">
+					<!--<a href="{:U('Wechat/index',array('uid'=>$info[idmd5]))}">
 						<span class="gentalianx"><img src="images/user_03_06.png" alt="">跟TA聊天</span>
-					</a>
+					</a>-->
 				</div>
 
 				<div class="uesr_zl">
@@ -48,14 +48,14 @@
 					<table onmousedown="0" onmousemove="0" border="0">
 						<tr>
 							<td><img src="images/user_03_16.png" alt=""></td>
-							<td><img src="images/user_03_0{$info.sex}.png" alt=""></td>
+							<!--<td><img src="images/user_03_0{$info.sex}.png" alt=""></td>-->
 							<td><img src="images/user_03_20.png" alt=""></td>
 							<td><img src="images/user_03_11.png" alt=""></td>
 							<td><img src="images/user_03_18.png" alt=""></td>
 						</tr>
 						<tr>
 							<td>{$userCount.fansnum|default='0'}</td>
-							<td>{$info.jifen|default='0'}</td>
+							<!--<td>{$info.jifen|default='0'}</td>-->
 							<td>{$userCount.photonum|default='0'}</td>
 							<td>{$userCount.sumgift|default='0'}</td>
 							<td>{$userCount.zan|default='0'}</td>
@@ -176,13 +176,14 @@
 					</ul>
 				</div>
 			</div>
-            <p><a href="{:U('Wechat/index',array('uid'=>$info[idmd5]))}" class="laheta" style="background:#F33; width:96%; color:#FFF; margin:0 auto;">跟TA聊天</a></p>
+            <!--<p><a href="{:U('Wechat/index',array('uid'=>$info[idmd5]))}" class="laheta" style="background:#F33; width:96%; color:#FFF; margin:0 auto;">跟TA聊天</a></p>-->
+			<p><a href="{:U('Wechat/index',array('uid'=>$info[idmd5]))}" class="laheta" style="background:#F33; width:96%; color:#FFF; margin:0 auto;">关注TA</a></p>
 			<p class="laheta_p"><a href="javascript:;" onclick="lahei();" class="laheta"><!--{if condition="$lahei eq 0"}-->拉黑TA<!--{else /}-->已拉黑<!--{/if}--></a></p>
 			
-			  <a href="{:U('Gift/index',array('uid'=>$info['idmd5']))}" class="sonhua"  id="ad1"  >
+			  <!--<a href="{:U('Gift/index',array('uid'=>$info['idmd5']))}" class="sonhua"  id="ad1"  >
        <img src="images/songh.png" alt="">
        <div>送礼</div>
-     </a>
+     </a>-->
     
 <script src="js/user_xq_ad.js"></script>
 <script>

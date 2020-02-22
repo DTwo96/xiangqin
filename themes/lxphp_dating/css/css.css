@@ -10,6 +10,17 @@ html{font-size:10px;}
 body { font-size: 14px;} /* =14px */
 h1   { font-size: 24px;}
 
+/*新增>>底部菜单样式  时间:2020年2月20日16:18:10*/
+.f-article {
+	padding-top: 4px !important;
+}
+.f-article i{
+	font-size: 24px;
+}
+.f-active i ,.f-active p{
+	color: #f03b57;
+}
+
  /*上面的公告样式可以删除*/
 /*这块保留*/
 .fl { float:left}
@@ -236,7 +247,8 @@ h1   { font-size: 24px;}
 }
 
 .index_nav ul li  {
-   width: 33%;
+   /*width: 33%;*/
+	width: 50%;
    display: block;
    float: left;
    line-height: 35px;
@@ -345,7 +357,7 @@ h1   { font-size: 24px;}
 }
 .index_footer a {
 	display: inline-block;
-	width: 20%;
+	width: 25%;
 	text-align: center;
 	font-size: 12px;
 	color: #999;
@@ -364,18 +376,26 @@ h1   { font-size: 24px;}
  background-image: url(../images/index_footer_hot_06.png) ;
  color: #f03b57
 }
-.index_footer a:nth-child(3).hot  {
+/*.index_footer a:nth-child(3).hot  {
  background-image: url(../images/index_footer_hot_12.png) ;
  color: #f03b57
+}*/
+.index_footer a:nth-child(3).hot  {
+	background-image: url(../images/index_footer_hot_08.png) ;
+	color: #f03b57
 }
-.index_footer a:nth-child(4).hot {
+/*.index_footer a:nth-child(4).hot {
  background-image: url(../images/index_footer_hot_08.png) ;
  color: #f03b57
+}*/
+.index_footer a:nth-child(4).hot {
+	background-image: url(../images/index_footer_hot_10.png) ;
+	color: #f03b57
 }
-.index_footer a:nth-child(5).hot {
+/*.index_footer a:nth-child(5).hot {
  background-image: url(../images/index_footer_hot_10.png)  ;
  color: #f03b57
-}
+}*/
 
 #youren{          
 	background-image: url(../images/index_footer_hot_06.png);
@@ -5061,7 +5081,7 @@ animation-timing-function:cubic-bezier(0.175, .885, .32, 1)
     width: 25px;
 }
 .uesr_table table td {
-    width: 19%;
+    width: 24%;
     border: none;
     text-align: center;
     display: block;

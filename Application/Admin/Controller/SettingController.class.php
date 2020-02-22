@@ -16,6 +16,18 @@ class SettingController extends AdminController {
                 'name' => '网站设置',
                 'description' => '设置网站整体功能',
                 ),
+            'menu' => array(
+                array(
+                    'name' => '购买vip设置',
+                    'url' => U('credit',array('type' => 1)),
+                    'icon' => 'list',
+                ),
+                array(
+                    'name' => 'vip特权说明',
+                    'url' => U('vipInfo'),
+                    'icon' => 'list',
+                ),
+            ),
 /*            'menu' => array(
                     array(
                         'name' => '站点信息',
@@ -49,6 +61,38 @@ class SettingController extends AdminController {
                     )
                 )*/
         );
+    }
+    /**
+     * VIP特权说明
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/2/20
+     * @time：21:23
+     */
+    public function vipInfo()
+    {
+        $breadCrumb = array('vip特权说明'=>U());
+        $info = M('Config')->where(array('name' => 'vip_info'))->getField('data');
+        if (IS_POST) {
+            $param  = I('post.vip_info');
+            $sqlMap = array();
+            $sqlMap['name'] = 'vip_info';
+            $sqlMap['data'] = $param;
+            $check = M('Config')->where(array('name' => 'vip_info'))->count();
+            if ($check) {
+                $rs = M('Config')->save($sqlMap);
+            } else {
+                $rs = M('Config')->add($sqlMap);
+            }
+            if ($rs) {
+                $this->success('保存成功');
+            } else {
+                $this->error('保存失败');
+            }
+        }
+        $this->assign('info',$info);
+        $this->assign('breadCrumb',$breadCrumb);
+        $this->adminDisplay();
     }
 	/**
      * 站点设置
@@ -267,6 +311,8 @@ class SettingController extends AdminController {
     public function credit(){
         $type = I('get.type',0,'intval');
         $name = array('ConfigCredit','ConfigVip');
+        $breadCrumb = array('购买vip设置'=>U());
+        $this->assign('breadCrumb',$breadCrumb);
     	$this->assign('list',M($name[$type])->select());
     	$this->assign('type',$type);
     	$this->adminDisplay();

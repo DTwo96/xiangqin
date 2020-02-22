@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
+    <title>{$media.title}</title>
+    <style type="text/css">
+        .mui-bar-nav {
+            background-color: #f03b57;
+        }
+        .mui-icon-left-nav,.mui-title {
+            color: #fff;
+        }
+        .content {
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .mui-table-view-chevron .mui-table-view-cell {
+            padding-right: 15px;
+        }
+        .show-block {
+            margin-top: 6px;
+        }
+        .search-input {
+            width: 80% !important;
+            border-radius: 20px !important;
+            margin-top: 7px !important;
+            height: 30px !important;
+            margin-bottom: 0px !important;
+            font-size: 14px;
+        }
+        body,.mui-content {
+            background-color: #fff;
+        }
+        .map-block {
+            border-bottom: 1px solid #e2e2e2;
+            overflow: hidden;
+            padding: 6px 0px;
+            background-color: rgba(226,226,226,.3);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <input type="text" class="search-input" placeholder="请输入用户手机号或ID">
+    <a href="">搜索</a>
+</header>
+<div class="mui-content">
+    <div class="map-block">
+        <a class="mui-pull-right">条件筛选 <i class="iconfont "></i></a>
+    </div>
+</div>
+<!--#include file="footer.html"-->
+<script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

@@ -10,6 +10,7 @@
 		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 		<title>{$media.title}</title>
 		<link rel="stylesheet" type="text/css" href="css/css.css">
+		<link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 		<style type="text/css">
 			.superman{
@@ -36,8 +37,8 @@
 	</head>
 	<body>
 
-    
-	
+
+
 		<img src="images/yingdao_logo.png" alt="" style="display:none">
 		<div class="hd_main">
 		<div style="height:40px;display:none ;" class="appdiv fx_header_new"></div>
@@ -54,9 +55,9 @@
 			<!-- 导航 -->
 			<div class="index_nav cb" style="  overflow: hidden;">
 				<ul class="cb">
-					<li><a href="{:U('index')}"><i class="hot"></i>推荐</a></li>					
+					<li><a href="{:U('index')}"><i class="hot"></i>推荐</a></li>
 					<li><a href="{:U('Home/Nearby/index')}"><i></i>附近</a></li>
-					<li><a href="{:U('Home/Ranking/Charmlist',array('type' => 4))}"><i></i>排行</a></li>
+					<!--<li><a href="{:U('Home/Ranking/Charmlist',array('type' => 4))}"><i></i>排行</a></li>-->
 				</ul>
 			</div>
 			<!-- 导航 -->
@@ -98,25 +99,25 @@
 				  if(msrc=='/Public/img/taoxin2.png'){
 					  hsrc='/Public/img/taoxin1.png';
 					  }else{
-					hsrc='/Public/img/taoxin2.png';  
+					hsrc='/Public/img/taoxin2.png';
 						  }
 				  $(this).attr('src',hsrc);
 				  })
-			  })         
+			  })
 		</script>
 
 		<script>
 			var totalheight = 0;
 			var body = '';
-			var main = $(".index_lise"); //主体元素  
-			var range = 40; //距下边界长度/单位px  
-			var elemt = 500; //插入元素高度/单位px  
-			var maxnum = 200; //设置加载最多次数  
+			var main = $(".index_lise"); //主体元素
+			var range = 40; //距下边界长度/单位px
+			var elemt = 500; //插入元素高度/单位px
+			var maxnum = 200; //设置加载最多次数
 			var num = 2;
 			var jz = true;
 			$(window).scroll(function() {
-				if (jz == false) return false;				
-				var srollPos = $(window).scrollTop(); //滚动条距顶部距离(页面超出窗口的高度) 					
+				if (jz == false) return false;
+				var srollPos = $(window).scrollTop(); //滚动条距顶部距离(页面超出窗口的高度)
 				totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
 				if (($(document).height() - range) <= totalheight && num != maxnum) {
 					$("#loading").show();
@@ -186,15 +187,15 @@
 		</script>
 
 		<script type="text/javascript">
-		var ua = navigator.userAgent.toLowerCase(); 
+		var ua = navigator.userAgent.toLowerCase();
   		if (/iphone|ipad|ipod/.test(ua)) {
         	$(".index_header").css('top',55);
   		} else if (/android/.test(ua)) {
 		    $(".index_header").css('top',40);
 		}
-  	
-	var nonewbe  ='{$nonewbe}';	
-  		
+
+	var nonewbe  ='{$nonewbe}';
+
 		</script>
 	</body>
 </html>

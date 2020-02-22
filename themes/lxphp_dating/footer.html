@@ -1,11 +1,17 @@
 ﻿ <!-- 用户列表 -->
        <div style="height:60px;"></div>
        <!-- 底部footer -->
+        <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
        <div class="index_footer">
           <a href="{:U('Home/Index/index')}" class="index_footer_a <?php if($nav==''){ ?> hot<?php } ?> >">缘分</a>
-          <a href="{:U('Home/Wechat/sixin')}" class="index_footer_b <?php if($nav=='Wechat'){ ?> hot sixina<?php } ?>" <!--{if condition="$wdsx eq 1"}-->id="youren"<!--{/if}--> >私信</a>
+          <!--<a href="{:U('Home/Wechat/sixin')}" class="index_footer_b <?php if($nav=='Wechat'){ ?> hot sixina<?php } ?>" &lt;!&ndash;{if condition="$wdsx eq 1"}&ndash;&gt;id="youren"&lt;!&ndash;{/if}&ndash;&gt; >私信</a>
           <a href="{:U('Home/Nearby/index')}" class="index_footer_e <?php if($nav=='Nearby'){ ?> hot<?php } ?>">附近</a>
-          <a href="{:U('Home/Index/hot')}" class="index_footer_c <?php if($nav=='Dongtai'){ ?> hot<?php } ?>">动态</a>
+          <a href="{:U('Home/Index/hot')}" class="index_footer_c <?php if($nav=='Dongtai'){ ?> hot<?php } ?>">动态</a>-->
+           <a href="{:U('Home/Article/index',array('type' => 1))}" class="f-article <?php if($nav== 1){ ?>f-active<?php } ?>">
+               <p><i class="iconfont iconnavicon-wzgl"></i></p>
+               <p>文章</p>
+           </a>
+           <a href="{:U('Home/Article/index',array('type' => 2))}" class="index_footer_c <?php if($nav == 2){ ?> hot<?php } ?>">活动</a>
           <a href="{:U('Home/User/index')}" class="index_footer_d <?php if($nav=='User'){ ?> hot<?php } ?>">我的</a>
        </div>
         <!-- 底部footer -->

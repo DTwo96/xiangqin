@@ -1609,37 +1609,47 @@ public function caiji(){ //微博采集 20160427
 		$this -> ajaxReturn($this->sitefetch('ajax_xinshourenwu'));
 
 	}
+    /**
+     * 搜索页面
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/2/21
+     * @time：20:44
+     */
+    public function searchIndex()
+    {
+        $media = $this->getMedia('搜索');
+        $this->assign('media',$media);
+        $this->siteDisplay('search_index');
+    }
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
