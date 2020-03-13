@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
     <link rel="stylesheet" type="text/css" href="css/css.css">
-    <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/font/iconfont.css?t=<?php echo time();?>">
     <title>{$media.title}</title>
     <style type="text/css">
         .mui-bar-nav {
@@ -29,6 +29,31 @@
         .show-block {
             margin-top: 6px;
         }
+        .mui-table-view {
+            background-color: #efeff4;
+        }
+        .no-data-notice {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 50%;
+        }
+        .no-data-notice i {
+            margin-right: 4px;
+        }
+        .mui-table-view:before,.mui-table-view:after {
+            height: 0px;
+        }
+        #pullrefresh {
+            height: 93%;
+            position: relative;
+        }
+        .source {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 240px;
+        }
     </style>
 </head>
 <body>
@@ -38,8 +63,12 @@
 </header>
 <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
     <div class="mui-scroll">
-        <!--数据列表-->
-        <ul class="mui-table-view mui-table-view-chevron"></ul>
+        <!--{if condition="$num gt 0"}-->
+            <!--数据列表-->
+            <ul class="mui-table-view mui-table-view-chevron"></ul>
+        <!--{else /}-->
+            <p class="no-data-notice"><i class="iconfont iconmeiyoudingdan-01"></i>暂无数据</p>
+        <!--{/if}-->
     </div>
 </div>
 <!--#include file="footer.html"-->
@@ -49,7 +78,8 @@
 
     var page  = 1
         ,url  = '<?php echo U("articleInfo")?>'
-        ,type = '{$type}';
+        ,type = '{$type}'
+        ,num  = '{$num}';
 
     mui.init({
         pullRefresh : {
@@ -72,6 +102,9 @@
         //跳转详情页
         window.location.href = url + '&id=' + id;
     });
+
+    refreshEngine();
+
     //下拉刷新
     function pulldown() {
 
@@ -91,7 +124,7 @@
                             item.title,
                             '<p class="content">' + item.content + '</p>',
                             '<div class="show-block">',
-                            '<p class="mui-pull-left">来源：' + item.author + '</p>',
+                            '<p class="mui-pull-left source">来源：' + item.author + '</p>',
                             '<p class="mui-pull-right">浏览量：' + item.read_num + '</p>',
                             '</div></li>'
                         );
@@ -133,7 +166,7 @@
                             item.title,
                             '<p class="content">' + item.content + '</p>',
                             '<div class="show-block">',
-                            '<p class="mui-pull-left">来源：' + item.author + '</p>',
+                            '<p class="mui-pull-left source">来源：' + item.author + '</p>',
                             '<p class="mui-pull-right">浏览量：' + item.read_num + '</p>',
                             '</div></li>'
                         );
@@ -154,19 +187,31 @@
         }, 500);
     }
 
-    //初始加载数据
-    if (mui.os.plus) {
-        mui.plusReady(function() {
-            setTimeout(function() {
-                mui('#pullrefresh').pullRefresh().pullupLoading();
-            }, 1000);
+    function refreshEngine() {
+        //!注意这里延迟两秒是为了防止mui还没有加载完成调用方法报错
+        var Timer = setTimeout(function () {
+            if (!parseInt(num)) {
+                mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                mui('#pullrefresh').pullRefresh().disablePulldownToRefresh();
+            } else {
+                //初始加载数据
+                if (mui.os.plus) {
+                    mui.plusReady(function() {
+                        setTimeout(function() {
+                            mui('#pullrefresh').pullRefresh().pullupLoading();
+                        }, 1000);
 
-        });
-    } else {
-        mui.ready(function() {
-            mui('#pullrefresh').pullRefresh().pullupLoading();
-        });
+                    });
+                } else {
+                    mui.ready(function() {
+                        mui('#pullrefresh').pullRefresh().pullupLoading();
+                    });
+                }
+            }
+            clearTimeout(Timer);
+        },200);
     }
+
 </script>
 </body>
 </html>

@@ -18,14 +18,14 @@
                 }
 </style>
 
-<body> 
+<body>
 
   <img src="images/yingdao_logo.png" alt="" style="display:none">
   <div class="hd_main">
   <div style="height:40px;display:none ;" class="appdiv fx_header_new"></div>
 <!--#include file="app_share.html"-->
-  
-  
+
+
      <!--#include file="index_header.html"-->
 
 
@@ -54,18 +54,18 @@
 		      </div>
 		      <div style="height:25px;"></div>
       </li>
-	  
+
 	  	<!--{/foreach}-->
-    
-	  
-	      
+
+
+
       </div>
-     
-      
-	  
-	  
-	  
-	  
+
+
+
+
+
+
 	   <!--#include file="footer.html"-->
 
 
@@ -91,16 +91,16 @@
 
 <script>
 var totalheight = 0;
-				var body = '';			
-				var main = $(".index_lise_new"); //主体元素  
-				var range = 10; //距下边界长度/单位px  
-				var elemt = 500; //插入元素高度/单位px  
-				var maxnum = 200; //设置加载最多次数  
+				var body = '';
+				var main = $(".index_lise_new"); //主体元素
+				var range = 10; //距下边界长度/单位px
+				var elemt = 500; //插入元素高度/单位px
+				var maxnum = 200; //设置加载最多次数
 				var num = 2;
 				var jz = true;
 	$(window).scroll(function() {
 		if(jz==false) return false;
-					var srollPos = $(window).scrollTop(); //滚动条距顶部距离(页面超出窗口的高度) 					
+					var srollPos = $(window).scrollTop(); //滚动条距顶部距离(页面超出窗口的高度)
 					totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
 					if (($(document).height() - range) <= totalheight && num != maxnum) {
 						$("#loading").show();
@@ -119,14 +119,14 @@ var totalheight = 0;
 							$.each(data, function(index, val) {
 								jz =true;
 								body = '<li  class="box"><a href="'+val.aurl+'"><img src="'+val.thumbfiles+'" alt=""></a><div class="dibu_new"><i class="fl"><img src="'+val.avatar+'" alt=""><i>'+val.user_nicename+'</i></i><i class="fr" onclick="dozan(this,\''+val.idmd5+'\');"><img src="images/zan1.png" alt=""><br><span class="zan">'+val.hits+'</span></i></div><div style="height:25px;"></div></li>';
-								
-								main.append(body);															
+
+								main.append(body);
 							});
 							setTimeout('lxzizhufn()',500);
 						}, 'json');
 						num++;
 					}
-				});				
+				});
 
 
 function lxzizhufn(){
@@ -154,21 +154,21 @@ else{
             li.eq(i).css("left",minKey * li_W); //第i个li的左坐标就是i*li的宽度
             li.eq(i).css("padding-left",yigzhi);
 // li.eq(i).css("height",ulliheight);
-        }     
+        }
     }
 }
 /* 使用for in运算返回数组中某一值的对应项数(比如算出最小的高度值是数组里面的第几个) */
 function getarraykey(s, v) {for(k in s) {if(s[k] == v) {return k;}}}
 /*这里一定要用onload，因为图片不加载完就不知道高度值*/
-window.onload = function() {lxzizhufn();};		
-var ua = navigator.userAgent.toLowerCase(); 
+window.onload = function() {lxzizhufn();};
+var ua = navigator.userAgent.toLowerCase();
   if (/iphone|ipad|ipod/.test(ua)) {
         $(".index_header").css('top',55);
   } else if (/android/.test(ua)) {
 		    $(".index_header").css('top',40);
 		}
 
-			
+
 </script>
 
 

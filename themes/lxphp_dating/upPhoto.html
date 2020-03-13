@@ -40,7 +40,7 @@
 
 
       <div class="shangchuanzhaopian">
-      上传到: <i  data="0" <!--{if condition="$type eq 0"}-->class="sheng" <!--{/if}--> ></i>公开照相册&nbsp;&nbsp;<i data="1" <!--{if condition="$type eq 1"}-->class="sheng" <!--{/if}--> ></i>私密照相册 
+      上传到: <i  data="0" <!--{if condition="$type eq 0"}-->class="sheng" <!--{/if}--> ></i>公开照相册&nbsp;&nbsp;<!--<i data="1" &lt;!&ndash;{if condition="$type eq 1"}&ndash;&gt;class="sheng" &lt;!&ndash;{/if}&ndash;&gt; ></i>私密照相册-->
       <input type="hidden" name="uptype" value="{$type|default='0'}" />
       </div>
       <div class="shangchuanzhaopian_b">
@@ -57,10 +57,13 @@
       <!-- a href="javascript:;" class="shangchuanzhaopian_a upsub">确认上传</a-->
       <div class="shangchuanzhaopian_c" >
         <p>照片尺寸不大于1M</p>
-        <p>每天上传一张公开照可得{$config.up_photo_gk}{$config.money_name}， {$config.up_photo_gk_num}张封顶！</p>
-        <p>每天上传一张私密照可得{$config.up_photo_sm}{$config.money_name}， {$config.up_photo_sm_num}张封顶！</p>
-        <p>私密照可在个人中心->我的相册中设置访问需达到的亲密度，或对方需花费的{$config.money_name}</p>
-        <p>禁止上传淫秽色情及非自拍图片，一经发现将扣除收 益直至封停账号！</p>
+       <!-- <p>每天上传一张公开照可得{$config.up_photo_gk}{$config.money_name}， {$config.up_photo_gk_num}张封顶！</p>
+        <p>每天上传一张私密照可得{$config.up_photo_sm}{$config.money_name}， {$config.up_photo_sm_num}张封顶！</p>-->
+        <!--<p>私密照可在个人中心->我的相册中设置访问需达到的亲密度，或对方需花费的{$config.money_name}</p>
+        <p>禁止上传淫秽色情及非自拍图片，一经发现将扣除收 益直至封停账号！</p>-->
+
+          <!--<p>私密照可在个人中心->我的相册中设置访问需达到的亲密度</p>-->
+          <p>禁止上传淫秽色情及非自拍图片，一经发现将封停账号！</p>
       </div>
 
 

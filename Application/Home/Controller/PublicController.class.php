@@ -46,13 +46,13 @@ class PublicController extends SiteController {
 
 		$this -> assign('media', $media);
 
-		if(I('get.type',0,'intval')==2)
+		/*if(I('get.type',0,'intval')==2)
 
 		$this -> dowxlogin('snsapi_userinfo');
 
 		else
 
-		$this -> dowxlogin('snsapi_base');
+		$this -> dowxlogin('snsapi_base');*/
 
 		//微信自动登录,只有此处！
 
@@ -73,6 +73,12 @@ class PublicController extends SiteController {
         if (!$userid) $this->error('参数错误');
 
         $media = $this -> getMedia('完善资料');
+
+        if(!$this->uinfo) {
+            //执行登录
+            $userInfo = M('Users')->where(['id' => $userid])->find();
+            $this->loginbyname($userInfo,0);
+        }
 
         $sex       = I('sex','1');
         $code4     = C('SetProfile.code4')['info'];
@@ -125,9 +131,35 @@ class PublicController extends SiteController {
 
 	}
 
+    public function dowxlogin() {
 
+        if ($this -> is_weixin()) {
+            $wxOauth = new \Wechat\Controller\WechatOauthController();
+            $code    = I('code');
+            if (!$code) {
+                $wxOauth->requestWxUrl(U('dowxlogin','','',true));
+            }
+            $access_token = $wxOauth->buyAccessToken($code);
+            $open_id      = $wxOauth->getOpenId();
+            if (!$open_id) {
+                $this->error('获取open_id失败,请重试');
+            }
+            $map = [];
+            $map['bind_status'] = 1;
+            $map['type']        = 'wechat';
+            $map['openid']      = $open_id;
+            $bind_check = M('UserOauth')->where($map)->getField('userid');
+            if (!$bind_check) {
+                $this->error('该微信暂未绑定平台用户,请先绑定');
+            }
+            $info = M('Users')->where(['id' => $bind_check])->find();
+            $this->loginbyname($info,1);
+        }
 
-	public function dowxlogin($scope='snsapi_base') {
+        $this->error('请用微信浏览器打开');
+
+    }
+	/*public function dowxlogin($scope='snsapi_base') {
 
 
 
@@ -325,7 +357,7 @@ class PublicController extends SiteController {
 
 
 
-	}
+	}*/
 
 
 
@@ -1493,7 +1525,89 @@ class PublicController extends SiteController {
 
         $this->siteDisplay('user_myhome');
     }
+    /**
+     * 账号注销
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/6
+     * @time：19:21
+     */
+    public function accountLogout()
+    {
+        if (!$this->uinfo) {
+            $this->error('请先登录');
+        }
 
+        if (IS_POST) {
+            $param = I('post.');
+
+            if ($param['action'] == 'check_pwd') { //检查密码是否正确
+
+                $pwd = trim($param['pwd']);
+
+                if (empty($pwd)) {
+                    $this->error('请输入密码');
+                }
+
+                $user_pwd = M('Users')->where(['id' => $this->uinfo['id']])->getfield('user_pass');
+
+                $encrypt_pwd = md5($this->uinfo['user_login'].$pwd.C('PWD_SALA'));
+                if ($encrypt_pwd == $user_pwd) {
+                    $this->success('SUCCESS');
+                } else {
+                    $this->error('密码错误');
+                }
+            } else if ($param['action'] == 'get_yzm') { //获取验证码
+
+                $check_status = D('SmsLog')->checkSendStatus($this->uinfo['user_login']);
+
+                if (!$check_status) {
+                    $this->error(D('SmsLog')->getError());
+                }
+
+                $res = send_sms(4,$this->uinfo['user_login']);
+
+                if ($res) {
+                    $this->success('发送成功');
+                } else {
+                    $this->error('发送失败');
+                }
+            } else if ($param['action'] == 'account_logout') {//账号注销
+                $yzm = $param['yzm'];
+                if (!$yzm) {
+                    $this->error('请输入验证码');
+                }
+                $check_yzm = D('SmsLog')->checkYzm($this->uinfo['user_login'],$yzm,4);
+                if (!$check_yzm) {
+                    $this->error(D('SmsLog')->getError());
+                }
+                try {
+                    M()->startTrans();
+                    $rs = [];
+                    $rs[1] = writeSystemLog('注销账号',2,$this->uinfo['id']);
+                    $rs[2] = M('Users')->delete($this->uinfo['id']);
+                    foreach ($rs as $k => $v) {
+                        if (!$v) {
+                            M()->rollback();
+                            $this->error($k . '执行失败');
+                        }
+                    }
+                    M()->commit();
+                    //清空当前用户登录状态
+                    logOut();
+                    $this->success('注销成功',U('login'));
+                } catch (\Exception $e) {
+                    M()->rollback();
+                    $this->error($e->getMessage());
+                }
+            }
+        }
+
+        $media = $this->getMedia('账号注销');
+
+        $this->assign('media',$media);
+        $this->siteDisplay('accountLogout');
+    }
 
 
 }

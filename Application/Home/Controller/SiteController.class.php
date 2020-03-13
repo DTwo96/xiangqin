@@ -84,6 +84,8 @@ class SiteController extends BaseController {
 
 		}
 
+		$this->vipExpiresTest();
+
 		$this->assign('wdsx',cookie('wdsxnum'));		
 
 		C('lxphpca',S("lxphpca"));				
@@ -96,8 +98,29 @@ class SiteController extends BaseController {
 
     }
 
-    
+    /**
+     * 会员到期检测
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/2
+     * @time：16:23
+     */
+    protected function vipExpiresTest(){
+        $where = [];
+        $where['user_rank'] = ['gt',0];
+        $where['rank_time'] = ['lt',time()];
 
+        $ids = M('Users')->where($where)->field('id')->limit(50)->select();
+
+        if (is_array($ids)) {
+            foreach ($ids as $k => $v) {
+                $sqlMap = [];
+                $sqlMap['user_rank'] = 0;
+                $sqlMap['rank_time'] = 0;
+                M('Users')->where(['id' => $v['id']])->save($sqlMap);
+            }
+        }
+    }
     /**
 
      * 生成验证码
@@ -121,6 +144,8 @@ class SiteController extends BaseController {
 		$Verify->useCurve = false;
 
 		$Verify->bg       = array(255, 255, 255);
+
+
 
     	$Verify->entry();
 
@@ -785,9 +810,9 @@ public function checkbasedata($type=""){
 
 	$cityid = $this->uinfo['cityid'];
 
-	$user_nicename= $this->uinfo['user_nicename'];
+	//$user_nicename= $this->uinfo['user_nicename'];
 
-	if(!$avatar || !$user_nicename || !$cityid){
+	if(!$avatar /*|| !$user_nicename*/ || !$cityid){
 
 		if($type){
 
@@ -1145,7 +1170,7 @@ protected function sitefetch($name='') {
 
         }else{
 
-            $title=$title.' - '.C('SITE_TITLE').' - '.C('SITE_SUBTITLE');
+            $title=C('SITE_TITLE').' - '.$title.' - '.C('SITE_SUBTITLE');
 
         }
 

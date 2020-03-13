@@ -47,7 +47,7 @@ class WxPayDataBase
 
 	/**
 	 * 输出xml字符
-	 * @throws WxPayException
+	 * @throws class
 	**/
 	public function ToXml()
 	{
@@ -73,7 +73,7 @@ class WxPayDataBase
     /**
      * 将xml转为array
      * @param string $xml
-     * @throws WxPayException
+     * @throws class
      */
 	public function FromXml($xml)
 	{	
@@ -197,7 +197,7 @@ class WxPayResults extends WxPayDataBase
     /**
      * 将xml转为array
      * @param string $xml
-     * @throws WxPayException
+     * @throws class
      */
 	public static function Init($xml)
 	{	

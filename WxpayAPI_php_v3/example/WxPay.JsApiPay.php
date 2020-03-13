@@ -59,7 +59,7 @@ class JsApiPay
 	 * 
 	 * 获取jsapi支付的参数
 	 * @param array $UnifiedOrderResult 统一支付接口返回的数据
-	 * @throws WxPayException
+	 * @throws class
 	 * 
 	 * @return json数据，可直接填入js函数作为参数
 	 */

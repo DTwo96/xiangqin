@@ -1,8 +1,10 @@
 <h3><eq name='type' value='1'>购买vip<else/>充值</eq>设置 </h3>
 <admin:panel >
-<div class="m-table-tool f-cb">
-              <a  href="{:U('saveCredit',array('type'=>$_GET['type']))}" class="u-btn u-btn-primary  u-btn-small">添加设置</a>
-            </div>
+  <if condition="!type">
+    <div class="m-table-tool f-cb">
+      <a  href="{:U('saveCredit',array('type'=>$_GET['type']))}" class="u-btn u-btn-primary  u-btn-small">添加设置</a>
+    </div>
+  </if>
   <if condition="!$type">
   <admin:table id="table" show="选择|30,编号|30,充值钱数,赠送钱数,操作|250">
     <foreach name="list" item="vo">
@@ -14,26 +16,22 @@
         <td>{$vo.money}</td>
         <td>{$vo.zmoney}</td>       
         <td>
-        <a class="u-btn u-btn-primary  u-btn-small" href="{:U('saveCredit',array('id'=>$vo['id'],'type'=>$type))}">修改</a>      
+        <a class="u-btn u-btn-primary  u-btn-small" href="{:U('saveCredit',array('id'=>$vo['id'],'type'=>$type))}">修改</a>
 		 <a class="u-btn u-btn-danger  u-btn-small del" href="javascript:;" data="{$vo.id}">删除</a>
 		</td>
       </tr>
     </foreach>
   </admin:table>
   <else/>
-   <admin:table id="table" show="选择|30,编号|30,vip天数,原价,现价,操作|250">
+   <admin:table id="table" show="编号|30,时长,价格,操作|250">
     <foreach name="list" item="vo">
       <tr>
-        <td>
-        	<input type="checkbox" name="id[]" value="{$vo.id}" />
-        </td>
         <td>{$vo.id}</td>
-        <td>{$vo.day}</td>
-        <td>{$vo.original}</td>
-         <td>{$vo.price}</td>       
+        <td>{$vo.description}</td>
+        <td>{$vo.price}</td>
         <td>
         <a class="u-btn u-btn-primary  u-btn-small" href="{:U('saveCredit',array('id'=>$vo['id'],'type'=>$type))}">修改</a>      
-		 <a class="u-btn u-btn-danger  u-btn-small del" href="javascript:;" data="{$vo.id}">删除</a>
+		 <!--<a class="u-btn u-btn-danger  u-btn-small del" href="javascript:;" data="{$vo.id}">删除</a>-->
 		</td>
       </tr>
     </foreach>

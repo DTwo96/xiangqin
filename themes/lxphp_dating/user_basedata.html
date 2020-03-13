@@ -10,7 +10,7 @@
 		<meta name="format-detection" content="telephone=no">
 		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 		<title>{$media.title}</title>
-		<link rel="stylesheet" type="text/css" href="css/css.css">
+		<link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 	
     <script src="js/time/mobiscroll_002.js" type="text/javascript"></script>
@@ -27,6 +27,34 @@
               position: fixed;
               top: 0px;
                 }
+	   .long-item {
+		   position: relative;
+	   }
+	   .long-item textarea {
+		   clear: both;
+		   display: block;
+		   border-color: #e2e2e2;
+		   border-radius: 4px;
+		   width: 94%;
+		   margin-top: 30px;
+		   padding: 10px;
+	   }
+		.long-item .num-block {
+			position: absolute;
+			right: 4px;
+			bottom: 18px;
+			font-size: 14px;
+		}
+	   .long-item img {
+		   width: 14px;
+	   }
+	.cb-item input:not([type="checkbox"]){
+		width: 60% !important;
+	}
+	.cb-item-checkbox {
+		float: right !important;
+		margin-right: 40px !important;
+	}
   </style>
 
 
@@ -48,13 +76,35 @@
 				<div class="jibenziliao">
 					<ul>
 						<li>
-							<div>昵称</div>
-							<input type="text" name="user_nicename" value="{$base.user_nicename}" placeholder="禁止使用非法昵称（5字以内）" class="jibenziliao_input" style="width:65%">
+							<div>账号</div>
+							<input type="text" name="user_number" readonly value="{$base.user_number}" placeholder="请填写用户名" class="jibenziliao_input" style="width:65%">
 							<!--{if condition="$base['open']"}--><em style="color: red;" >({$base.open})</em><!--{/if}-->
 						</li>
-						<li><div>性别</div><span class="dede"><i data="2" <!--{if condition="$base['sex'] eq 2"}-->class="sheng"<!--{/if}--> ></i>女生&nbsp;&nbsp;<i data="1" <!--{if condition="$base['sex'] eq 1"}-->class="sheng"<!--{/if}--> ></i> 男生 </span>（如需修改，请联系客服）</li>
+						<li>
+							<div>真实姓名</div>
+							<input type="text" name="real_name" value="{$base.real_name}" placeholder="请填写真实姓名" class="jibenziliao_input" style="width:65%">
+						</li>
+						<li><div>性别</div><span class="dede">男生<i style="margin-right: 40px;" data="1" <!--{if condition="$base['sex'] eq 1"}-->class="sheng"<!--{/if}--> ></i> 女生<i data="2" <!--{if condition="$base['sex'] eq 2"}-->class="sheng"<!--{/if}--> ></i></span>（如需修改，请联系客服）</li>
 						<input name="sex" type="hidden" id="sex" value="{$base.sex}" />
 						<!--<li><div>年龄</div><input type="text" name="age" value="{$base.age}" placeholder="请填写您的年龄" class="jibenziliao_input"></li>-->
+						<li class="cb-item"><div>QQ号</div>
+							<input class="jibenziliao_input" placeholder="请填写QQ号，没有可以选择无" style="width: 60px;" type="number" name="qq" value="{$base['qq']}">
+							<div class="cb-item-checkbox">
+								无 <input type="checkbox" class="c-btn" value="">
+							</div>
+						</li>
+						<li class="cb-item"><div>邮箱号</div>
+							<input class="jibenziliao_input" placeholder="请填写邮箱号，没有可以选择无" style="width: 60px;" type="text" name="email" value="{$base['email']}">
+							<div class="cb-item-checkbox">
+								无 <input type="checkbox" class="c-btn" value="">
+							</div>
+						</li>
+						<li class="cb-item"><div>微博号</div>
+							<input class="jibenziliao_input" placeholder="请填写微博号，没有可以选择无" style="width: 60px;" type="text" name="weibo" value="{$base['weibo']}">
+							<div class="cb-item-checkbox">
+								无 <input type="checkbox" class="c-btn" value="">
+							</div>
+						</li>
 						<li><div>星座</div>
 							<select name="astro" class="astro" >
 								<option value="0" >请选择</option>
@@ -99,24 +149,52 @@
 								<!--{/foreach}-->
 							</select>
 						</li>
+						<li class="cb-item"><div>大学</div>
+							<input class="jibenziliao_input" placeholder="请填写大学，没有可以选择无" style="width: 60px;" type="text" name="university" value="{$base['university']}">
+							<div class="cb-item-checkbox">
+								无 <input type="checkbox" class="c-btn" data-type="university" value="">
+							</div>
+						</li>
+						<li class="cb-item">
+							<div>工作</div>
+							<input type="text" name="work" value="{$base.work}" placeholder="请填写工作，没有可以选择无" class="jibenziliao_input" style="width:65%">
+							<div class="cb-item-checkbox">
+								无 <input type="checkbox"  class="c-btn" data-type="work" value="">
+							</div>
+						</li>
 						<li><div>月收入</div>
 							<input class="jibenziliao_input" style="width: 60px;" type="text" name="month_income" value="{$base['month_income']}"> 元
 						</li>
 						<!--{foreach name="profile" key="key" item="val"}-->
-						<li>
-						   <div>{$val.name}</div>
-							<select name="{$key}" class="{$key}" >
-								<option value="0" >请选择</option>
-								<!--{foreach name="val.info" key="k" item="vo" }-->
-			 		        		<option value="{$k}" <!--{if condition="$base[$key]==$k"}-->selected<!--{/if}--> >{$vo}</option> 				 		        		
-			 		       		<!--{/foreach}--> 
-			 		   		</select>
+							<!--{if condition="!in_array($key,['code2','code3'])"}-->
+								<li>
+									<div>{$val.name}</div>
+									<select name="{$key}" class="{$key}" >
+										<option value="0" >请选择</option>
+										<!--{foreach name="val.info" key="k" item="vo" }-->
+										<option value="{$k}" <!--{if condition="$base[$key]==$k"}-->selected<!--{/if}--> >{$vo}</option>
+										<!--{/foreach}-->
+									</select>
+								</li>
+							<!--{/if}-->
+						<!--{/foreach}-->
+						<li class="xqah long-item"><div>兴趣爱好</div>
+							<textarea name="hobby" cols="45" rows="5" onkeyup="words_deal(2);" placeholder="添加兴趣爱好，不超过100个字…">{$base['hobby']}</textarea>
+							<div class="num-block">
+								<span class="textCount hobby-t-cnt">100</span>
+							</div>
 						</li>
-						
-						<!--{/foreach}--> 
-						
-				         	
-								       
+						<li class="lxdb long-item">
+							<div>内心独白</div>
+							<textarea name="monolog" cols="45" rows="5" onkeyup="words_deal(1);" placeholder="添加内心独白，不超过300个字…">{$base['monolog']}</textarea>
+							<div class="num-block">
+								<span class="textCount monolog-t-cnt">300</span><img src="images/suiji.png" class="suiji" id="get-suiji">
+							</div>
+						</li>
+
+
+
+
 					</ul>
 				</div>
 				<input type="button" value="保存" class="jichubaoc"  >
@@ -150,8 +228,53 @@
 							$("#cityid").html(html);
 						}			
 					},'json');			
-				})	
-			})			
+				})
+
+				$('#get-suiji').on('click',function () {
+				    var self = $(this);
+                    $.post('{:U("getSjTitle")}',{type:2},function(data){
+                        if(data.status == 1){
+							self.parent().siblings('textarea').val(data.info);
+                            words_deal(1);
+                        }
+                    },'json');
+                });
+
+				$('.c-btn').on('click',function () {
+					var type = $(this).data('type');
+					if ($(this).prop('checked')) {
+					    $(this).parent().siblings().val('');
+					}
+                });
+                $('.cb-item input:not([type="checkbox"])').on('click',function () {
+                    $(this).parent().find('.c-btn').prop('checked',false);
+                });
+			})
+            function words_deal(type) {
+                if (type == 1) { //内心独白
+                    var el        = $("[name='monolog']"),
+                        curLength = el.val().length;
+
+                    if (curLength > 300) {
+                        var num = el.val().substr(0, 300);
+                        el.val(num);
+                        alertmsg("超过字数限制，多出的字将被截断！");
+                    } else {
+                        $(".monolog-t-cnt").text(300 - curLength);
+                    }
+                } else { //兴趣爱好
+                    var el        = $("[name='hobby']"),
+                        curLength = el.val().length;
+
+                    if (curLength > 100) {
+                        var num = el.val().substr(0, 100);
+                        el.val(num);
+                        alertmsg("超过字数限制，多出的字将被截断！");
+                    } else {
+                        $(".hobby-t-cnt").text(100 - curLength);
+                    }
+                }
+            }
 		</script>
 		
 		
@@ -185,12 +308,19 @@
 					var education = $("[name='education']").val();
 					var height    = $("[name='height']").val();
 					var month_income = $("[name='month_income']").val();
-
+					var real_name = $('[name="real_name"]').val();
+					var work      = $('[name="work"]').val();
+					var university = $('[name="university"]').val();
+                    var hobby     = $('[name="hobby"]').val();
+                    var monolog     = $('[name="monolog"]').val();
+                    var qq        = $('[name="qq"]').val();
+                    var weibo     = $('[name="weibo"]').val();
+                    var email     = $('[name="email"]').val();
 					
 					$.ajax({
 						type:"post",
 						url:"{:U()}",
-						data:{education:education,height:height,month_income:month_income,uid:uid,user_nicename:user_nicename,sex:sex,astro:astro,birthday:birthday,provinceid:provinceid,cityid:cityid,code1:code1,code2:code2,code3:code3,code4:code4},
+						data:{qq:qq,weibo:weibo,email:email,hobby:hobby,monolog:monolog,university:university,work:work,real_name:real_name,education:education,height:height,month_income:month_income,uid:uid,user_nicename:user_nicename,sex:sex,astro:astro,birthday:birthday,provinceid:provinceid,cityid:cityid,code1:code1,code2:code2,code3:code3,code4:code4},
 						dataType: "json",
 						success:function(msg){
 							if( msg.type == 3 ){

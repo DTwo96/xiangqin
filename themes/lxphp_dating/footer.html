@@ -9,7 +9,7 @@
           <a href="{:U('Home/Index/hot')}" class="index_footer_c <?php if($nav=='Dongtai'){ ?> hot<?php } ?>">动态</a>-->
            <a href="{:U('Home/Article/index',array('type' => 1))}" class="f-article <?php if($nav== 1){ ?>f-active<?php } ?>">
                <p><i class="iconfont iconnavicon-wzgl"></i></p>
-               <p>文章</p>
+               <p style="font-size: 12px;">文章</p>
            </a>
            <a href="{:U('Home/Article/index',array('type' => 2))}" class="index_footer_c <?php if($nav == 2){ ?> hot<?php } ?>">活动</a>
           <a href="{:U('Home/User/index')}" class="index_footer_d <?php if($nav=='User'){ ?> hot<?php } ?>">我的</a>
@@ -76,7 +76,6 @@ $(function(){
 		}
 	},'json')
  })
- 
 })
 
 
@@ -104,7 +103,8 @@ $(function(){
 	},'json')
 	
   }
-  
+
+
   function dozan(o,pid){
 	$.post("{:U('Ajax/clickzan')}",{pid:pid},function(data){
 		if(data.status==1){

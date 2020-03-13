@@ -134,7 +134,7 @@ h1   { font-size: 24px;}
 	font-family: 幼圆;
 }
 .zhuce_a p:nth-child(1) img {
-	width: 60px;
+	width: 100px;
 	/*padding-right: 3px;*/
 	    border-radius: 50%;
 
@@ -569,7 +569,7 @@ h1   { font-size: 24px;}
 .uesr_zl4p a {
 	font-size: 12px;
 	color: #f03b57;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 .uesr_table {
    position: absolute;
@@ -1892,6 +1892,7 @@ padding: 1px 6px;
 	position: relative;
 	top: 2px;
 	margin-right: 5px;
+	margin-left: 4px;
 }
 .jibenziliao ul li .dede i.sheng {
 	background:url(../images/xiaogou.png) no-repeat center center #F03B57;
@@ -3401,9 +3402,9 @@ padding: 4px;
 	padding: 0px 10px;
 	 word-break: break-all;
     word-wrap: break-word;
-	    text-align: justify;
+	    /*text-align: justify;*/
     text-justify: distribute-all-lines; 
-        white-space: pre;
+        /*white-space: pre;*/
 
 }
 .input_button {
@@ -5061,8 +5062,8 @@ animation-timing-function:cubic-bezier(0.175, .885, .32, 1)
 }
 .zhuce_b {
     margin: auto;
-    margin-top: 95px;
-    padding: 0px 20px;
+    margin-top: 80px;
+    padding: 0px 30px;
 }
 .yingdao_a {
     margin: auto;
@@ -5081,7 +5082,7 @@ animation-timing-function:cubic-bezier(0.175, .885, .32, 1)
     width: 25px;
 }
 .uesr_table table td {
-    width: 24%;
+    width: 32%;
     border: none;
     text-align: center;
     display: block;

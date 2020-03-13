@@ -1,0 +1,148 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
+    <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
+    <title>{$media.title}</title>
+    <style type="text/css">
+        body,.mui-content {
+            background-color: #fff;
+        }
+        .mui-icon-left-nav {
+            color: #000;
+        }
+        .avatar-block .avatar-item {
+            width: 33.33%;
+        }
+        .avatar-item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+        .icon {
+            font-size: 40px;
+            color: #e2e2e2;
+        }
+        .avatar-item-img img{
+            width: 100%;
+            height: 100%;
+        }
+        .sub-btn {
+            width: 100%;
+            line-height: 1.8;
+            background-color: #f03b57;
+        }
+        .notice {
+            margin:20px 0px 10px 0px;
+        }
+        .notice p {
+            margin-bottom: 2px;
+        }
+        .icon-item{
+            text-align: center;
+            padding-top: 30px;
+        }
+        .avatar-item-img:nth-child(1) {
+            margin-left: 20px;
+        }
+        .avatar-item-img:nth-last-child(1) {
+            margin-right: 20px;
+        }
+        .tx-item {
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .tx-item p{
+            line-height: 80px;
+            color: #666;
+        }
+        .bind-block {
+            padding-top: 40px;
+            margin-bottom: 40px;
+        }
+        .bind-block p {
+            text-align: center;
+            color: #07c160;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .bind-block i {
+            font-size: 60px;
+            vertical-align: middle;
+            font-weight: normal;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="mui-bar mui-bar-nav">
+    <a href="" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-btn"></a>
+    <h1 class="mui-title">绑定微信</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+        <!--{if condition="$wxUserInfo['bind_status'] eq 1"}-->
+        <div class="bind-block">
+            <p><i class="iconfont icondagou"></i>您已绑定</p>
+        </div>
+        <!--{else /}-->
+        <div class="avatar-block mui-clearfix">
+            <div class="avatar-item mui-pull-left">
+                <div class="avatar-item-img">
+                    <img src="{$wxUserInfo.headimgurl|default=''}" alt="">
+                </div>
+            </div>
+            <div class="avatar-item icon-item mui-pull-left">
+                <i class="iconfont iconzhuanhuan1 icon"></i>
+            </div>
+            <div class="avatar-item mui-pull-left">
+                <div class="avatar-item-img mui-pull-right tx-item">
+                    <img src="<?php echo C('site_logo');?>" alt="">
+                </div>
+            </div>
+        </div>
+        <!--{/if}-->
+        <div class="notice">
+            <!--{if condition="$wxUserInfo['bind_status'] eq 1"}-->
+                <p>您可以享受以下特权</p>
+            <!--{else /}-->
+                <p>绑定后您可以享受以下特权</p>
+            <!--{/if}-->
+            <p>1.购买VIP服务</p>
+            <p>2.微信一键登录</p>
+        </div>
+        <!--{if condition="$wxUserInfo['bind_status'] neq 1"}-->
+            <button type="button" class="mui-btn mui-btn-danger sub-btn">立即绑定</button>
+        <!--{/if}-->
+    </div>
+</div>
+
+<script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
+<script>
+    var url   = '{:U("ajax/wechat_bind")}';
+    var param = JSON.parse('<?php echo json_encode($wxUserInfo);?>');
+    $(function () {
+        mui.init();
+        //立即绑定
+        $('.sub-btn').on('click',function () {
+            $.post(url,param,function (res) {
+                if (res.status) {
+                    mui.toast(res.info);
+                    setTimeout(function () {
+                        history.back(-1);
+                    },1000);
+                } else {
+                    mui.toast(res.info);
+                }
+            },'json');
+        });
+    });
+</script>
+</body>
+</html>

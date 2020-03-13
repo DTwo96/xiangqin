@@ -18,7 +18,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayUnifiedOrder $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	 
@@ -73,7 +73,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayOrderQuery $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function orderQuery($inputObj, $timeOut = 6)
@@ -104,7 +104,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayCloseOrder $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function closeOrder($inputObj, $timeOut = 6)
@@ -136,7 +136,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayRefund $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function refund($inputObj, $timeOut = 6)
@@ -181,7 +181,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayRefundQuery $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function refundQuery($inputObj, $timeOut = 6)
@@ -214,7 +214,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayDownloadBill $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function downloadBill($inputObj, $timeOut = 6)
@@ -283,7 +283,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayReverse $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 */
 	public static function reverse($inputObj, $timeOut = 6)
 	{
@@ -315,7 +315,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayReport $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function report($inputObj, $timeOut = 1)
@@ -353,7 +353,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayBizPayUrl $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function bizpayurl($inputObj, $timeOut = 6)
@@ -380,7 +380,7 @@ class WxPayApi
 	 * appid、mchid、spbill_create_ip、nonce_str不需要填入
 	 * @param WxPayShortUrl $inputObj
 	 * @param int $timeOut
-	 * @throws WxPayException
+	 * @throws class
 	 * @return 成功时返回，其他抛异常
 	 */
 	public static function shorturl($inputObj, $timeOut = 6)
@@ -525,7 +525,7 @@ class WxPayApi
 	 * @param string $url  url
 	 * @param bool $useCert 是否需要证书，默认不需要
 	 * @param int $second   url执行超时时间，默认30s
-	 * @throws WxPayException
+	 * @throws class
 	 */
 	 
 	private static function getcurl($url=''){

@@ -16,6 +16,9 @@ class ArticleController extends SiteController {
         //标题
         $navTitle = $type == 1 ? '情感文章' : ($type == 2 ? '线下活动' : '招商合作');
 
+        $num = M('Article')->where(['type' => $type])->count();
+
+        $this->assign('num',$num);
         $this->assign('navTitle',$navTitle);
         $this->assign('media', $this->getMedia($navTitle));
         $this->assign('type',$type);

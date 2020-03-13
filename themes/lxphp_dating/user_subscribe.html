@@ -51,7 +51,7 @@
 					<!--{else /}-->	
 	          <!--{foreach name="list" item="vo" }-->
 	           	<li class="cb" onclick="window.location.href='{:U('Show/index', array('uid' => $vo['idmd5']))}'">
-	             	<div class="fl"><img src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""></div>
+	             	<div class="fl"><img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""></div>
 	             	<div class="fl" style="margin-top: 3px;">
 	             	
 		             	<!--{if condition="$vo['vip']['user_rank'] gt 0"}-->   
@@ -61,13 +61,13 @@
 		              <!--{/if}-->
 		               
 		              <p class="wodefenxi_b">{$vo.age}岁 {$vo.province_name|default='未知'}{$vo.city_name} {$vo.astro}              
-			              <span>	              	
-				              <!--{if condition="$vo['sex'] eq 2"}-->
+			              <!--<span>
+				              &lt;!&ndash;{if condition="$vo['sex'] eq 2"}&ndash;&gt;
 				               	<img src="images/meilizhi_02.png" alt=""><i class="meili">{$vo.jifen|default='0'}</i>
-				              <!--{else/}-->
+				              &lt;!&ndash;{else/}&ndash;&gt;
 				              	<img src="images/caifuzhi.png" alt=""  class="caifu_img"><i class="caifu">{$vo.jifen|default='0'}</i>
-				              <!--{/if}-->
-			              </span>
+				              &lt;!&ndash;{/if}&ndash;&gt;
+			              </span>-->
 		              </p>
 		              <p class="wodefenxi_c">{$vo.monolog}</p>
 	            	</div>
@@ -138,7 +138,8 @@ var totalheight = 0;
 								 var jifen = '<span><img src="images/meilizhi_02.png"alt=""><i class="meili">'+val.jifen+'</i></span>';	
 								}else{
 								 var jifen = '<span><img src="images/caifuzhi.png"alt=""><i class="caifu">'+val.jifen+'</i></span>';	
-								}								
+								}
+
 								body = '<li class="cb"><div class="fl"><img src="'+avatar+'"></div><div class="fl">'+user_html+'<p class="wodefenxi_b">'+val.age+'岁'+province_name+val.city_name+val.astro+jifen+'</p><p class="wodefenxi_c">'+val.monolog+'</p></div></li>';
 								main.append(body);							
 															

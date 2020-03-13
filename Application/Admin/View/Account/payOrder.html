@@ -1,0 +1,61 @@
+<h3>{$name}</h3>
+<admin:panel >	
+	<admin:tabletool filter="true" keyword="{$param.keyword}">
+		<input type="hidden" name="keyword" value="{$param.keyword}" />
+																<!--支付平台:  1.微信  2.支付宝-->
+		<admin:select name="code"  item="==支付平台==,微信,支付宝" value="0,1,2" selected="$param['code']" />
+																<!--充值状态:  1.成功   2.审核   0.失败   4.超时-->
+  		<admin:select name="status"  item="==支付状态==,已关闭,未支付,已支付" value="99,-1,0,1" selected="$status" />
+  																<!--充值类型:  1.购买vip 2.充值-->
+  	</admin:tabletool>
+	
+	
+	<admin:table id="table" show="编号,用户id,c_id,原价,折扣价,时长,订单号,支付金额,支付平台,订单内容,支付状态,创建时间" class="m-table-border">
+		<foreach name="list" item="vo">
+			<tr>	
+				<td>{$vo.id}</td>
+				<td>{$vo.userid}</td>
+				<td>{$vo.c_id}</td>
+                <td>{$vo.original}</td>
+				<!--<td><if condition="$vo['sex'] eq 1" >男<elseif condition="$vo['sex'] eq 2" />女</if></td>-->
+				<td>{$vo.price}</td>
+				<td>{$vo.day}天</td>
+				<td>{$vo.trade_sn}</td>
+				<td>{$vo.total_fee}</td>
+				<td>{$vo.code}</td>
+				<td>{$vo.subject}</td>
+				<td>
+					<if condition="$vo['status'] eq 1" >
+						已支付
+					<elseif condition="$vo['payfrom'] eq -1" />
+						已关闭
+					<else />
+						未支付
+					</if>
+				</td>
+				<td>{$vo.input_time|date="Y-m-d H:i:s",###}</td>
+			</tr>
+		</foreach>
+	</admin:table >
+	<admin:tablefoot />
+</admin:panel>
+
+
+<script>
+	Do.ready('base',function() {
+		//左下角的选择操作      
+		$('#selectAction').change(function() {
+			var type = $(this).val();
+		});
+		
+		$('#table').duxTable({
+//			actionUrl: "{:U('Admin/Audit/batchAction')}", //批量操作
+			deleteUrl: "{:U('')}", //单条删除
+			actionParameter: function() {
+				return {
+					'class_id': $('#selectAction').next('#class_id').val()
+				};
+			}
+		});
+	});
+</script>

@@ -16,6 +16,8 @@
 			var w = $(window).width();
 			var h = $(window).height();
 			var id = '{$info.photoid}';
+			var source = '{$source}';
+			var set_uid = '{$set_uid}';
 			var uploadfiles = '{$info.uploadfiles}';
 			$('.cutbox').crop({
 				w:w>h?h:w,
@@ -23,7 +25,7 @@
 				r:(w-30)*0.5,
 				res:'{$info.uploadfiles}',
 				callback:function(ret){
-					$.post('{:U()}',{ret:ret,id:id,uploadfiles:uploadfiles},function(data){
+					$.post('{:U()}',{ret:ret,id:id,source:source,set_uid:set_uid,uploadfiles:uploadfiles},function(data){
 					       if(data.status==1){					    	 
 					    	   window.location.href=data.url;
 					       }

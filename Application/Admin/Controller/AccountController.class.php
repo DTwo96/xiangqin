@@ -1,6 +1,8 @@
 <?php
 namespace Admin\Controller;
 use Admin\Controller\AdminController;
+use Think\Page;
+
 /**
  * 积分余额管理
  */
@@ -84,7 +86,21 @@ class AccountController extends AdminController{
                     ),
                 ),
             );
-		}
+		}else if (U() == U('payOrder')) {
+            $data = array(
+                'info' => array(
+                    'name' => '订单管理',
+                    'description' => '管理用户的订单',
+                ),
+                'menu' => array(
+                    array(
+                        'name' => '订单列表',
+                        'url' => U('Admin/Account/payOrder'),
+                        'icon' => 'list',
+                    ),
+                ),
+            );
+        }
         return $data;
     }
     /**
@@ -140,6 +156,66 @@ class AccountController extends AdminController{
 		$this -> assign('list',$list);
 		$this -> assign('breadCrumb',$breadCrumb);		
 		$this -> adminDisplay("account");
+    }
+    /**
+     * 支付订单管理
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/3
+     * @time：19:43
+     */
+    public function payOrder()
+    {
+        $breadCrumb = array('订单管理' => U());//面包屑
+
+        $param  = I('');
+        $page   = I('p',1);
+        $limit  = I('limit',10);
+        $status = I('status',99);//订单状态
+        $where  = [];
+
+        $order_by = 'o.id desc';
+
+        //搜索关键字
+        if(!empty($param['keyword'])){
+            $keyword = trim($param['keyword']);
+            $where['_string'] = 'o.userid = '.$keyword.' or o.trade_sn = "'.$keyword.'"'; //可以搜索订单号和uid
+        }
+        //支付平台
+        if (!empty($param['code'])) {
+            $where['o.code'] = $param['code'] == 1 ? 'wechat' : ($param['code'] == 2 ? 'alipay' : '');
+        }
+        //支付状态
+        if (is_numeric($status) && $status != 99) {
+            $where['o.status'] = $status;
+        }
+
+        $list = M('payOrder')
+                ->alias('o')
+                ->join('lx_upgrade_vip_log v on o.id = v.order_id')
+                ->order($order_by)
+                ->where($where)
+                ->page($page,$limit)
+                ->select();
+
+        $count = M('payOrder')
+                ->alias('o')
+                ->join('lx_upgrade_vip_log v on o.id = v.order_id')
+                ->where($where)
+                ->count();
+
+        $pager = new \Think\Page($count,$limit);
+        $pager->parameter = $param;
+        $show  = $pager->show();
+
+        $this->assign('status',$status);
+        $this->assign('param',$param);
+        $this->assign('page',$show);
+        $this->assign('list',$list);
+        $this->assign('name','订单列表');
+        $this->assign('breadCrumb',$breadCrumb);
+
+        $this -> adminDisplay("payOrder");
     }
 	 /**
      * 增加

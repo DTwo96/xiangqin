@@ -252,22 +252,36 @@ class AjaxController extends SiteController {
 
             if (empty($param['sex'])) $this->error('请选择性别');
             if (empty($param['age'])) $this->error('请填写年龄');
+            if (empty($param['weixin'])) $this->error('请填写微信');
 
-            $info  = D("Users")->where(['id' => (int)$param['userid']])->field('id')->find();
+            $info  = D("Users")->where(['id' => (int)$param['userid']])->field('id,avatar')->find();
 
             if (!$info) $this->error('没有此用户信息');
 
+            if (empty($info['avatar'])) {
+                $this->error('请上传头像');
+            }
+
             $pre = [];
             $map = [];
+
+            $year = date('Y',time());
+
+            $age = $year - $param['age'];
+            if ($age > $year - 18) {
+                $this->error('年龄需满18岁或以上');
+            }
             //更新副表数据
             $pre['height']   = $param['height'];
             $pre['code4']    = $param['code4'];
             $pre['birthday'] = $param['birthday'];
+            $pre['weixin']   = $param['weixin'];
             //更新主表数据
-            $map['age']          = $param['age'];
+            $map['age']          = $age;
             $map['month_income'] = $param['month_income'];
             $map['education']    = $param['education'];
             $map['sex']          = $param['sex'];
+            $map['user_number']  = D('home/Users')->getUserNumber($param['userid'],$map['sex']);
 
             M()->startTrans();
 
@@ -316,7 +330,7 @@ class AjaxController extends SiteController {
 
 		S("logtimes".$mob,$temp,86400);
 
-		if($temp>=20) $this->error("今日登陆请求超过20次，已被禁止登陆，请明日再试。");
+		//if($temp>=20) $this->error("今日登陆请求超过20次，已被禁止登陆，请明日再试。");
         //检查用户输入的手机号码或者昵称是否存在
 		$re = M("Users")->where($w)->find();
 
@@ -496,65 +510,93 @@ class AjaxController extends SiteController {
 
 		$fromuid = I("post.fromuid",'','intval');
 
-		if($adminuid>0 && $fromuid)//客服接入		
+		$status = I("post.status");
 
-		$uid = $fromuid;
+        $User_subscribe = M("User_subscribe");
 
-		else{
+		if ($status == 0) {//取消关注
+            if (!$this->uinfo) {
+                $this->error('请先登录!');
+            }
 
-			if($msg = $this->checkbasedata()) $this->error($msg);
+            $where = [];
+            $where['fromuid'] = $this->uinfo['id'];
+            $where['touid']   = $tuid;
 
-			$uid=$this->uinfo['id'];
+            $id = $User_subscribe->where($where)->getField('id');
+            if (!$id) {
+                $this->error('您还没有关注对方');
+            }
+            //关注人数 -1
+            M('UserCount')->where(['uid' => $tuid])->setDec('fansnum');
 
-		}				
+            $rs = $User_subscribe->delete($id);
 
-		if($tuid==$uid)$this->error("自己不能关注自己");
+            if ($rs) {
+                $this->success('SUCCESS');
+            }
+        } else {
 
-		if($uid&&$tuid){
+            if($adminuid>0 && $fromuid)//客服接入
 
-			$User_subscribe = M("User_subscribe");
+                $uid = $fromuid;
 
-			$data2['touid']=$data['fromuid']=$uid;
+            else{
 
-			$data2['fromuid']=$data['touid']=$tuid;
+                if($msg = $this->checkbasedata()) $this->error($msg);
 
-			$re = $User_subscribe->where($data)->find();			
+                $uid=$this->uinfo['id'];
 
-			if($re){				
+            }
 
-				  $this->success("已关注");
+            if($tuid==$uid)$this->error("自己不能关注自己");
 
-				}  
+            if($uid&&$tuid){
 
-			$data['time']=time();
+                $data2['touid']=$data['fromuid']=$uid;
 
-			$re2 = $User_subscribe->add($data);
+                $data2['fromuid']=$data['touid']=$tuid;
 
-			if($re2){
+                $re = $User_subscribe->where($data)->find();
 
-				$re3 = $User_subscribe->where($data2)->find();
+                if($re){
 
-				if($re3){//相互关注				
+                    $this->success("已关注");
 
-					$this->changeqinmidu($tuid,$uid,C('qmd_qi'),1,'相互关注',1);
+                }
 
-				}
+                $data['time']=time();
 
-				$this->changejifen(C('gz_jifen_nv'),4,'被关注获得',$tuid,0,$uid);
+                $re2 = $User_subscribe->add($data);
 
-				$tongji['gznum']=1;
+                if($re2){
 
-				$tongji['fansnum']=1;
+                    $re3 = $User_subscribe->where($data2)->find();
 
-				$tongji['wdgznum']=1;
+                    if($re3){//相互关注
 
-				$this->tongjiarr($tuid,$tongji);				
+                        $this->changeqinmidu($tuid,$uid,C('qmd_qi'),1,'相互关注',1);
 
-				$this->success("已关注",'real');
+                    }
 
-				}			
+                    $this->changejifen(C('gz_jifen_nv'),4,'被关注获得',$tuid,0,$uid);
 
-		}
+                    $tongji['gznum']=1;
+
+                    $tongji['fansnum']=1;
+
+                    $tongji['wdgznum']=1;
+
+                    $this->tongjiarr($tuid,$tongji);
+
+                    $this->success("已关注",'real');
+
+                }
+
+            }
+        }
+
+
 
 		$this->error("err");
 
@@ -1374,6 +1416,193 @@ class AjaxController extends SiteController {
         }
 	}
     /**
+     * 获取会员列表
+     * @param int $page 当前页数
+     * @param int $limit 显示的数据条数
+     * @param string $time 获取最新数据的时候用到
+     * @param array $param 查询参数
+     * @return array
+     * @author：Enthusiasm
+     * @date：2020/2/5
+     * @time：12:31
+     */
+    public function getUserLists()
+    {
+        $res = array();
+
+        if (IS_POST) {
+
+            $page   = I('page',1);
+            $limit  = I('limit',10);
+            $time   = I('time');
+            $param  = I('post.');
+
+            $where  = A('Index')->getSearchWhere($param);
+
+            $order_by = 'type desc,last_login_time desc,id desc';
+
+            if ($time == 'now') { //获取最新数据
+
+                $where['u.update_time'] = array('egt',time());
+
+                $lists = M('Users')
+                          ->alias('u')
+                          ->join('lx_user_profile p on p.uid = u.id')
+                          ->where($where)
+                          ->order($order_by)
+                          ->field('idmd5,avatar,user_nicename,sex,user_number')
+                          ->page($page,$limit)
+                          ->select();
+
+                foreach ($lists as $k => $v) {
+                    $lists[$k]['show_url'] = U("Show/index", array("uid" => $v['idmd5']));
+                    $lists[$k]['avatar']   = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
+                    $lists[$k]['user_number']  = !empty($v['user_number']) ? $v['user_number'] : '昵称未填';
+                    $lists[$k]['sex'] = $v['sex'] == 1 ? '男' : '女';
+                }
+
+                $res['status'] = 1;
+                $res['lists']  = !empty($lists) ? $lists : [];
+
+                return $this->ajaxReturn($res);
+            }
+
+            $cnt = M('Users')
+                    ->alias('u')
+                    ->join('lx_user_profile p on p.uid = u.id')
+                    ->where($where)
+                    ->count();
+
+            $pages = ceil($cnt/$limit);
+
+            $lists = M('Users')
+                        ->alias('u')
+                        ->join('lx_user_profile p on p.uid = u.id')
+                        ->where($where)
+                        ->field('idmd5,avatar,user_nicename,sex,user_number')
+                        ->order($order_by)
+                        ->page($page,$limit)
+                        ->select();
+
+            foreach ($lists as $k => $v) {
+                $lists[$k]['show_url'] = U("Show/index", array("uid" => $v['idmd5']));
+                $lists[$k]['avatar']   = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
+                $lists[$k]['user_number']  = !empty($v['user_number']) ? $v['user_number'] : '昵称未填';
+                $lists[$k]['sex'] = $v['sex'] == 1 ? '男' : '女';
+            }
+
+            $res['status'] = 1;
+            $res['lists']  = !empty($lists) ? $lists : [];
+            $res['hasNextPage'] = ($page > $pages) ? false : true;
+
+            $this->ajaxReturn($res);
+
+        } else {
+
+            $res['status'] = 0;
+            $res['lists']  = [];
+            $res['hasNextPage'] = false;
+
+            $this->ajaxReturn($res);
+        }
+    }
+    /**
+     * 获取查询的条件
+     * @param array $param 传递的参数
+     * @return array
+     * @author：Enthusiasm
+     * @date：2020/2/24
+     * @time：15:36
+     */
+    public function getUserWhere($param = [])
+    {
+        $where = [];
+
+        //身高
+        if (!empty($param['height'])) {
+            switch ($param['height']) {
+                case 1:
+                    $where['p.height'] = ['between','130,140'];
+                    break;
+                case 2:
+                    $where['p.height'] = ['between','141,150'];
+                    break;
+                case 3:
+                    $where['p.height'] = ['between','151,160'];
+                    break;
+                case 4:
+                    $where['p.height'] = ['between','161,170'];
+                    break;
+                case 5:
+                    $where['p.height'] = ['between','171,180'];
+                    break;
+                case 6:
+                    $where['p.height'] = ['between','181,190'];
+                    break;
+                case 7:
+                    $where['p.height'] = ['gt',190];
+                    break;
+            }
+
+        }
+        //年龄
+        if (!empty($param['age'])) {
+
+            $s = date('Y',time());
+
+            switch ($param['age']) {
+                case 1:
+                    $where['_string'] = "age <= ".($s - 17)." and age >= ".($s-25);
+                    break;
+                case 2:
+                    $where['_string'] = "age <= ".($s - 26)." and age >= ".($s-30);
+                    break;
+                case 3:
+                    $where['_string'] = "age <= ".($s - 31)." and age >= ".($s-35);
+                    break;
+                case 4:
+                    $where['_string'] = "age <= ".($s - 36)." and age > ".($s-40);
+                    break;
+                case 5:
+                    $where['_string'] = "age <= ".($s - 41)." and age > ".($s-45);
+                    break;
+                case 6:
+                    $where['_string'] = "age <= ".($s - 46)." and age >= ".($s-50);
+                    break;
+                case 7:
+                    $where['age'] = array('lt',$s - 50);
+                    break;
+            }
+        }
+        //用户手机号或ID
+        if (!empty($param['keyword'])) {
+            $keyword = trim($param['keyword']);
+            $where['u.user_login'] = $keyword;
+            $where['u.id']         = $keyword;
+            $where['_logic']       = 'OR';
+        }
+        //学历
+        if (!empty($param['edu'])) {
+            $where['u.education'] = (int)$param['edu'];
+        }
+        //婚姻状况
+        if (!empty($param['love'])) {
+            $where['p.code4'] = (int)$param['love'];
+        }
+        //筛选地区
+        if (!empty($param['place'])) {
+            $where['u.provinceid'] = (int)$param['place'];
+        }
+        if (!empty($param['city'])) {
+            $where['u.cityid'] = (int)$param['city'];
+        }
+        if (!empty($param['sex'])) {
+            $where['u.sex'] = (int)$param['sex'];
+        }
+
+        return $where;
+    }
+    /**
      * 增加文章阅读人数
      * @return void
      * @author：Enthusiasm
@@ -1421,9 +1650,67 @@ class AjaxController extends SiteController {
 
 		cookie('newberenwu'.$uid,1,86400*365);
 
-	}	
+	}
+    /**
+     * 绑定微信
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/1
+     * @time：13:58
+     */
+    public function wechat_bind()
+    {
+        if (IS_POST) {
+            $param = I('post.');
 
-		
+            if (!$this->uinfo) {
+                $this->error('请先登录');
+            }
+            if (empty($param['openid'])) {
+                $this->error('参数错误');
+            }
 
+            $check = D('Home/UserOauth')->isBind($this->uinfo['id']);
+
+            if ($check) {
+                $this->error('该用户已绑定过微信');
+            }
+
+            $sqlMap = [];
+            $sqlMap['type']        = 'wechat';
+            $sqlMap['userid']      = $this->uinfo['id'];
+            $sqlMap['openid']      = $param['openid'];
+            $sqlMap['nickname']    = $param['nickname'];
+            $sqlMap['sex']         = $param['sex'];
+            $sqlMap['province']    = $param['province'];
+            $sqlMap['city']        = $param['city'];
+            $sqlMap['country']     = $param['country'];
+            $sqlMap['headimgurl']  = $param['headimgurl'];
+            $sqlMap['unionid']     = $param['unionid'];
+            $sqlMap['bind_time']   = time();
+            $sqlMap['bind_status'] = 1;
+
+            try {
+                M()->startTrans();
+
+                $res = [];
+
+                $res[1] = M('Users')->where(['id' => $this->uinfo['id']])->save(['weixin' => $param['openid']]);
+                $res[2] = M('UserOauth')->add($sqlMap);
+                foreach ($res as $v) {
+                    if (!$v) {
+                        M()->rollback();
+                        $this->error('绑定失败');
+                    }
+                }
+
+                M()->commit();
+                $this->success('绑定成功');
+            } catch (\Exception $e) {
+                M()->rollback();
+                $this->error('绑定失败');
+            }
+        }
+    }
 }
 

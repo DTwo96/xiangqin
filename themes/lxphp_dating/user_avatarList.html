@@ -28,7 +28,12 @@
   <!--#include file="app_share.html"-->
       <div class="siliao_header">
                设置头像
-         <a  href="{:U('User/Index')}" class="fl" id="ddd"><img src="images/zuojian.png"  style="width:11px;">返回</a>
+          <!--{if condition="cookie('set_uid')"}-->
+            <a  href="{:U('Public/setInformation',['userid' => cookie('set_uid')])}" class="fl" id="ddd"><img src="images/zuojian.png"  style="width:11px;">返回</a>
+          <!--{else /}-->
+            <a  href="{:U('User/Index')}" class="fl" id="ddd"><img src="images/zuojian.png"  style="width:11px;">返回</a>
+          <!--{/if}-->
+
          &nbsp;&nbsp;&nbsp;&nbsp;
          
          <a href="javascript:fileuploadshow();" class="fr wodexiangce_shizhi"><img src="images/jia.png"></a>

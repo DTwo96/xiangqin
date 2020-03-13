@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
+    <link rel="stylesheet" href="/Public/mui/plugin/picker/dist/css/mui.picker.min.css">
     <link rel="stylesheet" type="text/css" href="css/css.css">
     <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
     <title>{$media.title}</title>
@@ -35,6 +36,7 @@
             font-size: 14px;
             border: none !important;
             margin-left: 6px;
+            color: #000;
         }
         .search-btn {
             color: #fff;
@@ -83,6 +85,51 @@
             padding-top: 14px;
             padding-bottom: 14px;
         }
+        #offCanvasSideScroll .scope {
+            margin-right: 16px;
+            color: #c2c2c2;
+        }
+        #offCanvasSideScroll .sub-btn{
+            border-radius: 20px;
+            line-height: 1.8;
+            background-color: #f03b57;
+            width: 100%;
+        }
+        .div_taoxin {
+            z-index: 9;
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #E5E5E5;
+            border-radius: 2.5rem;
+        }
+        .img_taoxin {
+            margin-left: 0.4rem;
+            margin-top: 0.5rem;
+        }
+        .boxdiv {
+            border-radius: 0.8rem;
+            overflow-y: hidden;
+        }
+        .tip {
+            margin-top: 50%;
+            text-align: center;
+            font-size: 16px;
+        }
+        .tip i {
+            font-size: 24px;
+            vertical-align: middle;
+        }
+        .mui-bar-nav ~ .mui-content .mui-pull-top-pocket {
+            top: 68px;
+        }
+        /*>>>>>>>刷新容器<<<<<<*/
+        #pullrefresh {
+            height: 100%;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -97,34 +144,77 @@
                 </header>
                 <div class="mui-content">
                     <div class="slide-content" style="margin-top: 0px;">
-                        <form class="content">
+                        <form class="content" method="post" action="{:U('')}">
+                            <!--多条件筛选-->
+                            <input type="hidden" name="height" value="{$param['height']|default=''}">
+                            <input type="hidden" name="age"    value="{$param['age']|default=''}">
+                            <input type="hidden" name="edu"    value="{$param['edu']|default=''}">
+                            <input type="hidden" name="place"  value="{$param['place']|default=''}">
+                            <input type="hidden" name="love"   value="{$param['love']|default=''}">
+                            <input type="hidden" name="city"   value="{$param['city']|default=''}">
+
+                            <input type="hidden" name="height_value" value="{$param['height_value']|default=''}">
+                            <input type="hidden" name="age_value"    value="{$param['age_value']|default=''}">
+                            <input type="hidden" name="edu_value"    value="{$param['edu_value']|default=''}">
+                            <input type="hidden" name="place_value"  value="{$param['place_value']|default=''}">
+                            <input type="hidden" name="love_value"   value="{$param['love_value']|default=''}">
+                            <input type="hidden" name="city_value"   value="{$param['city_value']|default=''}">
+
+                            <input type="hidden" name="height_index" value="{$param['height_index']|default=''}">
+                            <input type="hidden" name="age_index"    value="{$param['age_index']|default=''}">
+                            <input type="hidden" name="edu_index"    value="{$param['edu_index']|default=''}">
+                            <input type="hidden" name="place_index"  value="{$param['place_index']|default=''}">
+                            <input type="hidden" name="love_index"   value="{$param['love_index']|default=''}">
+                            <input type="hidden" name="city_index"   value="{$param['city_index']|default=''}">
+
                             <ul class="mui-table-view">
-                                <li class="mui-table-view-cell">
+                                <li class="mui-table-view-cell btn" data-group="height">
                                     <a class="mui-navigate-right">
                                         身高
+                                        <span class="mui-pull-right scope" <?php if(!empty($param['height_value'])){ echo 'style="color:#000;"';}?>>
+                                            {$param['height_value']|default='不限'}
+                                        </span>
                                     </a>
                                 </li>
-                                <li class="mui-table-view-cell">
+                                <li class="mui-table-view-cell btn" data-group="age">
                                     <a class="mui-navigate-right">
                                         年龄
+                                        <span class="mui-pull-right scope" <?php if(!empty($param['age_value'])){ echo 'style="color:#000;"';}?>>
+                                            {$param['age_value']|default='不限'}
+                                        </span>
                                     </a>
                                 </li>
-                                <li class="mui-table-view-cell">
+                                <li class="mui-table-view-cell btn" data-group="edu">
                                     <a class="mui-navigate-right">
                                         学历
+                                        <span class="mui-pull-right scope" <?php if(!empty($param['edu_value'])){ echo 'style="color:#000;"';}?>>
+                                            {$param['edu_value']|default='不限'}
+                                        </span>
                                     </a>
                                 </li>
-                                <li class="mui-table-view-cell">
+                                <li class="mui-table-view-cell btn" data-group="place">
                                     <a class="mui-navigate-right">
                                         居住地
+                                        <span class="mui-pull-right scope" <?php if(!empty($param['place_value'])){ echo 'style="color:#000;"';}?>>
+                                            {$param['place_value']|default='不限'}
+                                            <?php if(!empty($param['city_value'])){
+                                                echo '&nbsp;'.$param['city_value'];
+                                            }?>
+                                        </span>
                                     </a>
                                 </li>
-                                <li class="mui-table-view-cell">
+                                <li class="mui-table-view-cell btn" data-group="love">
                                     <a class="mui-navigate-right">
                                         婚姻状况
+                                        <span class="mui-pull-right scope" <?php if(!empty($param['love_value'])){ echo 'style="color:#000;"';}?>>
+                                            {$param['love_value']|default='不限'}
+                                        </span>
                                     </a>
                                 </li>
                             </ul>
+                            <div class="mui-content-padded">
+                                <button class="sub-btn mui-btn mui-btn-danger">提交</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -134,16 +224,38 @@
     <!--主界面部分-->
     <div class="mui-inner-wrap">
         <header class="mui-bar mui-bar-nav">
-            <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-            <input type="text" class="search-input" placeholder="请输入用户手机号或ID">
-            <a href="" class="search-btn">搜索</a>
+            <form method="post" action="{:U('')}">
+                <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="{:U('index')}"></a>
+                <input type="text" autocomplete="off" name="keyword" value="{$param['keyword']|default=''}" class="search-input" placeholder="请输入用户手机号或ID">
+                <a class="search-btn">搜索</a>
+            </form>
         </header>
         <div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
-            <div class="mui-scroll">
-                <div class="map-block">
-                    <a class="mui-pull-right search-more" id="offCanvasShow"><i class="iconfont iconquerycriteria"></i> 条件筛选</a>
-                </div>
-                <div class="mui-content-padded">
+            <div class="map-block">
+                <a class="mui-pull-right search-more" id="offCanvasShow"><i class="iconfont iconquerycriteria"></i> 条件筛选</a>
+            </div>
+            <div id="pullrefresh">
+                <div class="mui-scroll">
+                    <?php if(IS_POST && empty($lists)) {?>
+                    <p class="tip"><i class="iconfont iconsearch"></i>没有查询到数据</p>
+                    <?php } else {?>
+                    <!-- 用户列表 -->
+                    <div class="index_lise" id="container">
+                        <!--{foreach name="lists" item="vo" }-->
+                        <li class="box">
+                            <div class="boxdiv">
+                                <div class="div_taoxin">
+                                    <img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;">
+                                </div>
+                                <a class="user-preview" href="{$vo.show_url}">
+                                    <img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt="">
+                                    <span>{$vo.user_nicename|default="昵称未填"}</span>
+                                </a>
+                            </div>
+                        </li>
+                        <!--{/foreach}-->
+                    </div>
+                    <?php }?>
                 </div>
             </div>
         </div>
@@ -151,33 +263,280 @@
 </div>
 <script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/Public/mui/plugin/picker/dist/js/mui.picker.min.js"></script>
 <script type="text/javascript">
-    mui('.slide-content').on('tap','li',function () {
-        mui.alert()
+    //条件筛选里面的数据项
+    var config = JSON.parse('{$config}');
+
+    var picker_index = [];
+        picker_index.place_1      = '{$param["place_index"]|default=0}';
+        picker_index.place_2      = '{$param["city_index"]|default=0}';
+        picker_index.height_index = '{$param["height_index"]|default=0}';
+        picker_index.age_index    = '{$param["age_index"]|default=0}';
+        picker_index.edu_index    = '{$param["edu_index"]|default=0}';
+        picker_index.love_index   = '{$param["love_index"]|default=0}';
+
+    var refresh_lock_1 = '{$lists|default=false}',
+        refresh_lock_2 = '{$param["keyword"]|default=false}';
+
+    var page = 2;
+
+    mui.init({
+        pullRefresh : {
+            container:'#pullrefresh',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+            down: {
+                callback: pulldown
+            },
+            up : {
+                contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内
+                contentnomore:'没有更多数据了',
+                callback :pullUp //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+            }
+        }
     });
-    mui.init();
-    //侧滑容器父节点
-    var offCanvasWrapper = mui('#offCanvasWrapper');
-    //主界面容器
-    var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
-    console.log(offCanvasInner);
-    //菜单容器
-    var offCanvasSide = document.getElementById("offCanvasSide");
-    //屏蔽侧滑关闭
-    offCanvasSide.addEventListener('drag',function (event) {
-        event.stopPropagation();
-    });
-    //主界面‘显示侧滑菜单’按钮的点击事件
-    document.getElementById('offCanvasShow').addEventListener('tap', function() {
-        offCanvasWrapper.offCanvas('show');
-    });
-    //菜单界面，‘关闭侧滑菜单’按钮的点击事件
-    document.getElementById('offCanvasHide').addEventListener('tap', function() {
-        offCanvasWrapper.offCanvas('close');
-    });
-    //主界面和侧滑菜单界面均支持区域滚动；
-    mui('#offCanvasSideScroll').scroll();
-    mui('#offCanvasContentScroll').scroll();
+    //滑动效果
+    slideAnimate();
+    //上拉下拉是否启用
+    refreshEngine();
+
+    (function (m) {
+
+        m('.mui-inner-wrap').on('tap','[name="keyword"]',function () {
+           $('.tip').hide();
+        });
+        //主页面返回按钮点击事件
+        m('.mui-inner-wrap').on('tap','#back',function () {
+           var url = $(this).attr('href');
+           window.location.href = url;
+        });
+        //主页面搜索按钮点击事件
+        m('.mui-inner-wrap').on('tap','.search-btn',function () {
+            var keyword = $('[name="keyword"]').val();
+
+            if (keyword == '') return;
+
+            $(this).parents('form').submit();
+        });
+        //查看会员详情
+        m('.mui-inner-wrap').on('tap','.user-preview',function () {var btns = m('.btn');
+
+            btns.each(function(i, btn) {
+                btn.addEventListener('tap', function() {
+                    var self   = $(this),
+                        group  = self.data('group'),
+                        layer  = group != 'place' ? 1 : 2; //控制显示的级数
+
+                    var picker = new mui.PopPicker({
+                        layer:layer
+                    });
+
+                    var name   = group + '_index',
+                        index  = picker_index[name] || 0;
+                    //设置默认的下标
+                    picker.pickers[0].setSelectedIndex(index);
+                    //初始化数据
+                    switch (group) {
+                        case 'height':
+                            picker.setData(config.height);
+                            break;
+                        case 'age':
+                            picker.setData(config.ages);
+                            break;
+                        case 'edu':
+                            picker.setData(config.edu);
+                            break;
+                        case 'love':
+                            picker.setData(config.love);
+                            break;
+                        case 'place':
+                            picker.setData(config.place);
+                            picker.pickers[0].setSelectedIndex(picker_index['place_1'] || 0);
+                            picker.pickers[1].setSelectedIndex(picker_index['place_2'] || 0);
+                            break;
+                    }
+                    picker.show(function(rs) {
+                        if (group == 'place') {
+
+                            var place_index = rs[0].index || 0,
+                                city_index  = rs[1].index || 0,
+                                place_val   = rs[0].value || '',
+                                city_val    = rs[1].value || '',
+                                place_text  = rs[0].text  || '',
+                                city_text   = rs[1].text  || '';
+
+                            picker_index['place_1'] = place_index;
+                            picker_index['place_2'] = city_index;
+
+                            self.find('.scope').css('color','#000').text(place_text + ' ' + city_text);
+
+                            $('[name="place"]').val(place_val);
+                            $('[name="city"]').val(city_val);
+
+                            $('[name="place_value"]').val(place_text);
+                            $('[name="city_value"]').val(city_text);
+
+                            $('[name="place_index"]').val(place_index);
+                            $('[name="city_index"]').val(city_index);
+
+                        } else {
+
+                            var index = rs[0].index || 0,
+                                val   = rs[0].value || '',
+                                text  = rs[0].text  || '';
+
+                            picker_index[name] = index;
+
+                            $('[name="' + group + '"]').val(val);
+                            $('[name="' + group + '_index"]').val(index);
+                            $('[name="' + group + '_value"]').val(text);
+
+                            self.find('.scope').css('color','#000').text(text);
+                        }
+                        /*
+                         * 释放组件资源，释放后将不能再操作组件
+                         * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+                         * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+                         */
+                        picker.dispose();
+                    });
+                }, false);
+            });
+            var url = $(this).attr('href');
+            window.location.href = url;
+        });
+
+
+    })(mui);
+    //下拉刷新
+    function pulldown() {
+
+        var param = $('#offCanvasSide form').serialize();
+
+        var other = '&time=now';
+
+        setTimeout(function() {
+
+            $.post("<?php echo U('Ajax/getUserLists');?>",param + other,function (res) {
+                if (res.status && res.lists.length) {
+
+                    var html = [];
+                    for (var i = 0,l = res.lists.length;i < l;i++) {
+                        var item = res.lists[i];
+                        html.push(
+                            '<li class="box">',
+                            '<div class="boxdiv">',
+                            '<div class="div_taoxin">',
+                            '<img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;">',
+                            '</div>',
+                            '<a class="user-preview" href="' + item.show_url + '">',
+                            '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
+                            '<span>' + item.user_nicename + '</span>',
+                            '</a>',
+                            '</div>',
+                            '</li>'
+                        );
+                    }
+                    $('#container').append(html.join(''));
+                    //请求完成 隐藏加载动画
+                    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                } else {
+                    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                }
+
+            },'json');
+
+        }, 500);
+    }
+    //上拉加载
+    function pullUp(){
+
+        var param = $('#offCanvasSide form').serialize();
+
+        var other = '&page=' + page;
+        //延迟请求数据 作用：避免加载动画还没有结束，数据就已经被渲染了
+        setTimeout(function() {
+
+            $.post("<?php echo U('Ajax/getUserLists');?>",param + other,function (res) {
+                if (res.status && res.hasNextPage) {
+                    //启用上拉加载
+                    mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+
+                    page++;
+
+                    var html = [];
+                    for (var i = 0,l = res.lists.length;i < l;i++) {
+                        var item = res.lists[i];
+                        html.push(
+                            '<li class="box">',
+                            '<div class="boxdiv">',
+                            '<div class="div_taoxin">',
+                            '<img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;">',
+                            '</div>',
+                            '<a class="user-preview" href="' + item.show_url + '">',
+                            '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
+                            '<span>' + item.user_nicename + '</span>',
+                            '</a>',
+                            '</div>',
+                            '</li>'
+                        );
+                    }
+                    $('#container').append(html.join(''));
+
+                    mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+                } else {
+                    mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+                    setTimeout(function () {
+                        //禁用上拉加载  作用：隐藏掉没有数据时的提示文字
+                        mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                    },1000);
+                }
+
+            },'json');
+
+        }, 500);
+    }
+    function refreshEngine() {
+        //!注意这里延迟两秒是为了防止mui还没有加载完成调用方法报错
+        var Timer = setTimeout(function () {
+            if (!refresh_lock_1 || refresh_lock_2) {
+                mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                mui('#pullrefresh').pullRefresh().disablePulldownToRefresh();
+            }
+            clearTimeout(Timer);
+        },200);
+    }
+    function slideAnimate() {
+        //侧滑容器父节点
+        var offCanvasWrapper = mui('#offCanvasWrapper');
+        //主界面容器
+        var offCanvasInner   = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+        //菜单容器
+        var offCanvasSide    = document.getElementById("offCanvasSide");
+        //屏蔽搜索条件侧滑关闭
+        offCanvasSide.addEventListener('drag',function (event) {
+            event.stopPropagation();
+        });
+        //屏蔽主要内容侧滑关闭
+        offCanvasInner.addEventListener('drag',function (event) {
+            event.stopPropagation();
+        });
+        //主界面‘显示侧滑菜单’按钮的点击事件
+        document.getElementById('offCanvasShow').addEventListener('tap', function() {
+
+            $('.tip').hide();
+
+            $('[name="keyword"]').val('');
+
+            offCanvasWrapper.offCanvas('show');
+        });
+        //菜单界面，‘关闭侧滑菜单’按钮的点击事件
+        document.getElementById('offCanvasHide').addEventListener('tap', function() {
+            offCanvasWrapper.offCanvas('close');
+        });
+        //主界面和侧滑菜单界面均支持区域滚动；
+        mui('#offCanvasSideScroll').scroll();
+        mui('#offCanvasContentScroll').scroll();
+    }
 </script>
 </body>
 </html>

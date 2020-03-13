@@ -8,7 +8,7 @@
   
   
     <div class=" m-form-horizontal">
-  
+
       <admin:panel >
         <a class="u-btn u-btn-primary  u-btn-small" href="{:U('credit',array('type'=>$type))}">设置列表</a>
         <if condition="!$type">
@@ -21,13 +21,13 @@
        </admin:formrow>
    
           <else/>
-            <admin:formrow title="vip天数" tip="用户购买vip天数"  >
+            <!--<admin:formrow title="vip天数" tip="用户购买vip天数"  >
         <admin:text name="day" value="{$info.day}"  datatype="n"  width="small" />
        </admin:formrow>
         <admin:formrow title="原价" tip="vip原价"  >
         <admin:text name="original" value="{$info.original}"  datatype="n"  width="small" />
-       </admin:formrow>
-         <admin:formrow title="现价" tip="vip现价"  >
+       </admin:formrow>-->
+         <admin:formrow title="价格" tip="vip价格"  >
         <admin:text name="price" value="{$info.price}"    width="small" />
        </admin:formrow>
             </if>

@@ -10,7 +10,7 @@ require_once 'log.php';
 $logHandler= new CLogFileHandler("../logs/".date('Y-m-d').'.log');
 $log = Log::Init($logHandler, 15);
 
-class PayNotifyCallBack extends WxPayNotify
+class classCallBack extends WxPayNotify
 {
 	//查询订单
 	public function Queryorder($transaction_id)
@@ -49,5 +49,5 @@ class PayNotifyCallBack extends WxPayNotify
 }
 
 Log::DEBUG("begin notify");
-$notify = new PayNotifyCallBack();
+$notify = new classCallBack();
 $notify->Handle(false);

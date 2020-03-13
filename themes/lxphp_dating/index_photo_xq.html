@@ -56,14 +56,14 @@
 
 
       <!-- 弹幕开关开始 -->
-  <div class="dangmu">
+  <!--<div class="dangmu">
       <div class="kaiqi" id="kaiguanyi"  style="display:none">
         <span class="wwww1"></span><span>弹幕</span>
       </div>
       <div class="kaiqi_a  s_btn"  id="kaiguaner">
         <span class="wwww1"></span><span>弹幕</span>
       </div> 
-    </div>
+    </div>-->
      <!-- 弹幕开关结束 -->
 
      <!-- 亲密度 -->
@@ -170,9 +170,16 @@
          <div class="uesr_xiangqing_a cb">
            <div style="margin-right: 2%;"><a href="{:U('Show/index', array('uid' => $info['idmd5']))}"><img src="{$info.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""></a></div>
            <div style="    width: 48%;">
-             <p><a href="{:U('Show/index', array('uid' => $info['idmd5']))}" style="color: #f61a24" class="color000">{$info.user_nicename}</a> <span class="vip_logo"></span></p>
+             <p>
+                 <a href="{:U('Show/index', array('uid' => $info['idmd5']))}" style="<?php if ($info['rank_time'] > 0) {?>color: #f61a24<?php }?>" class="color000">{$info.user_nicename}</a>
+                 <?php if ($info['rank_time'] > 0) {?>
+                    <span class="vip_logo"></span>
+                 <?php }?>
+             </p>
              <p><img src="{$info.rank_icon}">{$info.rank_name}<!-- <a href="{:U('Show/index', array('uid' => $info['idmd5']))}">私密资料</a> --></p>
+<!--
              <p><img src="images/user_03.png" alt=""><span class="gznum">{$userCount.fansnum|default='0'}</span>个粉丝<a href="javascript:gz('{$info.id}');" class="gz"><?php if($User_subscribe==1) echo '已关注'; elseif($User_subscribe==2) echo '相互关注'; else echo '关注TA';?></a></p>
+-->
            </div>
 <!--
            <div style="float: right;"><a href="{:U('Wechat/index',array('uid'=>$info[idmd5]))}"><img src="images/user_04.png" alt="">聊天</a></div>
@@ -187,34 +194,34 @@
          </div>
          <div class="uesr_xiangqing_c cb">
             <div class="fl">{$photo.timeline|date="m月d日 H:i",###}</div>
-             <div class="fr"> <!--<img src="images/uesr_xiangqing_c_09.png" >{$userCount.sumgift}--> <img src="images/uesr_xiangqing_c_11.png" alt="">{$userCount.comment} </div>
+             <div class="fr"> <!--<img src="images/uesr_xiangqing_c_09.png" >{$userCount.sumgift}--><!-- <img src="images/uesr_xiangqing_c_11.png" alt="">{$userCount.comment} --></div>
          </div>
      </div>
 
      <!-- 评论开始-->
-     <div class="pinglun">
-       <div class="pinglun_a"><input type="text" name="content" placeholder="请输入你的评论..."><!--a href=""><img src="images/biaopqi.png" ></a--></div>
+     <!--<div class="pinglun">
+       <div class="pinglun_a"><input type="text" name="content" placeholder="请输入你的评论...">&lt;!&ndash;a href=""><img src="images/biaopqi.png" ></a&ndash;&gt;</div>
        <div class="pinglun_b"> <a href="javascript:addComment({$photo.photoid});">发送</a></div>
         
      </div>
      <div  style="background: #fff;">
           <span style="color: #f03b57; margin-left: 10px;"><i class="iconfont iconpinglun4" style="margin-right: 2px;"></i>所有评论</span>
-          <!--<div class="pinglun_kaiguan"><span data="pl">所有评论</span></div>-->
+          &lt;!&ndash;<div class="pinglun_kaiguan"><span data="pl">所有评论</span></div>&ndash;&gt;
           <div class="kaiguan_qiehuandiv" style="display:none">
          
             <ul class="guibing">
            
-			  <!--#include file="ajax_giftlist.html"--> 			
+			  &lt;!&ndash;#include file="ajax_giftlist.html"&ndash;&gt;
             </ul>
           </div>
           <div class="kaiguan_qiehuandiv">
              <ul class="pl">
-            <!--#include file="ajax_comment.html"--> 	
+            &lt;!&ndash;#include file="ajax_comment.html"&ndash;&gt;
            </ul>
           </div>
 
 
-        </div>
+        </div>-->
 
 
 

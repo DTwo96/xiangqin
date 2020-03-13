@@ -21,7 +21,7 @@ class MicroPay
 	 * 
 	 * 提交刷卡支付，并且确认结果，接口比较慢
 	 * @param WxPayMicroPay $microPayInput
-	 * @throws WxpayException
+	 * @throws class
 	 * @return 返回查询接口的结果
 	 */
 	public function pay($microPayInput)
@@ -70,7 +70,7 @@ class MicroPay
 		//④、次确认失败，则撤销订单
 		if(!$this->cancel($out_trade_no))
 		{
-			throw new WxpayException("撤销单失败！");
+			throw new WxPayException("撤销单失败！");
 		}
 
 		return false;

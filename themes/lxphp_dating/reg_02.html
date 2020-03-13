@@ -9,15 +9,20 @@
 <meta name="format-detection" content="telephone=no">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>{$media.title}</title>
-<link rel="stylesheet" type="text/css" href="css/css.css">
+<link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+	<style type="text/css">
+		.zhuce_b input:not([type="button"]){
+			color: green !important;
+		}
+	</style>
 </head>
 
 <body >
   <div class="zhuce">
   <!--#include file="app_share.html"-->
      <div class="zhuce_a">
-       <p><img src="images/yingdao_logo.png" alt=""><?php echo C("site_title");?></p>
+       <p><img src="<?php echo C('SITE_LOGO');?>" alt=""></p>
      </div>
 
 	  <div class="zhuce_b" id="new_zhuce_b" style="display: none;">

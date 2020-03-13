@@ -56,8 +56,6 @@ class UsersModel extends Model {
 		}			
 		$res = $this->add ( $arr );
 		if($res) {
-		    //设置用户编码
-		    $this->setUserNumber($res,$sex);
 			$data['uid']=$res;
 			$data['birthday']=$age."-01-01";
 			$arr = array('mob'=>'hot','qq'=>'hot','weixin'=>'hot');
@@ -98,28 +96,18 @@ class UsersModel extends Model {
      * 设置用户的编码
      * @param int $id 用户ID
      * @param int $sex 用户性别
-     * @return bool
+     * @return string
      * @author：Enthusiasm
      * @date：2020/2/1
      * @time：21:50
      */
-    public function setUserNumber($id = 0,$sex)
+    public function getUserNumber($id = 0,$sex)
     {
         if (!$id) return false;
         //A为男性 B为女性
-        $num = ($sex == 1 ? 'A' : 'B');
-
-        for ($i = 5; $i > strlen($id); $i--) {
-
-            $num .= '0';
-
-        }
-
+        $num = ($sex == 1 ? 'B' : 'A');
         $num = $num.$id;
-
-        $this->where(['id' => $id])->save(['user_number' => $num]);
-
-        return true;
+        return $num;
     }
 }
 

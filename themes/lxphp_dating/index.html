@@ -9,8 +9,11 @@
 		<meta name="format-detection" content="telephone=no">
 		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 		<title>{$media.title}</title>
+		<link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
 		<link rel="stylesheet" type="text/css" href="css/css.css">
-		<link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="/Public/layui-v2.5.6/css/layui.css">
+		<link rel="stylesheet" type="text/css" href="css/font/iconfont.css?t=<?php echo time();?>">
+		<link rel="stylesheet" href="/Public/mui/plugin/picker/dist/css/mui.picker.min.css">
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 		<style type="text/css">
 			.superman{
@@ -33,6 +36,112 @@
 				.div_taoxin{z-index:9;position:absolute; top:0.8rem;left:0.8rem; width:2.5rem; height:2.5rem; background:#E5E5E5; border-radius:2.5rem;}
 				.img_taoxin{margin-left:0.4rem; margin-top:0.5rem;}
 				.boxdiv{border-radius:0.8rem;overflow-y:hidden}
+
+			.index_nav {
+				width: 1000px;
+				/*overflow: hidden;*/
+				color: #000;
+			}
+			select {
+				text-align: center;
+				text-align-last: center;
+				line-height: 40px;
+				background-color: transparent !important;
+			}
+			.search-form i {
+				font-size: 16px;
+				font-weight: bold;
+				position: absolute;
+				right: 0;
+				top: 12px;
+				z-index: -1;
+			}
+			.nav-btn {
+				display: inline-block;
+				width: 30px;
+				background-color: rgba(0,0,0,.1);
+				text-align: center;
+				line-height: 40px;
+				color: #f03b57;
+				position: absolute;
+				top: 0;
+			}
+			.next-btn {
+				right: 0px;
+			}
+			.pre-btn {
+				left: 0px;
+				display: none;
+			}
+			#pullrefresh {
+				height: 88%;
+				position: relative;
+			}
+			#pullrefresh .mui-scroll {
+				background-color: #f6f6f6;
+			}
+			.no-data-notice {
+				text-align: center;
+				font-size: 18px;
+				margin-top: 50%;
+			}
+			.no-data-notice i {
+				margin-right: 4px;
+			}
+
+			xm-select {
+				border: none !important;
+				background-color: transparent !important;
+			}
+			.xm-tips {
+				text-align: center;
+				width: 100%;
+				display: inline-block !important;
+			}
+			.xm-select-item {
+				float: left;
+				display: inline-block;
+			}
+			xm-select > .xm-body {
+				width: 130px !important;
+			}
+			#xm-love{
+				margin-left: 50px;
+			}
+			#xm-country .xm-body{
+				left: -200px !important;
+				top: 0 !important;
+			}
+			.mui-poppicker-btn-ok {
+				background-color: #f03b57 !important;
+				border-color: #f03b57 !important;
+			}
+			#xm-country input {
+				padding: 2px;
+				width: 100px;
+				background-color: transparent;
+				border: none;
+				text-align: center;
+				margin-top: -2px;
+				color: #999;
+			}
+			.action-btn {
+				height: 40px;
+				padding: 0px 6px;
+				position: absolute;
+				display: none;
+			}
+			.sub-btn {
+				background-color: #f03b57;
+				right: 4px;
+			}
+			.clear-search-btn {
+				right: 62px;
+			}
+			.clear-search-btn i {
+				vertical-align: middle;
+				margin-right: 2px;
+			}
 		</style>
 	</head>
 	<body>
@@ -51,27 +160,74 @@
 
 
 			<!--#include file="index_header.html"-->
+			<div class="mui-scroll-wrapper">
+				<!-- 导航 -->
+				<div class="index_nav cb" style="height: 40px;">
+					<form class="search-value">
+						<!--搜索表单隐藏域-->
+						<input name="age" type="hidden" value="{$param['age']|default=''}">
+						<input name="height" type="hidden" value="{$param['height']|default=''}">
+						<input name="edu" type="hidden" value="{$param['edu']|default=''}">
+						<input name="love" type="hidden" value="{$param['love']|default=''}">
+						<input name="sex" type="hidden" value="{$param['sex']|default=''}">
 
-			<!-- 导航 -->
-			<div class="index_nav cb" style="  overflow: hidden;">
-				<ul class="cb">
-					<li><a href="{:U('index')}"><i class="hot"></i>推荐</a></li>
-					<li><a href="{:U('Home/Nearby/index')}"><i></i>附近</a></li>
-					<!--<li><a href="{:U('Home/Ranking/Charmlist',array('type' => 4))}"><i></i>排行</a></li>-->
-				</ul>
+						<input name="province" type="hidden" value="{$param['province']|default=''}">
+						<input name="city" type="hidden" value="{$param['city']|default=''}">
+
+						<input name="province_index" type="hidden" value="{$param['province_index']|default=0}">
+						<input name="city_index" type="hidden" value="{$param['city_index']|default=0}">
+						<input name="province_text" type="hidden" value="{$param['province_text']|default=''}">
+						<input name="city_text" type="hidden" value="{$param['city_text']|default=''}">
+					</form>
+					<form class="layui-form" action="{:U('index')}">
+						<div id="xm-age" class="xm-select-item "></div>
+						<div id="xm-height" class="xm-select-item"></div>
+						<div id="xm-edu" class="xm-select-item"></div>
+						<div id="xm-love" class="xm-select-item"></div>
+						<span id="next-btn-f" class="next-btn nav-btn">>></span>
+						<span id="pre-btn-f" class="pre-btn-one pre-btn nav-btn"><<</span>
+						<div id="xm-sex" class="xm-select-item"></div>
+						<div id="xm-country" class="xm-select-item">
+							<!--{if condition="$param['province_text']"}-->
+								<?php $text = $param['province'] ? $param['province_text'].','.$param['city_text'] : $param['province_text'];?>
+								<input type="text" class="place-wrapper" value="{$text}">
+							<!--{else /}-->
+								<input type="text" class="place-wrapper" value="地区">
+							<!--{/if}-->
+						</div>
+						<!--搜索表单隐藏域-->
+						<input name="province" type="hidden" value="{$param['province']|default=''}">
+						<input name="city" type="hidden" value="{$param['city']|default=''}">
+						<input name="province_index" type="hidden" value="{$param['province_index']|default=0}">
+						<input name="city_index" type="hidden" value="{$param['city_index']|default=0}">
+						<input name="province_text" type="hidden" value="{$param['province_text']|default=''}">
+						<input name="city_text" type="hidden" value="{$param['city_text']|default=''}">
+
+						<button type="button" class="mui-btn action-btn mui-btn-danger mui-btn-outlined clear-search-btn"><i class="iconfont iconjurassic_filtrate-none"></i>条件不限</button>
+						<button type="submit" class="sub-btn action-btn mui-btn mui-btn-danger"><i class="mui-icon mui-icon-search"></i>搜索</button>
+					</form>
+				</div>
+				<!-- 导航 -->
+				<div id="pullrefresh">
+					<div class="mui-scroll">
+						<!-- 用户列表 -->
+						<div class="index_lise mui-clearfix" id="container">
+							<?php if (!empty($list1)) {?>
+							<!--{foreach name="list1" item="vo" }-->
+							<li class="box">
+								<div class="boxdiv"><!--<div class="div_taoxin"><img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;"></div>--><a href="{$vo.aurl}"><img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""><span>{$vo.user_number|default="昵称未填"}<!--{if condition='$vo.sex eq 1'}-->(男)<!--{else /}-->(女)<!--{/if}--></span></a></div>
+							</li>
+
+							<!--{/foreach}-->
+							<!-- 用户列表 -->
+							<?php } else {?>
+								<p class="no-data-notice"><i class="iconfont iconmeiyoudingdan-01"></i>暂无数据</p>
+							<?php }?>
+						</div>
+					</div>
+				</div>
 			</div>
-			<!-- 导航 -->
 
-			<!-- 用户列表 -->
-			<div class="index_lise" id="container">
-				<!--{foreach name="list1" item="vo" }-->
-				<li class="box">
-					<div class="boxdiv"><div class="div_taoxin"><img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;"></div><a href="{$vo.aurl}"><img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""><span>{$vo.user_nicename|default="昵称未填"}</span></a></div>
-				</li>
-
-				<!--{/foreach}-->
-				<!-- 用户列表 -->
-			</div>
 
 			<!--#include file="footer.html"-->
 
@@ -80,8 +236,411 @@
 
 
 		</div>
+		<script type="text/javascript" src="/Public/layui-v2.5.6/layui.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="/Public/xm-select/dist/xm-select.js?t=<?php echo time();?>"></script>
+		<script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="/Public/mui/plugin/picker/dist/js/mui.picker.min.js"></script>
+		<script>
+
+			var page = 2;
+
+            var refresh_lock_1 = '<?php echo ($list1 ? "true" : "false");?>';
+
+            var search_config = JSON.parse('<?php echo json_encode($searchConfig);?>');
+
+            var province_index = '{$param["province_index"]|default=0}';
+            var city_index     = '{$param["city_index"]|default=0}';
+
+			refreshInit();
+            initHeaderNavWidth();
+
+			layui.use(['form','jquery','layer'],function () {
+				var layer = layui.layer,
+					$     = layui.$,
+					form  = layui.form;
+
+				var height = xmSelect.render({
+					el:'#xm-height',
+                    tips:'身高',
+                    name:'height',
+                    size: 'large',
+                    toolbar: {
+                        show: true,
+                        list: ['CLEAR'],
+                    },
+					theme: {
+					    color:'#f03b57',
+                    },
+                    on: xmSelectListener,
+                    data: search_config.height,
+				});
+
+                var edu = xmSelect.render({
+                    el:'#xm-edu',
+                    tips:'学历',
+                    name:'edu',
+                    toolbar: {
+                        show: true,
+                        list: ['CLEAR'],
+                    },
+                    size: 'large',
+                    theme: {
+                        color:'#f03b57',
+                    },
+                    on: xmSelectListener,
+                    data: search_config.edu,
+                });
+                var love = xmSelect.render({
+                    el:'#xm-love',
+                    tips:'婚姻状况',
+					name:'love',
+                    toolbar: {
+                        show: true,
+                        list: ['CLEAR'],
+                    },
+                    size: 'large',
+                    theme: {
+                        color:'#f03b57',
+                    },
+                    on: xmSelectListener,
+                    data: search_config.love,
+                });
+                var age = xmSelect.render({
+                    el:'#xm-age',
+                    tips:'年龄',
+					name:'age',
+                    size: 'large',
+                    toolbar: {
+                        show: true,
+                        list: ['CLEAR'],
+                    },
+                    theme: {
+                        color:'#f03b57',
+                    },
+                    on: xmSelectListener,
+                    data: search_config.ages,
+                });
+                var sex = xmSelect.render({
+                    el:'#xm-sex',
+                    tips:'性别',
+					name:'sex',
+                    size: 'large',
+                    toolbar: {
+                        show: true,
+                        list: ['CLEAR'],
+                    },
+                    theme: {
+                        color:'#f03b57',
+                    },
+                    on: xmSelectListener,
+                    data: search_config.sex,
+                });
+
+                initXmSelectValue();
+
+                $('.clear-search-btn').on('click',function () {
+                    age.setValue([]);
+                    height.setValue([]);
+                    edu.setValue([]);
+                    sex.setValue([]);
+                    love.setValue([]);
+
+                    $('[name="province"]').val('');
+                    $('[name="city"]').val('');
+
+                    $('[name="province_text"]').val('');
+                    $('[name="city_text"]').val('');
+
+                    $('[name="province_index"]').val('');
+                    $('[name="city_index"]').val('');
+
+                    $('.place-wrapper').val('地区');
+
+                    mui.toast('已设置为条件不限');
+
+                });
+				/*
+				* 初始化xm选中的值
+				*/
+				function initXmSelectValue() {
+
+					var param = $('.search-value').serializeArray();
+
+					for(var i = 0,l = param.length;i < l;i++) {
+					    var item = param[i];
+					    switch (item.name) {
+							case 'age':
+							    age.setValue(getSelectValue(item.value));
+							    break;
+							case 'height':
+                                height.setValue(getSelectValue(item.value));
+							    break;
+                            case 'edu':
+                                edu.setValue(getSelectValue(item.value));
+                                break;
+                            case 'sex':
+                                sex.setValue(getSelectValue(item.value));
+                                break;
+							case 'love':
+                                love.setValue(getSelectValue(item.value));
+                                break;
+						}
+					}
+                }
+				/*
+				 * 选择项的数据监听
+				 * @param {array} data
+				 * return {array} data
+				 */
+                function xmSelectListener (data) {
+                    var arr = data.arr;
+                    //change, 此次选择变化的数据,数组
+                    var change = data.change;
+                    //isAdd, 此次操作是新增还是删除
+                    var isAdd = data.isAdd;
+                    if (isAdd) {
+                        var item = change[0] || [];
+                        if (item.value == 999) {
+                            arr.splice(0,arr.length - 1);
+                        } else {
+                            var index = arr.findIndex(i => i.value == 999);
+
+                            if(index != -1){
+                                arr.splice(index, 1);
+                            }
+                        }
+                    }
+                    return data;
+                }
+            });
+			/*
+			* 将字符串值转换为数组
+			* @param {string} v
+			* return {array} arr
+			*/
+			function getSelectValue(v) {
+                var arr = [];
+				if (v == '') {
+				    return arr;
+				}
+				if (-1 === v.indexOf(',')) {
+					arr.push(v);
+				} else {
+				    arr = v.split(',');
+				}
+
+				return arr;
+            }
+
+
+			(function (m) {
+                m.init({
+                    pullRefresh : {
+                        container:'#pullrefresh',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+                        down: {
+                            callback: pulldown
+                        },
+                        up : {
+                            contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内
+                            contentnomore:'没有更多数据了',
+                            callback :pullUp //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+                        }
+                    }
+                });
+
+                refreshEngine();
+				//跳转到会员详情
+                m('.boxdiv').on('tap','a',function () {
+					var url = $(this).attr('href');
+					window.location.href = url;
+                });
+
+                var btns = m('.place-wrapper');
+
+                btns.each(function(i, btn) {
+                    btn.addEventListener('tap', function() {
+                        var self   = $(this);
+
+                        var picker = new mui.PopPicker({
+                            layer:2
+                        });
+						picker.setData(search_config.place);
+                        picker.pickers[0].setSelectedIndex(province_index);
+                        picker.pickers[1].setSelectedIndex(city_index);
+
+                        picker.show(function(res) {
+							var province_index = res[0].index || 0,
+								city_index     = res[1].index || 0,
+								province_text  = res[0].text  || '',
+								city_text      = res[1].text  || '',
+								province_value = res[0].value || '',
+								city_value     = res[1].value || '';
+
+							var _text = province_value == 0 ? province_text : province_text + ',' + city_text;
+
+                            self.val(_text);
+
+                            $('[name="province"]').val(province_value);
+                            $('[name="city"]').val(city_value);
+
+                            $('[name="province_text"]').val(province_text);
+                            $('[name="city_text"]').val(city_text);
+
+                            $('[name="province_index"]').val(province_index);
+                            $('[name="city_index"]').val(city_index);
+
+                            picker.dispose();
+                        });
+                    }, false);
+                });
+
+            })(mui);
+
+            //下拉刷新
+            function pulldown() {
+
+                var param = $('.search-value').serialize();
+
+                var other = '&time=now';
+
+                setTimeout(function() {
+
+                    $.post("<?php echo U('Ajax/getUserLists');?>",param + other,function (res) {
+                        if (res.status && res.lists.length) {
+
+                            var html = [];
+                            for (var i = 0,l = res.lists.length;i < l;i++) {
+                                var item = res.lists[i];
+                                html.push(
+                                    '<li class="box">',
+                                    '<div class="boxdiv">',
+                                    '<a class="user-preview" href="' + item.show_url + '">',
+                                    '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
+                                    '<span>' + item.user_number + '(' + item.sex + ')' + '</span>',
+                                    '</a>',
+                                    '</div>',
+                                    '</li>'
+                                );
+                            }
+                            $('#container').prepend(html.join(''));
+                            //请求完成 隐藏加载动画
+                            mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                        }
+
+                    },'json');
+
+                }, 500);
+            }
+            //上拉加载
+            function pullUp(){
+
+                var param = $('.search-value').serialize();
+
+                var other = '&page=' + page;
+                //延迟请求数据 作用：避免加载动画还没有结束，数据就已经被渲染了
+                setTimeout(function() {
+
+                    $.post("<?php echo U('Ajax/getUserLists');?>",param + other,function (res) {
+                        if (res.status && res.hasNextPage) {
+                            //启用上拉加载
+                            mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+
+                            page++;
+
+                            var html = [];
+                            for (var i = 0,l = res.lists.length;i < l;i++) {
+                                var item = res.lists[i];
+                                html.push(
+                                    '<li class="box">',
+                                    '<div class="boxdiv">',
+                                    '<a class="user-preview" href="' + item.show_url + '">',
+                                    '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
+                                    '<span>' + item.user_number + '(' + item.sex + ')' +'</span>',
+                                    '</a>',
+                                    '</div>',
+                                    '</li>'
+                                );
+                            }
+                            $('#container').append(html.join(''));
+
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+                            setTimeout(function () {
+                                //禁用上拉加载  作用：隐藏掉没有数据时的提示文字
+                                mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                            },1000);
+                        }
+
+                    },'json');
+
+                }, 500);
+            }
+            $('.next-btn').on('click',function () {
+                var _w = $('.mui-scroll-wrapper').width();
+
+				$('.pre-btn').show();
+
+				var _m = parseInt($('.index_nav').css('margin-left')) * -1 || 0;
+
+                if (_m >= _w) {
+                    _w = _w * 2;
+                    $(this).hide();
+                    $('.action-btn').show();
+				}
+
+				$('.index_nav').animate({
+					marginLeft: '-'+ _w + 'px'
+				},200);
+            });
+
+            $('.pre-btn').on('click',function () {
+
+                var _w = $('.mui-scroll-wrapper').width(),
+                    _m = parseInt($('.index_nav').css('margin-left')) * -1 || 0,
+				    _l = 0;
+
+                if (_m > _w) {
+                    _l = '-' + _w;
+                    if (_m >= _w * 2) {
+                        $('.action-btn').hide();
+					}
+				} else {
+                    $(this).hide();
+				}
+
+                $('.next-btn').show();
+
+                $('.index_nav').animate({
+                    marginLeft: _l
+                },200);
+            });
+
+            function refreshEngine() {
+                //!注意这里延迟两秒是为了防止mui还没有加载完成调用方法报错
+                var Timer = setTimeout(function () {
+                    if (refresh_lock_1 == 'false') {
+                        mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                        mui('#pullrefresh').pullRefresh().disablePulldownToRefresh();
+                    }
+                    clearTimeout(Timer);
+                },200);
+            }
+            function initHeaderNavWidth() {
+				var device_width = $(".mui-scroll-wrapper").width(),
+					_w = (device_width - 30) / 3;
+
+				$('.xm-select-item').width(_w);
+            }
+            //初始化高度
+            function refreshInit() {
+                $('#container').height($('#pullrefresh').height());
+            }
+		</script>
 		<script type="text/javascript">
-          var apcshikuangdu =$(".hd_main").width();//获取显示宽度
+          /*var apcshikuangdu =$(".hd_main").width();//获取显示宽度
           var ulliwidth = $(".index_lise .box").width();// 获取ul li宽度
           var sangzhi = ulliwidth*3; // 获取ul li 一排的宽度
           var kongzhi = apcshikuangdu - sangzhi;  // 显示宽度减去一排ulli的宽度
@@ -89,9 +648,10 @@
           var yigzhi =kongzhi/4;// 剩下的宽度除以4
           $(".index_lise .box").css('padding-left',yigzhi)// 赋予ulli剩下的宽度
           $(".index_lise .box").css('padding-top',yigzhi)
+          $(".index_lise .box").css('z-index','999999')
           var apcs =$(window).height();
           var apcs2 = apcs-44-48;
-          $(".shuaxuan_dangchu").css('height',apcs2)
+          $(".shuaxuan_dangchu").css('height',apcs2)*/
 		  $(function(){
 			  $('.img_taoxin').click(function(){
 				  var msrc=$(this).attr('src');
@@ -107,7 +667,7 @@
 		</script>
 
 		<script>
-			var totalheight = 0;
+			/*var totalheight = 0;
 			var body = '';
 			var main = $(".index_lise"); //主体元素
 			var range = 40; //距下边界长度/单位px
@@ -142,7 +702,7 @@
 					}, 'json');
 					num++;
 				}
-			});
+			});*/
 
 			function lxzizhufn() {
 				var wrap = document.getElementById("container");
@@ -182,7 +742,7 @@
 			}
 			/*这里一定要用onload，因为图片不加载完就不知道高度值*/
 			window.onload = function() {
-				lxzizhufn();
+				//lxzizhufn();
 			};
 		</script>
 

@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/font/iconfont.css">
     <title>{$media.title}</title>
     <style type="text/css">
+        body,.mui-content {
+            background-color: #eee;
+        }
         ul li {
            list-style: none;
         }
@@ -17,8 +20,11 @@
             padding-left: 15px;
             padding-right: 15px;
         }
+        #title {
+            color: #f03b57;
+        }
         .mui-bar-nav {
-            background-color: #f03b57;
+            background-color: #fff;
         }
         .mui-icon-left-nav,.mui-title {
             color: #fff;
@@ -42,6 +48,7 @@
         }
         .sex-item a {
             margin-right: 20px;
+            color: #c2c2c2;
         }
         .s-active {
             color: #f03b57 !important;
@@ -50,12 +57,28 @@
             margin-top: 20px;
             width: 100%;
             border-radius: 20px;
-            border: 1px solid #f03b57;
             background-color: #f03b57;
             line-height: 2;
         }
         body,input,select {
             font-size: 14px;
+        }
+        .mui-icon-clear {
+            right: 24px !important;
+        }
+        .avatar-item {
+            text-align: center;
+        }
+        .avatar {
+            display: inline-block;
+            border: 1px solid #919b9c;
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+        .avatar-item p {
+            color: #c2c2c2;
         }
     </style>
 </head>
@@ -65,22 +88,37 @@
     <h1 id="title" class="mui-title">完善资料</h1>
 </header>
 <ul class="mui-content">
+    <li class="avatar-item">
+        <a class="avatar" href="{:U('home/User/saveAvatarList',['set_uid' => $userid,'source' => 1])}">
+            <img src="{$uinfo.avatar|default='Public/img/signIn_14.jpg'}" alt="" width="100%">
+            <input type="hidden" name="avatar" value="{$uinfo.avatar|default='Public/img/signIn_14.jpg'}">
+        </a>
+        <p>用户头像</p>
+    </li>
     <li class="sex-item">
         <span class="item-t">性别</span>
         <a class="boy sex-btn" data-sex="1"><i class="iconfont iconnan2"></i>男</a>
         <a class="girl sex-btn" data-sex="2"><i class="iconfont iconnv1"></i>女</a>
     </li>
-    <li>
+    <li class="mui-input-row">
         <span class="item-t">年龄</span>
-        <input type="number" name="age" class="mui-input-clear">
+        <input type="number" placeholder="请填写年龄" name="age" class="mui-input-clear" oninput="javascript:if(this.value.length > 3)this.value=this.value.slice(0,3);">
     </li>
     <li>
         <span class="item-t">生日</span>
-        <input type="text" name="birthday" data-options='{"type":"date","beginYear":1900,"endYear":2020}' class="btn">
+        <input type="text" placeholder="请选择生日" name="birthday" data-options='{"type":"date","beginYear":1900,"endYear":<?php echo date("Y");?>}' class="btn">
     </li>
-    <li>
+    <li class="mui-input-row">
         <span class="item-t">身高</span>
-        <input type="number" name="height" class="mui-input-clear">
+        <input type="number" placeholder="请填写身高" name="height" class="mui-input-clear" oninput="javascript:if(this.value.length > 3)this.value=this.value.slice(0,3);">
+    </li>
+    <li class="mui-input-row">
+        <span class="item-t">月收入</span>
+        <input type="number" placeholder="请填写月收入" oninput="javascript:if(this.value.length > 5)this.value=this.value.slice(0,6);" name="month_income" class="mui-input-clear">
+    </li>
+    <li class="mui-input-row">
+        <span class="item-t">微信号</span>
+        <input type="text" placeholder="请填写微信号" name="weixin" class="mui-input-clear">
     </li>
     <li>
         <span class="item-t">学历</span>
@@ -100,10 +138,6 @@
             <option value="{$k}">{$vo}</option>
             <!--{/foreach}-->
         </select>
-    </li>
-    <li>
-        <span class="item-t">月收入</span>
-        <input type="number" name="month_income">
     </li>
     <input type="hidden" name="userid"  value="{$userid}">
 
@@ -179,7 +213,9 @@
                 ,education    = $('[name="education"]').val()
                 ,code4        = $('[name="code4"]').val()
                 ,month_income = $('[name="month_income"]').val()
-                ,userid       = $('[name="userid"]').val();
+                ,userid       = $('[name="userid"]').val()
+                ,avatar       = $('[name="avatar"]').val()
+                ,weixin       = $('[name="weixin"]').val();
 
             var param = {
                 sex:sex,
@@ -190,6 +226,7 @@
                 code4:code4,
                 month_income:month_income,
                 userid:userid,
+                weixin:weixin,
             };
 
             if (lock) return false;
@@ -201,6 +238,15 @@
 
             if (age == '') {
                 mui.toast('请填写年龄',{ duration:'short'});
+                return false;
+            }
+            if (weixin == '') {
+                mui.toast('请填写微信',{ duration:'short'});
+                return false;
+            }
+
+            if (avatar.indexOf('signIn_14.jpg') !== -1) {
+                mui.toast('请上传头像',{ duration:'short'});
                 return false;
             }
 

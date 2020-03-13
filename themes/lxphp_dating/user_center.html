@@ -11,7 +11,7 @@
 		<meta name="keywords" content="{$media.keywords}">
 		<meta name="description" content="{$media.description}">
 		<title>{$media.title}</title>
-		<link rel="stylesheet" type="text/css" href="css/css.css">
+		<link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 	</head>
 
@@ -51,7 +51,7 @@
 				</div>
 
 				<div class="uesr_zl">
-					<p class="uesr_zl1p"><a href="{:U('Home/User/basedata')}" style="color: #f61a24">{$uinfo.user_nicename|default='昵称未填写'}</a></p>
+					<p class="uesr_zl1p"><a href="{:U('Home/User/basedata')}" style="color: #f61a24">{$uinfo.user_number|default='昵称未填写'}</a></p>
 					<p class="uesr_zl2p">地区:&nbsp;&nbsp;{$uinfo.province_name|default='未知'}{$uinfo.city_name}&nbsp;&nbsp;&nbsp;年龄:&nbsp;&nbsp;{$uinfo.age|default='未知'}</p>
 					<!--{if condition="$userProfile['birthday']"}-->
 					<p class="uesr_zl3p">生日:&nbsp;&nbsp;{$userProfile.birthday|default='未知'}</p>
@@ -62,17 +62,17 @@
 					<table onmousedown="0" onmousemove="0" border="0">
 						<tr>
 							<td><a href="{:U('MySubscribe',array('type'=>1))}"><img src="images/user_03_16.png" alt=""></a></td>
-							<td><img src="images/user_03_0{$uinfo.sex}.png" alt=""></td>
+							<!--<td><img src="images/user_03_0{$uinfo.sex}.png" alt=""></td>-->
 							<td><a href="{:U('MyPhoto')}"><img src="images/user_03_20.png" alt=""></a></td>
 							<!--<td><a href="{:U('Home/Gift/giftlist')}"><img src="images/user_03_11.png" alt=""></a></td>-->
-							<td><img src="images/user_03_18.png" alt=""></td>
+							<td><a href="{:U('MyPhoto')}"><img src="images/user_03_18.png" alt=""></a></td>
 						</tr>
 						<tr>
 							<td>{$userCount.fansnum|default='0'}</td>
-							<td>{$uinfo.jifen|default='0'}</td>
+							<!--<td>{$uinfo.jifen|default='0'}</td>-->
 							<td>{$userCount.photonum|default='0'}</td>
-							<td>{$userCount.sumgift|default='0'}</td>
-							<!--<td>{$userCount.zan|default='0'}</td>-->
+							<!--<td>{$userCount.sumgift|default='0'}</td>-->
+							<td>{$userCount.zan|default='0'}</td>
 						</tr>
 					</table>
 
@@ -134,7 +134,7 @@
 					</li>
 					<li>
 						<a href="{:U('MySubscribe',array('type'=>1))}" class="cb">
-							<img src="images/new_uesr_05.png" alt=""><br>我的粉丝
+							<img src="images/new_uesr_05.png" alt=""><br>关注我的
 
 						</a>
 					</li>
@@ -175,7 +175,7 @@
 					
 					<li>
 						<a href="{:U('basedata')}" class="cb">
-							<img src="images/new_uesr_14.png" alt=""><br>基础资料
+							<img src="images/new_uesr_14.png" alt=""><br>基本资料
 						</a>
 					</li>
 					

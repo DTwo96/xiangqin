@@ -67,8 +67,7 @@ class ShowController extends SiteController {
 			$photoarr = $photomod->where("uid=".$uid.' and flag=1 and phototype=0')->order("photoid desc")->limit(3)->select();			
 			$simi = $photomod->where("uid=".$uid.' and flag=1 and phototype=1')->order("photoid desc")->limit(3)->select();
 			
-			
-			
+
 			$this->assign('simiphoto', $simi);
 			$this->assign('photoarr', $photoarr);
 	
@@ -90,7 +89,7 @@ class ShowController extends SiteController {
 			$wx = 'mbb6188,Shs854,ggs8884,hhh873,dkd9919,ddyyy998,dhh1928,hhkkgg123,hhh96389,hgh2627,hgg7737,hgg764,ygbb584,MMlq4568,fyy3588,dkd9919,ZJ1046206762,twj15240195704,qq123456mrw,QQ1134536983,Z1007zhy,huixuan5299,www773076512,boqing6969,jj130965131,mansheny,cjh020699,BC2SZY';
 			$wx = explode(",",$wx);
 			$wx = $wx[$uid%(count($wx)-1)];
-			$pinfo['weixin'] = $wx;
+			//$pinfo['weixin'] = $wx;
 			$this->assign('pinfo', $pinfo);
 			$SetProfile =C('SetProfile');
 			if($SetProfile){
@@ -108,7 +107,17 @@ class ShowController extends SiteController {
 				}
 				$this->assign('miyu', $miyu);
 			}
-			
+            //微信授权数据
+            $map = [];
+			$map['type']        = 'wechat';
+			$map['bind_status'] = 1;
+			$map['userid']      = $uinfo['id'];
+
+            $wx_oauth = M('UserOauth')->where($map)->find();
+
+			$this->assign('wx_oauth',$wx_oauth);
+			$this->assign('rank_time',$this->uinfo['rank_time']);
+			$this->assign('uid',$this->uinfo['id']);
 			$this->assign('lahei', M('User_lahei')->where("fromuid= ".$this->uinfo['id']." and touid=".$uid)->getField('status'));
 			$this->assign('age', $age);
 			$this->assign('area', $area);

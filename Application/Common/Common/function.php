@@ -621,7 +621,7 @@ function is_mobile($string)
  * @param string $url 接口地址
  * @return bool | array
  * @author：Enthusiasm
- * @date：2020/2/3 0003
+ * @date：2020/2/3
  * @time：13:00
  */
 function curl_get_contents($url){
@@ -740,6 +740,88 @@ function arrayToString($data, $isformdata = 1) {
 function dstripslashes($string) {
     if(!is_array($string)) return stripslashes($string);
     foreach($string as $key => $val) $string[$key] = dstripslashes($val);
+    return $string;
+}
+/**
+ * 写入系统日志
+ * @param string $msg
+ * @param int $type 日志类型 1.系统 2.用户
+ * @param int $userid
+ * @return string
+ * @author：Enthusiasm
+ * @date：2020/2/9
+ * @time：12:10
+ */
+function writeSystemLog($msg = '',$type = 1,$userid = 0) {
+    $sqlMap = [];
+    $sqlMap['userid']      = $userid;
+    $sqlMap['ip']          = get_client_ip();
+    $sqlMap['content']     = $msg;
+    $sqlMap['input_time']  = time();
+    $sqlMap['update_time'] = time();
+    $sqlMap['type'] = $type;
+
+    $rs = M('SystemLog')->add($sqlMap);
+    if ($rs) {
+        return true;
+    } else {
+        return false;
+    }
+}
+/**
+ * 退出登录
+ * @author：Enthusiasm
+ * @date：2020/3/7
+ * @time：12:22
+ */
+function logOut() {
+    $cook    = cookie('checklogin');
+    $ucookie = json_decode(stripslashes($cook), true);
+    S('uinfo' . $ucookie['check'], null);
+    cookie('checklogin', null,  3600);
+    cookie('gourl', null,  3600);
+}
+/**
+ * xss过滤函数
+ * @return string
+ * @author：Enthusiasm
+ * @date：2020/3/8
+ * @time：18:29
+ */
+function remove_xss($string) {
+    $string = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S', '', $string);
+
+    $parm1 = Array('javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink','script', 'embed', 'object', 'iframe', 'frame', 'frameset', 'ilayer', 'layer', 'bgsound', 'title', 'base');
+
+    $parm2 = Array('onabort', 'onactivate', 'onafterprint', 'onafterupdate', 'onbeforeactivate',
+        'onbeforecopy', 'onbeforecut', 'onbeforedeactivate', 'onbeforeeditfocus', 'onbeforepaste',
+        'onbeforeprint', 'onbeforeunload', 'onbeforeupdate', 'onblur', 'onbounce', 'oncellchange',
+        'onchange', 'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut', 'ondataavailable',
+        'ondatasetchanged', 'ondatasetcomplete', 'ondblclick', 'ondeactivate', 'ondrag', 'ondragend',
+        'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate',
+        'onfilterchange', 'onfinish', 'onfocus', 'onfocusin', 'onfocusout', 'onhelp', 'onkeydown', 'onkeypress',
+        'onkeyup', 'onlayoutcomplete', 'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave',
+        'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel', 'onmove', 'onmoveend', 'onmovestart',
+        'onpaste', 'onpropertychange', 'onreadystatechange', 'onreset', 'onresize', 'onresizeend', 'onresizestart',
+        'onrowenter', 'onrowexit', 'onrowsdelete', 'onrowsinserted', 'onscroll', 'onselect', 'onselectionchange',
+        'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload');
+
+    $parm = array_merge($parm1, $parm2);
+
+    for ($i = 0; $i < sizeof($parm); $i++) {
+        $pattern = '/';
+        for ($j = 0; $j < strlen($parm[$i]); $j++) {
+            if ($j > 0) {
+                $pattern .= '(';
+                $pattern .= '(&#[x|X]0([9][a][b]);?)?';
+                $pattern .= '|(&#0([9][10][13]);?)?';
+                $pattern .= ')?';
+            }
+            $pattern .= $parm[$i][$j];
+        }
+        $pattern .= '/i';
+        $string = preg_replace($pattern, '', $string);
+    }
     return $string;
 }
 

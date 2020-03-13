@@ -72,7 +72,7 @@ class Admin extends TagLib{
         $body      = $tag['body']?false:true;  //body区域
         $class      = isset($tag['class'])?$tag['class']:'';                //样式名
         $icon      = isset($tag['icon'])?'<span class="icon"><i class="u-icon-'.$tag['icon'].'"></i></span>':'';
-        
+
         $html = '
         <div class="m-panel '.$class.'">';
         if(!empty($title)||!empty($tag['icon'])){
@@ -166,7 +166,7 @@ class Admin extends TagLib{
         $value      = $tag['value'];                //值
         $len     = isset($tag['len'])?'maxlength="'.$tag['len'].'"':''; //最大长度
         $width = isset($tag['width'])?'u-width-'.$tag['width']:'u-width-large';  //文本框宽度
-        $ext      = $tag['ext'];                //扩展信息 
+        $ext      = $tag['ext'];                //扩展信息
         $type      = isset($tag['type'])?$tag['type']:'text';         //输入框属性
         $datatype     = isset($tag['datatype'])?'datatype="'.$tag['datatype'].'"':''; //表单验证
         $errormsg     = isset($tag['errormsg'])?'errormsg="'.$tag['errormsg'].'"':''; //验证失败
@@ -188,7 +188,7 @@ class Admin extends TagLib{
         $content      = $content;                //值
         $rows     = isset($tag['rows'])?'rows="'.$tag['rows'].'"':''; //行数
         $width = isset($tag['width'])?'u-width-'.$tag['width']:'u-width-large';  //文本框宽度
-        $ext      = $tag['ext'];                //扩展信息 
+        $ext      = $tag['ext'];                //扩展信息
         $datatype     = isset($tag['datatype'])?'datatype="'.$tag['datatype'].'"':''; //表单验证
         $errormsg     = isset($tag['errormsg'])?'errormsg="'.$tag['errormsg'].'"':''; //验证失败
         $html = '<textarea name="'.$name.'" type="text"  class="form-element '.$width. ' ' .$class.'" id="'.$id.'" value="'.$value.'" '.$rows.' '.$ext .' '.$datatype.' '.$errormsg.'>'.$content.'</textarea>';
@@ -207,7 +207,7 @@ class Admin extends TagLib{
         $item      = isset($tag['item'])?$tag['item']:'';                 //项目名
         $value      = isset($tag['value'])?$tag['value']:'';                //选项值
         $checked    = $tag['checked'];    //选中值
-        $ext      = $tag['ext'];                //扩展信息 
+        $ext      = $tag['ext'];                //扩展信息
         $isset    = $tag['isset'];    //检测存在
         if(!empty($isset)){
           $isset = 'if(!isset('.$checked.')){ '.$checked.'= "'.$isset.'"; }';
@@ -239,7 +239,7 @@ class Admin extends TagLib{
         $item      = isset($tag['item'])?$tag['item']:'';                 //项目名
         $value      = isset($tag['value'])?$tag['value']:'';                //选项值
         $checked    = $tag['checked'];    //选中值
-        $ext      = $tag['ext'];                //扩展信息 
+        $ext      = $tag['ext'];                //扩展信息
         $isset    = $tag['isset'];    //检测存在
 
         if(empty($item)||empty($value)){
@@ -264,7 +264,7 @@ class Admin extends TagLib{
         $value      = isset($tag['value'])?$tag['value']:'';                //选项值
         $selected      = $tag['selected'];              //选中值
         $class      = isset($tag['class'])?$tag['class']:'';                //样式名
-        $ext      = $tag['ext'];                //扩展信息 
+        $ext      = $tag['ext'];                //扩展信息
         if(empty($item)||empty($value)){
             return ;
         }
@@ -277,7 +277,7 @@ class Admin extends TagLib{
         $html .= '</select>';
         return $html;
     }
-    
+
 
     /**
      * assigndown标签解析

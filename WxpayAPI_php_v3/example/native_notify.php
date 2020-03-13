@@ -10,7 +10,7 @@ require_once 'log.php';
 $logHandler= new CLogFileHandler("../logs/".date('Y-m-d').'.log');
 $log = Log::Init($logHandler, 15);
 
-class NativeNotifyCallBack extends WxPayNotify
+class classCallBack extends WxPayNotify
 {
 	public function unifiedorder($openId, $product_id)
 	{
@@ -68,5 +68,5 @@ class NativeNotifyCallBack extends WxPayNotify
 }
 
 Log::DEBUG("begin notify!");
-$notify = new NativeNotifyCallBack();
+$notify = new classCallBack();
 $notify->Handle(true);

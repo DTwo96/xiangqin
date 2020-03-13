@@ -1,13 +1,13 @@
 <?php
 
 
-
 namespace Home\Controller;
 
 
 
 use Home\Controller\SiteController;
-
+use Think\Log;
+use Wechat\Controller\WechatOauthController;
 
 
 /**
@@ -398,19 +398,37 @@ class UserController extends SiteController {
 
 		$id = I('post.id',0,'intval');
 
-	    $re =  M("UserPhoto")->where('photoid='.$id)->delete();
 
-		if($re){
+        //照片数量减少
+        $uid = M("UserPhoto")->where('photoid='.$id)->getField('uid');
 
-			$this->success();
+        if ($uid) {
 
-		}else{
+            try {
+                M()->startTrans();
 
-			$this->error('系统繁忙，请稍候再试！');
+                $rs = [];
 
-		}
+                $re[1] = M("UserPhoto")->where('photoid=' . $id)->delete();
+                $re[2] = M("UserCount")->where(['uid' => $uid])->setDec('photonum');
 
-		
+                foreach ($rs as $v) {
+                    if ($v) {
+                        M()->rollback();
+                        $this->error('系统繁忙，请稍候再试！');
+                    }
+                }
+
+                M()->commit();
+
+                $this->success('删除成功');
+            } catch (\Exception $e) {
+                M()->rollback();
+                $this->error('系统繁忙，请稍候再试！');
+            }
+        }
+
+        $this->error('系统繁忙，请稍候再试！');
 
 	}
 
@@ -1304,13 +1322,13 @@ class UserController extends SiteController {
 
 			
 
-			$media = $this->getMedia ( '基础资料', '', '', '基础资料', 'ismenu' );
+			$media = $this->getMedia ( '完善资料', '', '', '基础资料', 'ismenu' );
 
 			$this->assign ( 'media', $media );
 
 			$where['A.id'] = $uid;
 
-			$base = M('Users')->alias('A')->join('__USER_PROFILE__  B on A.id = B.uid')->field('A.user_nicename,A.sex,A.provinceid,A.cityid,A.education,A.height,A.month_income,B.birthday,B.astro,B.code1,B.code2,B.code3,B.code4')->where($where)->find();
+			$base = M('Users')->alias('A')->join('__USER_PROFILE__  B on A.id = B.uid')->field('A.user_number,A.user_nicename,A.sex,A.provinceid,A.cityid,A.education,B.real_name,B.monolog,B.work,B.university,B.hobby,B.height,B.qq,B.weibo,B.email,A.month_income,B.birthday,B.astro,B.code1,B.code2,B.code3,B.code4')->where($where)->find();
 
 //			$base['age'] = date('Y',time())-$base['age'];
 
@@ -1369,7 +1387,7 @@ class UserController extends SiteController {
 
 		}else{
 
-			$user_nicename = I('post.user_nicename','','trim');	//昵称
+			/*$user_nicename = I('post.user_nicename','','trim');	//昵称
 
 			$user_nicename = $this->string_filter($user_nicename);
 
@@ -1377,7 +1395,7 @@ class UserController extends SiteController {
 
 				$this->error('昵称必填');
 
-			}
+			}*/
 
 			$pro['birthday'] = I('post.birthday','');
 
@@ -1403,6 +1421,21 @@ class UserController extends SiteController {
 
             $pro['height'] = I('post.height',0,'intval'); //身高
 
+            $pro['real_name'] = I('post.real_name','','trim');
+
+            $pro['work'] = I('post.work','','trim');
+
+            $pro['university'] = I('post.university','','trim');
+
+            $pro['hobby'] = remove_xss(I('post.hobby','','trim,htmlspecialchars'));
+
+            $pro['monolog'] = remove_xss(I('post.monolog','','trim,htmlspecialchars'));
+
+            $pro['qq'] = remove_xss(I('post.qq','','trim'));
+
+            $pro['weibo'] = remove_xss(I('post.weibo','','trim'));
+
+            $pro['email'] = remove_xss(I('post.email','','trim'));
 			
 
 
@@ -1588,11 +1621,16 @@ class UserController extends SiteController {
 
 		}
 
-	
 
+        //用户注册后设置头像
+        $source   = I('source');
+        $set_uid  = I('set_uid');
+
+        cookie('set_uid',$set_uid,600);
+        $this -> assign('source', $source);
+        $this -> assign('set_uid', $set_uid);
 		$this -> assign('list', $list);
 
-		
 
 		if($_GET['p']>=200)exit;
 
@@ -1621,6 +1659,8 @@ class UserController extends SiteController {
 		if(!IS_POST){
 
 			$id = I('get.photoid',0,'intval');
+			$source  = I('source');
+			$set_uid = I('set_uid');
 
 			$info =   $model->where('photoid = '.$id)->find();
 
@@ -1636,9 +1676,11 @@ class UserController extends SiteController {
 
 				$info['uploadfiles'] = $file_name;				
 
-			}   
+			}
 
-			$this -> assign('info', $info);
+            $this -> assign('info', $info);
+            $this -> assign('source', $source);
+			$this -> assign('set_uid', $set_uid);
 
 			$this -> siteDisplay ( 'user_avatar' );
 
@@ -1649,6 +1691,8 @@ class UserController extends SiteController {
 			$base64_image_content = I('post.ret');
 
 			$id = I('post.id');
+
+			$param = I('post.');
 
 		    $this->qxAvatar();
 
@@ -1736,7 +1780,7 @@ class UserController extends SiteController {
 
 							$this->newbchange($uid,1);
 
-                    		$this->success('设置成功',U('saveAvatarList'));
+                    		$this->success('设置成功',U('saveAvatarList',['source' => $param['source'],'set_uid' => $param['set_uid']]));
 
 						}
 
@@ -2349,11 +2393,13 @@ $ext=strrchr($url,".");
 
 	    }
 
+
+
 	    $name = array('ConfigVip','ConfigCredit');
 
-	    $list = M($name[$type])->select();
+	    $list = M('ConfigVip')->select();
 
-	    if($type==0){
+	    /*if($type==0){
 
 	    	foreach ($list as $v){
 
@@ -2367,9 +2413,7 @@ $ext=strrchr($url,".");
 
 	    	$list = $nlist;
 
-	    }
-
-        
+	    }*/
 
 	    $this->assign('iswx',iswx()?1:'');
 
@@ -2383,7 +2427,6 @@ $ext=strrchr($url,".");
 
 	    }
 
-	   // $this->assign('iswx',1);
 
 	    $this->assign('list',$list);
 
@@ -3271,12 +3314,144 @@ public function deletebind(){
 
 	$this->error('操作失败');
 
-}	
+}
+    /**
+     * 绑定微信账号
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/1
+     * @time：14:55
+     */
+    public function wechat_bind()
+    {
+        $media = $this->getMedia('绑定微信');
 
-	
+        if (!iswx()) {
+            $this->error('请使用微信浏览器打开');
+        }
+        $where = [];
+        $where['userid']      = $this->uinfo['id'];
+        $where['bind_status'] = 1;
+        $where['type']        = 'wechat';
 
-	
+        $wxUserInfo = M('UserOauth')->where($where)->field('bind_status')->find();
 
-	
+        if (!$wxUserInfo) {
+            $wxOauth = new WechatOauthController();
+            $code    = I('code');
 
+            if (!$code) {
+                $wxOauth->requestWxUrl(U('wechat_bind','','',true));
+            }
+
+            $key = $wxOauth->buyAccessToken($code);
+            if (!$key) {
+                $this->error($wxOauth->getError());
+            }
+
+            $wxUserInfo = $wxOauth->WxUserInfo($key['openid'],$key['access_token']);
+        }
+
+
+
+        $this->assign('wxUserInfo',$wxUserInfo);
+        $this->assign('media',$media);
+
+        $this->siteDisplay('bind');
+    }
+    /**
+     * 升级会员
+     * @return mixed
+     * @author：Enthusiasm
+     * @date：2020/2/28 0028
+     * @time：13:18
+     */
+    public function upgradeVip()
+    {
+        if (IS_POST) {
+
+            $param = I('post.');
+
+            if (!$this->uinfo) {
+                $this->error('您还未登录,请先登录!');
+            }
+            if (!iswx()) {
+                $this->error('请使用微信浏览器打开');
+            }
+
+            $where = [];
+            $where['userid']      = $this->uinfo['id'];
+            $where['type']        = 'wechat';
+            $where['bind_status'] = 1;
+
+            $openid = M('UserOauth')->where($where)->getField('openid');
+
+            if (!$openid) {
+                $this->error(-1);
+            }
+
+            $vipConfig = D('ConfigVip')->where(['id' => $param['group_id']])->find();
+
+            if (!$vipConfig) {
+                $this->error('没有此会员组！');
+            }
+
+            $wxPay  = new \Wechat\Controller\WechatPayController();
+
+            try {
+                //开始事务
+                M()->startTrans();
+                $sqlMap = [];
+                $sqlMap['userid'] = $this->uinfo['id'];
+                $sqlMap['code'] = 'wechat';
+                $sqlMap['subject'] = '购买'.$vipConfig['day'].'天vip服务';
+                $sqlMap['status'] = 0;
+                $sqlMap['trade_sn'] = date('YmdHis') . time() . (rand() % 90 + 10);
+                $sqlMap['total_fee'] = sprintf("%.2f", $vipConfig['price']);
+                $sqlMap['input_time'] = time();
+
+                $rs = [];
+                //创建订单
+                $rs[0] = M('PayOrder')->add($sqlMap);
+
+                if ($rs[0]) {
+                    //记录升级日志
+                    $logMap = [];
+                    $logMap['order_id'] = $rs[0];
+                    $logMap['c_id']     = $vipConfig['id'];
+                    $logMap['day']      = $vipConfig['day'];
+                    $logMap['original'] = $vipConfig['original'];
+                    $logMap['price']    = $vipConfig['price'];
+                    $logMap['input_time']  = time();
+                    $logMap['update_time'] = time();
+
+                    $rs[1] = M('UpgradeVipLog')->add($logMap);
+                }
+
+                foreach ($rs as $k => $v) {
+                    if (!$v) {
+                        M()->rollback();
+                        $this->error($k.'执行失败，请联系管理员');
+                        return false;
+                    }
+                }
+
+                M()->commit();
+
+                $order = $wxPay->pay($sqlMap, $openid);
+
+                if (!$order) {
+                    //记录错误日志
+                    Log::write('微信创建订单错误信息：'.$wxPay->getError());
+                    $this->error($wxPay->getError());
+                } else {
+                    $this->success($order);
+                }
+
+            } catch (\Exception $e) {
+                M()->rollback();
+                $this->error($e->getMessage());
+            }
+        }
+    }
 }

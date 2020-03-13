@@ -46,12 +46,9 @@ class TestController extends SiteController {
 
     public function test2()
     {
-        //用户身高
-        /*$sql = 'ALTER TABLE `lx_users`
-ADD COLUMN `height`  int(3) NOT NULL DEFAULT 0 COMMENT \'身高\' AFTER `user_number`;';
-        M()->query($sql);*/
+        $sql = 'ALTER TABLE `xq`.`lx_user_profile` 
+ADD COLUMN `email` varchar(255) NOT NULL COMMENT \'邮箱\' AFTER `hobby`;';
 
-        $sql = 'ALTER TABLE `lx_users` DROP COLUMN `height`;';
         M()->query($sql);
     }
 }

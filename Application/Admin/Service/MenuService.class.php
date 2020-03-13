@@ -85,6 +85,11 @@ class MenuService{
 									'url' => U('Admin/Account/chongzhi'),
 									'order' => 3
 								),
+								array(
+                                    'name' => '订单管理',
+                                    'url' => U('Admin/Account/payOrder'),
+                                    'order' => 3
+                                ),
 								/*array(
 										'name' => '收银管理',
 										'url' => U('Admin/PayLog/getmoney'),
