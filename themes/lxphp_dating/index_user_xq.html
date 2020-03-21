@@ -52,10 +52,11 @@
         </div>
 
         <div class="uesr_zl">
-            <p class="uesr_zl1p">{$info.user_nicename|default='昵称未设置'}</p>
+            <p class="uesr_zl1p">{$real_name|default='真实名字未定义'}</p>
+            <p class="uesr_zl1p">{$info.user_number|default='账号未定义'}</p>
+            <p class="uesr_zl3p">性别：<!--{if condition="$info.sex eq 2"}-->女
+                <!--{else /}-->男<!--{/if}-->&nbsp;&nbsp;生日:&nbsp;{$pinfo.birthday}</p>
             <p class="uesr_zl2p">地区:&nbsp;&nbsp;{$area|default='未知'}&nbsp;&nbsp;&nbsp;年龄:&nbsp;&nbsp;{$age}岁</p>
-            <p class="uesr_zl3p">生日:&nbsp;{$pinfo.birthday}&nbsp;性别:<!--{if condition="$info.sex eq 2"}-->女
-                <!--{else /}-->男<!--{/if}--></p>
             <p class="uesr_zl4p"><img src="{$info.rank_icon}">
                 {$info.rank_name}
                 <!--{if condition="$info.id neq $uid"}-->
@@ -65,12 +66,12 @@
                 <!--{/if}-->
             </p>
         </div>
-        <div class="uesr_table">
+        <div class="uesr_table" style="top: 80%;">
             <table onmousedown="0" onmousemove="0" border="0">
                 <tr>
                     <td><img src="images/user_03_16.png" alt=""></td>
                     <!--<td><img src="images/user_03_0{$info.sex}.png" alt=""></td>-->
-                    <td><img src="images/user_03_20.png" alt=""></td>
+                    <td><a href="{:U('user/photolist',['source' => 1,'uid' => $info['id']])}"><img src="images/user_03_20.png" alt=""></a></td>
                     <!--<td><img src="images/user_03_11.png" alt=""></td>-->
                     <td><img src="images/user_03_18.png" alt=""></td>
                 </tr>
@@ -84,15 +85,14 @@
             </table>
         </div>
     </div>
-
     <!--{if condition="$giftlist"}-->
-    <div class="new_songli">
+    <!--<div class="new_songli">
         <div class="new_songli_div">收礼</div>
         <a href="{:U('giftlist',array('uid'=>$info[idmd5]))}" class="luanbo"><img src="images/youjianhei.png"
                                                                                   alt=""></a>
         <div class="new_songli_ulli">
             <ul class="cb">
-                <!--{foreach name="giftlist" key="key" item="vo" }-->
+                &lt;!&ndash;{foreach name="giftlist" key="key" item="vo" }&ndash;&gt;
                 <li>
                     <div class="wuyu">
                         <div class="paihang">{$key+1}</div>
@@ -100,10 +100,10 @@
                         <div class="shulian">×{$vo.giftnum}</div>
                     </div>
                 </li>
-                <!--{/foreach}-->
+                &lt;!&ndash;{/foreach}&ndash;&gt;
             </ul>
         </div>
-    </div>
+    </div>-->
     <!--{/if}-->
 
     <!--{if condition="$simiphoto"}-->
@@ -164,6 +164,12 @@
     </div>
 
     <!--{/if}-->
+    <div class="neixinduba_div">
+        <p class="new_nxindubai">个人资料</p>
+        <!--{foreach name="base_info" key="k" item="v"}-->
+        <div class="new_neixinduba">{$k}：{$v}</div>
+        <!--{/foreach}-->
+    </div>
     <!--{if condition="isset($miyu)&&$miyu"}-->
     <div class="neixinduba_div">
         <p class="new_nxindubai">交友密语</p>
@@ -209,6 +215,36 @@
                             <!--{/if}-->
                         <!--{else /}-->
                             <p>{$pinfo.weixin|default="您未公开"}</p>
+                        <!--{/if}-->
+                    </div>
+                </li>
+                <li class="cb">
+                    <div class="fl">QQ号 :</div>
+                    <div class="fr">
+                        <!--{if condition="$info.id neq $uid"}-->
+                        <!--{if condition="$uinfo.user_rank gt 0"}-->
+                        <p class="info-gz user-info" style="<?php if ($User_subscribe < 1) { echo 'display:block';}?>">请先关注对方</p>
+                        <p class="u-info user-info"  style="<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.qq|default="用户未填写"}</p>
+                        <!--{else /}-->
+                        ****<a href="{:U('User/VipCenter')}">VIP可见</a>
+                        <!--{/if}-->
+                        <!--{else /}-->
+                        <p>{$pinfo.qq|default="您还未填写"}</p>
+                        <!--{/if}-->
+                    </div>
+                </li>
+                <li class="cb">
+                    <div class="fl">邮箱号 :</div>
+                    <div class="fr">
+                        <!--{if condition="$info.id neq $uid"}-->
+                        <!--{if condition="$uinfo.user_rank gt 0"}-->
+                        <p class="info-gz user-info" style="<?php if ($User_subscribe < 1) { echo 'display:block';}?>">请先关注对方</p>
+                        <p class="u-info user-info"  style="<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.email|default="用户未填写"}</p>
+                        <!--{else /}-->
+                        ****<a href="{:U('User/VipCenter')}">VIP可见</a>
+                        <!--{/if}-->
+                        <!--{else /}-->
+                        <p>{$pinfo.email|default="您还未填写"}</p>
                         <!--{/if}-->
                     </div>
                 </li>
@@ -258,6 +294,7 @@
 
             if (rank_time == 0) {
                  alertmsg('VIP会员才可以关注哦!');
+                 $('.cehngsongcg').css({'color':'lime','width':'160px','font-size':'16px'});
                  return false;
             }
 

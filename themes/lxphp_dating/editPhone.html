@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="stylesheet" type="text/css" href="css/font/iconfont.css?t=<?php echo time();?>">
+    <title>{$media.title}</title>
+    <style type="text/css">
+        body,.mui-content {
+            background-color: #fff;
+        }
+        .mui-bar-nav {
+            background-color: #fff;
+        }
+        .mui-icon-left-nav,.mui-title {
+            color: #000;
+        }
+        .btn {
+            width: 100%;
+            line-height: 1.8;
+            border-radius: 20px;
+            background-color: #f03b57;
+            margin-top: 10px;
+        }
+        .mui-input-group:before {
+            height: 0px !important;
+        }
+        .notice-tit {
+            margin-top: 10px;
+        }
+        .yzm-btn {
+            position: absolute;
+            right: 0px;
+            line-height: 40px;
+            color: #f03b57;
+            padding: 0px !important;
+            border: none !important;
+        }
+        .second-step {
+            display: none;
+        }
+        .second-step label {
+            width: 30% !important;
+        }
+        .second-step input {
+            width: 70% !important;
+        }
+        .line {
+            color: #e2e2e2;
+        }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 id="title" class="mui-title">修改手机号码</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+        <div class="first-step">
+            <form class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>旧手机号码</label>
+                    <input type="text" readonly value="{$info['user_login']}" placeholder="请填写手机号码">
+                </div>
+                <div class="mui-input-row">
+                    <label>登录密码</label>
+                    <input type="password" class="mui-input-password pwd" placeholder="请输入登录密码">
+                </div>
+                <div class="mui-input-row">
+                    <label>验证码</label>
+                    <input name="old_phone_yzm" type="text" placeholder="请输入短信验证码">
+                    <button type="button" data-type="old_phone" class="yzm-btn"><span class="line">|</span> 获取验证码</button>
+                </div>
+            </form>
+            <button type="button" class="mui-btn nex-btn btn mui-btn-danger">下一步</button>
+        </div>
+        <div class="second-step">
+            <form class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>新手机号码</label>
+                    <input type="text" name="phone" value="" placeholder="请填写新手机号码">
+                </div>
+                <div class="mui-input-row">
+                    <label>验证码</label>
+                    <input name="new_phone_yzm" type="text"  placeholder="请输入短信验证码">
+                    <button type="button" data-type="new_phone" class="yzm-btn"><span class="line">|</span> 获取验证码</button>
+                </div>
+            </form>
+            <button type="button" class="mui-btn sub-btn btn mui-btn-danger">提交</button>
+        </div>
+        <div class="notice">
+            <p class="notice-tit">提示：</p>
+            <p>修改为新手机号码后，您将不能再使用旧手机号码登录！</p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
+<script type="text/javascript">
+
+    mui.init();
+
+    $('.nex-btn').on('click',function () {
+        var self  = $(this)
+            ,yzm  = $('[name="old_phone_yzm"]').val() || ''
+            ,pwd  = $('.pwd').val() || '';
+
+        if (pwd == '') {
+            mui.toast('请填写登录密码');
+            return false;
+        }
+        if (yzm == '') {
+            mui.toast('请填写验证码');
+            return false;
+        }
+
+        self.text('正在提交...');
+        
+        $.post('{:U("ajax/editPhone")}',{action:'check_yzm',yzm:yzm,pwd:pwd},function (res) {
+            if (res.status) {
+                $('.first-step').hide();
+                $('.second-step').show();
+                if ($('[name="pwd"]').length) {
+                    $('[name="pwd"]').val(res.info);
+                } else {
+                    $('.mui-content').append('<input type="hidden" name="pwd" value="'+ res.info+'">');
+                }
+            } else {
+                setTimeout(function () {
+                    self.text('下一步');
+                    mui.toast(res.info);
+                },200);
+            }
+        },'json');
+    });
+
+    $('.yzm-btn').on('click',function () {
+        var el      = $(this)
+            ,time   = 60
+            ,type   = el.data('type')
+            ,phone  = $('[name="phone"]').val() || ''
+            ,action = 'get_yzm';
+
+        var param  = {};
+
+        if (type == 'new_phone' && phone == '') {
+            mui.toast('请填写手机号码');
+            return false;
+        }
+        if (type == 'new_phone') {
+            param = {
+                action:action,
+                phone:phone,
+                type:type
+            }
+        } else {
+            param = {
+                action:action,
+                type:type
+            }
+        }
+
+        el.attr('disabled',true);
+
+        $.post("{:U('ajax/editPhone')}",param,function(res){
+            if (res.status) {
+                mui.toast(res.info);
+                var Timer = setInterval(function () {
+                    if (time > 1) {
+                        time--;
+                        el.html('<span class="line">|</span> 重新获取(' + time+ 's)');
+                    } else {
+                        clearInterval(Timer);
+                        el.attr('disabled',false).html('<span class="line">|</span> 获取验证码');
+                    }
+                },1000);
+            }else{
+                el.attr('disabled',false);
+                mui.toast(res.info);
+            }
+        },'json')
+    });
+
+    $('.sub-btn').on('click',function () {
+        var el    = $(this),
+            yzm   = $('[name="new_phone_yzm"]').val() || '',
+            phone = $('[name="phone"]').val() || '',
+            pwd   = $('[name="pwd"]').val()   || '';
+
+        var param = {
+            yzm:yzm,
+            phone:phone,
+            pwd:pwd,
+            action:'edit'
+        };
+
+        if (phone == '') {
+            mui.toast('请填写新手机号码');
+            return false;
+        }
+        if (yzm == '') {
+            mui.toast('请填写验证码');
+            return false;
+        }
+        if (pwd == '') {
+            mui.toast('请填写登录密码');
+            return false;
+        }
+
+        el.text('正在提交...');
+
+        $.post("{:U('ajax/editPhone')}",param,function(res){
+            if (res.status) {
+                mui.toast(res.info);
+                setTimeout(function () {
+                    history.back(-1);
+                },1000);
+            }else{
+                setTimeout(function () {
+                    el.text('重新提交');
+                    mui.toast(res.info);
+                },200);
+            }
+        },'json')
+    });
+
+</script>
+</body>
+</html>

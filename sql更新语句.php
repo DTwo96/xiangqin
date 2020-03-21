@@ -145,8 +145,19 @@ ADD COLUMN `hobby`  varchar(255) NOT NULL COMMENT \'兴趣爱好\' AFTER `work`;
 
 M()->query($sql);
 
-$sql = 'ALTER TABLE `xq`.`lx_user_profile` 
+$sql = 'ALTER TABLE `lx_user_profile` 
 ADD COLUMN `email` varchar(255) NOT NULL COMMENT \'邮箱\' AFTER `hobby`;';
+
+M()->query($sql);
+
+//标记是否为年费会员
+$sql = 'ALTER TABLE `lx_users` 
+ADD COLUMN `is_year_vip` tinyint(1) NULL DEFAULT 0 COMMENT \'是否为年费会员  0 否 1 是\' AFTER `education`;';
+M()->query($sql);
+//购房信息和购车信息
+$sql = 'ALTER TABLE `lx_user_profile` 
+ADD COLUMN `house_info` varchar(255) NOT NULL COMMENT \'购房信息\' AFTER `email`,
+ADD COLUMN `car_info` varchar(255) NOT NULL COMMENT \'购车信息\' AFTER `house_info`;';
 
 M()->query($sql);
 ?>

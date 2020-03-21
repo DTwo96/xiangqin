@@ -44,7 +44,7 @@ class LoginController extends AdminController {
             if($model->setLogin($userInfo['user_id'])){
 				//dump($_SESSION);
 				//exit;
-                $this->success('登录成功！', U('Index/index'));
+                $this->success('登录成功！', U('Yueaiyuan/index'));
             }else{
                 $this->error($model->getError());
             }

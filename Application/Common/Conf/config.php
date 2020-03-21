@@ -226,6 +226,17 @@ return array(
 		    1 => '男',
             2 => '女',
         ),
+		'UserInfo' => array(
+		    'height' => '身高',
+            'astro' => '星座',
+            'education' => '学历',
+            'university' => '大学',
+            'work' => '工作',
+            'month_income' => '月收入',
+            'hobby' => '兴趣爱好',
+            'house_info' => '是否有房',
+            'car_info' => '是否有车',
+        ),
 		//个人资料设置
 		'SetProfile' =>array(
 		    'code1'=>array(
@@ -288,7 +299,8 @@ return array(
 					array(
 							1=>'未婚',
 							2=>'已婚',
-							3=>'离异'
+							3=>'离婚',
+                            4 => '丧偶',
 					)),				
 		),
 

@@ -133,6 +133,11 @@ class WechatPayController extends SiteController {
                         $userMap = [];
                         $userMap['user_rank'] = $vipLog['c_id'];
                         $userMap['rank_time'] = $expiresTime;
+                        //标记是否为年会员
+                        $expires_m = floor(($expiresTime - time()) / 30 * 24 * 60 * 60);
+                        if ($expires_m >= 12) {
+                            $userMap['is_year_vip'] = 1;
+                        }
 
                         $rs[1] = M('Users')->where(['id' => $order['userid']])->save($userMap);
 

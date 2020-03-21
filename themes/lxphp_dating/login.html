@@ -11,6 +11,7 @@
 	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 	<title>{$media.title}</title>
 	<link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
+	<link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
 	<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 	<style type="text/css">
 		.login-btn-block {
@@ -44,7 +45,7 @@
 			color: #f03b57;
 			font-size: 14px;
 			text-decoration: underline;
-			width: 90px;
+			width: 110px;
 		}
 		.line {
 			color: #fff;
@@ -52,33 +53,47 @@
 		.zhuce_b input:not([type="button"]),.wx-t{
 			color: green !important;
 		}
+		.input-block input {
+			font-size: 16px !important;
+		}
+		.eye-btn {
+			font-size: 20px;
+			float: right;
+			margin-right: 10px;
+		}
+		.e-active {
+			color: green;
+		}
 	</style>
 </head>
 <body>
 <div class="zhuce">
 	<!--#include file="app_share.html"-->
-	<div class="zhuce_a">
-		<p><img src="<?php echo C('SITE_LOGO');?>" alt=""></p>
+	<div class="zhuce_a" style="margin-top: 40px; margin-bottom: 50px;">
+		<p><img style="width: 120px" src="<?php echo C('SITE_LOGO');?>" alt=""></p>
 	</div>
 	<div class="login-btn-block">
 		<a class="login-btn active" data-login_type="account">账号登录</a>
 		<a class="login-btn" data-login_type="message">短信登录</a>
 	</div>
-	<div class="zhuce_b">
+	<div class="zhuce_b" style="margin-top: 100px;">
 		<div class="account-input input-block">
-			<div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号或昵称" maxlength="11"></div>
-			<div class="baikuang"><input type="password" id="pass" placeholder="请输入6到16位密码"></div>
+			<div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号或账号" maxlength="11"></div>
+			<div class="baikuang">
+				<input type="password" id="pass" placeholder="请输入6至16位密码">
+				<i class="iconfont iconyanjing eye-btn"></i>
+			</div>
 		</div>
 		<div class="message-input input-block">
 			<div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号" maxlength="11"></div>
 			<div class="baikuang">
 				<input type="number" id="pass" placeholder="请输入验证码">
 				<span class="line">|</span>
-				<input type="button" id="yzm-btn" value="获取验证码" />
+				<input type="button" id="yzm-btn" value="获取验证码"/>
 			</div>
 		</div>
-		<div class="wangji cb"> <a href="{:U('reg')}" style="margin-left: 10px;" class="fl">立即注册</a><a href="{:U('Home/Public/getpwd')}" style="margin-right: 10px;" class="fr">忘记密码？</a></div>
-		<a href="javascript:;" id="ljlogin">立即登录</a>
+		<div class="wangji cb"> <a href="{:U('reg')}" style="margin-left: 20px;" class="fl">立即注册</a><a href="{:U('Home/Public/getpwd')}" style="margin-right: 20px;" class="fr">忘记密码？</a></div>
+		<a href="javascript:;" id="ljlogin">马上登录</a>
 		<div class="weixinlogin">
 			<!--{if condition="$iswx"}-->
 			<span></span><span></span><font class="wx-t">社交账号登录</font>
@@ -98,6 +113,14 @@
 </script>
 <script type="text/javascript">
     $(function () {
+        $('.eye-btn').on('click',function () {
+            $(this).toggleClass('e-active');
+            if ($(this).hasClass('e-active')) {
+                document.getElementById('pass').type = 'text';
+            } else {
+                document.getElementById('pass').type = 'password';
+            }
+        });
         //切换登录方式
         $('.login-btn').on('click',function () {
             var login_type =  $(this).data('login_type');

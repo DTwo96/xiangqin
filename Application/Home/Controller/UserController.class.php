@@ -170,25 +170,24 @@ class UserController extends SiteController {
 
 		
 
-		$type? $where['a.touid'] = $this->uinfo['id']:$where['a.fromuid'] = $this->uinfo['id'];
+		$type == 1 ? $where['a.touid'] = $this->uinfo['id'] : $where['a.fromuid'] = $this->uinfo['id'];
 
-		$type? $str = 'a.fromuid':$str = 'a.touid';
+		$type == 1 ? $str = 'a.fromuid' : $str = 'a.touid';
 
 		
 
-        $name = $type? '我的粉丝':'我的关注';
+        $name = $type == 1 ? '关注我的' : ( $type == 2 ? '互相关注' : '我的关注');
+        if ($type == 2) { //当是互相关注的时候
+            $where['_string'] = '(select count(id) from lx_user_subscribe where fromuid = a.touid and touid ='.$this->uinfo['id'].') > 0';
+        }
 
-		$count = $mod ->alias('a')-> where($where) -> count();
+        $count = $mod ->alias('a')-> where($where) -> count();
 
 		$Page = new \Think\Page($count, 15);
 
-
-
 		$show = $Page -> show();
 
-		$list = $mod ->alias('a')->join('__USERS__ b ON b.id='.$str,'LEFT')->join('__USER_PROFILE__ c ON c.uid= '.$str,'LEFT')->field('a.time,b.user_nicename,b.avatar,b.sex,b.age,b.jifen,b.user_rank,b.rank_time,b.provinceid,b.cityid,c.monolog,c.astro,b.idmd5')-> where($where) -> order('a.time desc') -> limit($Page -> firstRow . ',' . $Page -> listRows) -> select();
-
-      
+		$list = $mod ->alias('a')->join('__USERS__ b ON b.id='.$str,'LEFT')->join('__USER_PROFILE__ c ON c.uid= '.$str,'LEFT')->field('a.touid,a.time,b.user_nicename,b.avatar,b.sex,b.age,b.jifen,b.user_rank,b.rank_time,b.provinceid,b.cityid,c.monolog,c.astro,b.idmd5,c.real_name,b.user_number,b.is_year_vip')-> where($where) -> order('a.time desc') -> limit($Page -> firstRow . ',' . $Page -> listRows) -> select();
 
 		$areaList = $this->get_area();
 
@@ -198,9 +197,7 @@ class UserController extends SiteController {
 
         	foreach ($list as $k=>$v){
 
-        		       	 
-
-        		$list[$k]['time'] = $this->new_format_date($v['time']);
+        		$list[$k]['time'] = date('Y-m-d H:i:s',$v['time']);
 
         		$list[$k]['province_name'] =$areaList[$v['provinceid']]['areaname'];
 
@@ -212,6 +209,7 @@ class UserController extends SiteController {
 
 				$list[$k]['vip'] = $this -> isvip($v);
 
+				$list[$k]['real_name'] = mb_strlen($v['real_name']) > 5 ? (substr($v['real_name'],0,5).'...') : $v['real_name'];
         		//$list[$k] = array_filter($list[$k]);
 
         	}
@@ -322,13 +320,22 @@ class UserController extends SiteController {
 
 	public function photolist(){
 
-				
-
 		$phototype = I('get.phototype',0,'intval');
+        //入口  1是在用户资料里访问的
+		$source    = I('source',0,'intval');
 
 		$model = M('user_photo');
 
-		$where = array('uid' => $this->uinfo['id'], 'flag' => 1, 'phototype' => $phototype ); //审核通过     公开照片
+		if ($source) {
+		    $uid   = I('uid',0,'intval');
+		    if ($uid < 1) {
+		        $this->error('参数错误');
+            }
+            $where = array('uid' => $uid, 'flag' => 1, 'phototype' => 0 ); //审核通过     公开照片
+        } else {
+            $where = array('uid' => $this->uinfo['id'], 'flag' => 1, 'phototype' => $phototype ); //审核通过     公开照片
+        }
+
 
 		$count = $model -> where($where) -> count();
 
@@ -374,8 +381,9 @@ class UserController extends SiteController {
 
 		$this -> assign('phototype',$phototype);
 
-		$media = $this->getMedia ( '公开相册', '', '', '公开相册', 'ismenu' );	
+		$media = $this->getMedia ( '公开相册', '', '', '公开相册', 'ismenu' );
 
+        $this -> assign ( 'source', $source);
 		$this -> assign ( 'media', $media );
 
 		$this -> assign('list',$list);
@@ -1328,13 +1336,15 @@ class UserController extends SiteController {
 
 			$where['A.id'] = $uid;
 
-			$base = M('Users')->alias('A')->join('__USER_PROFILE__  B on A.id = B.uid')->field('A.user_number,A.user_nicename,A.sex,A.provinceid,A.cityid,A.education,B.real_name,B.monolog,B.work,B.university,B.hobby,B.height,B.qq,B.weibo,B.email,A.month_income,B.birthday,B.astro,B.code1,B.code2,B.code3,B.code4')->where($where)->find();
+			$base = M('Users')->alias('A')->join('__USER_PROFILE__  B on A.id = B.uid')->field('A.user_login,A.age,A.user_number,A.user_nicename,A.sex,A.provinceid,A.cityid,A.education,B.real_name,B.monolog,B.work,B.university,B.weixin,B.car_info,B.house_info,B.hobby,B.height,B.qq,B.weibo,B.email,A.month_income,B.birthday,B.astro,B.code1,B.code2,B.code3,B.code4')->where($where)->find();
 
 //			$base['age'] = date('Y',time())-$base['age'];
 
 			$nick =   M('Audit')->field('text,status')->where('uid = '.$uid.' and  type = 1 ')->order('created_time desc')->find();
 
-			
+            $base['age'] = date('Y') - $base['age'];
+            $base['car_info']   = !empty($base['car_info'])   ? unserialize($base['car_info']) : '';
+            $base['house_info'] = !empty($base['house_info']) ? unserialize($base['house_info']) : '';
 
 			if($nick&&$nick['status']!=1&&C('nickname_flag')>0){
 
@@ -1345,8 +1355,6 @@ class UserController extends SiteController {
 
 
 			}
-
-		
 
 			$Constellation = C('Constellation');//星座列表
 
@@ -1436,8 +1444,20 @@ class UserController extends SiteController {
             $pro['weibo'] = remove_xss(I('post.weibo','','trim'));
 
             $pro['email'] = remove_xss(I('post.email','','trim'));
-			
 
+            $pro['weixin'] = remove_xss(I('post.weixin','','trim'));
+            //购房信息
+            $house_info = [];
+            $house_info['is_buy_house'] = I('post.is_buy_house','');
+            $house_info['condition']    = I('post.house_condition','');
+            $pro['house_info']          = serialize($house_info);
+            //购车信息
+            $car_info = [];
+            $car_info['is_buy_car'] = I('post.is_buy_car','');
+            $car_info['condition']  = I('post.car_condition','');
+            $pro['car_info']        = serialize($car_info);
+
+            $data['age'] = (int)I('post.age','','trim');
 
 			$data['provinceid'] = I('post.provinceid',0,'intval'); //省份id
 
@@ -2385,20 +2405,27 @@ $ext=strrchr($url,".");
         }
 		$this->assign('vip_info',$vip_info);
 
-	    $info = M('Users')->field('avatar,user_nicename,money,user_rank,rank_time')->where('id = '.$this->uinfo['id'])->find();	    
+	    $info = M('Users')->field('id,is_year_vip,avatar,user_nicename,money,user_rank,rank_time,(select real_name from lx_user_profile where uid = id) as real_name')->where('id = '.$this->uinfo['id'])->find();
 
 	    if($info['rank_time']){
+            //到期时间
+            $rank_time  = date('Y-m-d H:i:s',$info['rank_time']);
+            //开通时间
+            $where = [];
+            $where['userid'] = $this->uinfo['id'];
+            $where['status'] = 1;
+
+            $start_time = M('PayOrder')->where($where)->order('id desc')->limit(1)->getfield('input_time');
 
 	    	$info['rank_time'] = ceil(($info['rank_time']-time())/(24*3600));
 
+            $this->assign('start_time',date('Y-m-d H:i:s',$start_time));
+            $this->assign('end_time',$rank_time);
 	    }
-
-
 
 	    $name = array('ConfigVip','ConfigCredit');
 
 	    $list = M('ConfigVip')->select();
-
 	    /*if($type==0){
 
 	    	foreach ($list as $v){
@@ -3453,5 +3480,24 @@ public function deletebind(){
                 $this->error($e->getMessage());
             }
         }
+    }
+    /**
+     * 修改手机号码
+     * @return mixed
+     * @author：Enthusiasm
+     * @date：2020/2/28 0028
+     * @time：13:18
+     */
+    public function editPhone()
+    {
+        $media = $this->getMedia('修改手机号码');
+
+        if (!$this->uinfo) {
+            $this->error('请先登录');
+        }
+
+        $this->assign('info',$this->uinfo);
+        $this->assign('media',$media);
+        $this->siteDisplay('editPhone');
     }
 }

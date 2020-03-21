@@ -143,7 +143,7 @@ class GiftController extends SiteController {
 		
 		
 			public function giftlist(){//礼物
-	
+	        $type = I('type',1);  //1是收礼  2是送礼
 	   	$myuid = $this->uinfo["id"];
 		$ucoundmod =  M("User_count");		
 		$user_count =$ucoundmod->where("uid=".$myuid)->find();
@@ -168,6 +168,7 @@ class GiftController extends SiteController {
     	$this->assign('media', $media);
 		$this->assign('nav', 'Wechat');
 		$this->assign('nav2', 'sixin_c');
+		$this->assign('type',$type);
 		$this->siteDisplay ( 'sixin_c' );
 	}
 	

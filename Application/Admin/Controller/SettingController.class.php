@@ -332,7 +332,7 @@ class SettingController extends AdminController {
     		if(!$type){
     			$arr =array('money'=>I('post.money'),'zmoney'=>I('post.zmoney'),'time'=>time());
     		}else{
-    			$arr =array('day'=>I('post.day'),'original'=>I('post.original'),'price'=>I('post.price'),'time'=>time());
+    			$arr =array('price'=>I('post.price'),'time'=>time());
     		}
 
     		$id = I('post.id',0,'intval');

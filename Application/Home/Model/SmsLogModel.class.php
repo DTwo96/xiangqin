@@ -19,18 +19,19 @@ class SmsLogModel extends Model {
      * @date：2020/3/7
      * @time：10:29
      */
-    public function checkSendStatus($phone,$type)
+    public function checkSendStatus($phone,$type = 1)
     {
         if (!is_mobile($phone)) {
             $this->error = '手机号码格式错误';
             return false;
         }
 
-        $user_cnt = M('Users')->where(['user_login' => $phone])->count();
-
-        if (!$user_cnt) {
-            $this->error = '该手机号码没有注册';
-            return false;
+        if ($type != 5) { //不是修改手机号码的类型的时候
+            $user_cnt = M('Users')->where(['user_login' => $phone])->count();
+            if (!$user_cnt) {
+                $this->error = '该手机号码没有注册';
+                return false;
+            }
         }
 
         $start_time = date('Y-m-d',time()).'00:00:00';

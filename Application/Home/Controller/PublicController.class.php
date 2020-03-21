@@ -42,10 +42,10 @@ class PublicController extends SiteController {
 
 		}
 
-		$media = $this -> getMedia('会员注册');
+		$media = $this -> getMedia('用户首页');
 
 		$this -> assign('media', $media);
-
+        $this -> assign('agreement', cookie('agreement'));
 		/*if(I('get.type',0,'intval')==2)
 
 		$this -> dowxlogin('snsapi_userinfo');
@@ -55,7 +55,6 @@ class PublicController extends SiteController {
 		$this -> dowxlogin('snsapi_base');*/
 
 		//微信自动登录,只有此处！
-
 		$this -> siteDisplay('reg_01');
 
 	}
@@ -68,32 +67,28 @@ class PublicController extends SiteController {
      */
     public function setInformation()
     {
-        $userid = (int)I('userid');
+        $media = $this -> getMedia('注册资料');
 
-        if (!$userid) $this->error('参数错误');
+        $reg_info = I('');
 
-        $media = $this -> getMedia('完善资料');
-
-        if(!$this->uinfo) {
-            //执行登录
-            $userInfo = M('Users')->where(['id' => $userid])->find();
-            $this->loginbyname($userInfo,0);
+        if (empty($reg_info['mob'])) {
+            $this->error('手机号码不能为空');
+        }
+        if (empty($reg_info['pass'])) {
+            $this->error('密码不能为空');
         }
 
-        $sex       = I('sex','1');
         $code4     = C('SetProfile.code4')['info'];
         $education = C('Education');
         //婚姻状态
         $this->assign('code4',$code4);
         //学历
         $this->assign('education',$education);
-        //用户ID
-        $this->assign('userid',$userid);
         $this->assign('media',$media);
+        //注册信息
+        $this->assign('reg_info',$reg_info);
 
-        $this->assign('sex',$sex);
-
-        $this -> siteDisplay('reg_04');
+        $this->siteDisplay('reg_04');
     }
 	public function log(){
 
@@ -434,7 +429,7 @@ class PublicController extends SiteController {
 
 		
 
-		$media = $this -> getMedia('会员登陆');
+		$media = $this -> getMedia('会员登录');
 
 		$this -> assign('media', $media);
 

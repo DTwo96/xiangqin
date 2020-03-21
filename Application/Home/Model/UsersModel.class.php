@@ -30,7 +30,7 @@ class UsersModel extends Model {
 	
 	
 	//纯手机注册
-	public function reg($log="",$pwd="",$sex="",$age=""){
+	/*public function reg($log="",$pwd="",$sex="",$age=""){
 		$age = date('Y')-$age;
 		$arr ['user_login'] = $log;
 		$re = $this->where($arr)->find();
@@ -43,8 +43,8 @@ class UsersModel extends Model {
 			if($re2)
 			$arr ['parent_id'] = $parent_id;
 		}		
-		//$arr ['sex'] = $sex;
-	    //$arr ['age'] = $age;
+		$arr ['sex'] = $sex;
+	    $arr ['age'] = $age;
 		$arr ['idmd5'] = md5($log. C ( 'PWD_SALA' ).$pwd);
 		$arr ['last_login_time'] = time ();
 		$arr ['user_pass'] = md5 ( $log . $pwd . C ( 'PWD_SALA' ) );
@@ -66,7 +66,101 @@ class UsersModel extends Model {
 			return $res;
 			}
 		return false;
-	}
+	}*/
+    public function reg($param = []){
+
+        if (empty($param['phone'])) {
+            $this->error = '手机号码不能为空';
+            return false;
+        }
+        if (empty($param['pwd'])) {
+            $this->error = '密码不能为空';
+            return false;
+        }
+        if (empty($param['sex'])) {
+            $this->error = '请选择性别';
+            return false;
+        }
+        if (empty($param['age'])) {
+            $this->error = '请填写年龄';
+            return false;
+        }
+        if (empty($param['weixin'])) {
+            $this->error = '请填写微信';
+            return false;
+        }
+        if (!is_mobile($param['phone'])) {
+            $this->error = '手机号码格式错误';
+            return false;
+        }
+
+        $sqlMap = [];
+        $sqlMap['user_login'] = $param['phone'];
+
+        $check_user = $this->where($sqlMap)->count();
+        if ($check_user) {
+            $this->error = '该手机号码已被注册';
+            return false;
+        }
+
+        $year = date('Y');
+
+        $age_Y = $year - $param['age'];
+        if ($age_Y > $year - 18) {
+            $this->error = '年龄需满18岁或以上';
+            return false;
+        }
+
+        $sqlMap['age']             = $age_Y;
+        $sqlMap['sex']             = $param['sex'];
+        $sqlMap['idmd5']           = md5($param['phone'].C ( 'PWD_SALA' ).$param['pwd']);
+        $sqlMap['user_pass']       = md5 ( $param['phone'].$param['pwd']. C ( 'PWD_SALA' ) );
+        $sqlMap['month_income']    = $param['month_income'];
+        $sqlMap['education']       = $param['education'];
+
+        $sqlMap['create_time']   = $sqlMap['last_login_time'] = time ();
+        $sqlMap['last_login_ip'] = $sqlMap['regip']           = get_client_ip ();
+
+        $parent_id = cookie('yq');
+        if ($parent_id > 0) {
+            $re2 = $this->where("id=".$parent_id)->count();
+            if ($re2) {
+                $sqlMap['parent_id'] = $parent_id;
+            }
+        }
+
+        $openid = cookie("regopenid");
+        $wxinfo = S("reginfo".$openid);
+        if ($wxinfo) {
+            $sqlMap = array_merge($sqlMap,$wxinfo);
+            S("reginfo".$openid,null);
+        }
+
+        $res = $this->add($sqlMap);
+
+        if($res) {//更新副表数据和头像
+            $pro = [];
+            $pro['uid']      = $res;
+            $pro['height']   = $param['height'];
+            $pro['code4']    = $param['code4'];
+            $pro['birthday'] = $param['birthday'];
+            $pro['weixin']   = $param['weixin'];
+
+            $arr = array('mob'=>'hot','qq'=>'hot','weixin'=>'hot');
+            $pro['lxfs_config'] = serialize($arr);
+
+            $sqlMap = [];
+            $sqlMap['user_number'] = $this->getUserNumber($res,$param['sex']);
+
+            $this->where(['id' => $res])->save($sqlMap);
+
+            M("User_profile")->add($pro);
+            //上传用户头像
+            A('Ajax')->uploadAvatar($res,$param['image'],$param['thumb_image']);
+            return $res;
+        }
+        return false;
+    }
 	
 	
 	
@@ -108,6 +202,11 @@ class UsersModel extends Model {
         $num = ($sex == 1 ? 'B' : 'A');
         $num = $num.$id;
         return $num;
+    }
+
+    public function getError()
+    {
+        return $this->error;
     }
 }
 

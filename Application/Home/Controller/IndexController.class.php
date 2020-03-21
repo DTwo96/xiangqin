@@ -33,7 +33,7 @@ class IndexController extends SiteController {
 
         }
 
-        $media=$this->getMedia('推荐');
+        $media=$this->getMedia('用户推荐');
 
         $this->assign('media', $media);
 
@@ -170,7 +170,7 @@ class IndexController extends SiteController {
                 ->alias('u')
                 ->join('lx_user_profile p on p.uid = u.id')
                 ->where($where)
-                ->field('id,user_nicename,avatar,idmd5,user_number,sex')
+                ->field('p.real_name,provinceid,age,cityid,avatar,idmd5,user_number,sex')
                 ->order('type desc,last_login_time desc,id desc')
                 ->page($page,$limit)
                 ->select();
@@ -182,11 +182,13 @@ class IndexController extends SiteController {
             exit;
 
         }
-
+        //地区名称
+        $areaList = $this->get_area();
         foreach($list as $key=> $val){
-
-            $list[$key]['aurl'] = U("Show/index", array("uid" => $val['idmd5']));
-
+            $list[$key]['aurl']          = U("Show/index", array("uid" => $val['idmd5']));
+            $list[$key]['province_name'] = $areaList[$val['provinceid']]['areaname'];
+            $list[$key]['city_name']     = $areaList[$val['cityid']]['areaname'];
+            $list[$key]['age']           = date('Y',time()) - $val['age'];
         }
 
 
@@ -2010,6 +2012,15 @@ class IndexController extends SiteController {
 
         if (!empty($str)) {
             $where['_string'] = substr($str,0,strlen($str) - 5);
+        }
+
+        if (!empty($param['keyword'])) {
+            $keyword = trim($param['keyword']);
+            $where = [];
+            $where['u.user_login']  = $keyword;
+            $where['u.user_number'] = $keyword;
+            $where['p.real_name'] = $keyword;
+            $where['_logic'] = 'OR';
         }
 
         return $where;

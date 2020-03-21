@@ -115,8 +115,9 @@ class SiteController extends BaseController {
         if (is_array($ids)) {
             foreach ($ids as $k => $v) {
                 $sqlMap = [];
-                $sqlMap['user_rank'] = 0;
-                $sqlMap['rank_time'] = 0;
+                $sqlMap['user_rank']   = 0;
+                $sqlMap['rank_time']   = 0;
+                $sqlMap['is_year_vip'] = 0;
                 M('Users')->where(['id' => $v['id']])->save($sqlMap);
             }
         }
@@ -810,9 +811,9 @@ public function checkbasedata($type=""){
 
 	$cityid = $this->uinfo['cityid'];
 
-	//$user_nicename= $this->uinfo['user_nicename'];
+	$real_name = M('UserProfile')->where(['uid' => $this->uinfo['id']])->getField('real_name');
 
-	if(!$avatar /*|| !$user_nicename*/ || !$cityid){
+	if(!$avatar || !$real_name || !$cityid){
 
 		if($type){
 
@@ -820,7 +821,7 @@ public function checkbasedata($type=""){
 
 		}else{
 
-			$this->ajaxReturn(array('info'=>'请先完善您的个人基本信息：头像，昵称，所在城市等','status'=>-1,'url'=>U('Home/User/index')));
+			$this->ajaxReturn(array('info'=>'请先完善您的个人基本信息：头像，真实姓名，所在城市等','status'=>-1,'url'=>U('Home/User/index')));
 
 		}
 
@@ -1226,7 +1227,7 @@ protected function send_mobcode($mob,$code){
 
 //		if(S('check'.$mob)==1) return '两次发送间隔需1分钟。';
 
-	$url = 'http://106.dxton.com/webservice/sms.asmx/Submit?account='.C('mobaccount').'&password='.C('mobpass').'&mobile='.$mob.'&content='."您的验证码是：【".$code."】。请不要把验证码泄露给其他人。如非本人操作，可不用理会！";
+	$url = 'http://106.dxton.com/webservice/sms.asmx/Submit?account='.C('mobaccount').'&password='.C('mobpass').'&mobile='.$mob.'&content='."您的验证码是：".$code."【".C('site_title')."】。请不要把验证码泄露给其他人。如非本人操作，可不用理会！";
 
 
 

@@ -57,6 +57,11 @@ class MenuService{
                         'name' => '相册列表/审核',
                         'url' => U('Admin/User/userPhotoFlag'),
                         'order' => 4
+                    ),
+                    array(
+                        'name' => '互相关注',
+                        'url' => U('Admin/User/subscribe'),
+                        'order' => 5
                     )
                 )
             ),
@@ -65,7 +70,7 @@ class MenuService{
 						//'icon' => 'u-icon-list',
 						'order' => 7,
 						'menu' => array(
-								array(
+								/*array(
 									'name' => '魅力值/财富值管理',
 									'url' => U('Admin/Account/account'),
 									'order' => 0
@@ -74,7 +79,7 @@ class MenuService{
 									'name' => '提现/现金发放管理',
 									'url' => U('Admin/Account/money'),
 									'order' => 1
-								),
+								),*/
 								array(
 									'name' => '金钱记录管理',
 									'url' => U('Admin/Account/jinqianlog',array('type'=>1)),
@@ -102,7 +107,7 @@ class MenuService{
                 //'icon' => 'u-icon-list',
                 'order' => 8,
                 'menu' => array(
-					array(
+					/*array(
                         'name' => '私信提示设置',
                         'url' => U('Admin/Compose/setting'),
                         'order' => 2
@@ -111,27 +116,27 @@ class MenuService{
                         'name' => '会员私信',
                         'url' => U('Admin/Compose/index',array('ishello'=>-1)),
                         'order' => 3
-                    ),
+                    ),*/
 					array(
                         'name' => '系统消息',
                         'url' => U('Admin/SystemMsg/index'),
                         'order' => 4
                     ),
-					array(
+					/*array(
                         'name' => '虚拟礼物记录',
                         'url' => U('Admin/Giftlist/index'),
                         'order' => 5
-                    ),
+                    ),*/
 					array(
                         'name' => '关注消息',
                         'url' => U('Admin/Attention/index'),
                         'order' => 6
                     ),
-					array(
+					/*array(
                         'name' => '评论管理',
                         'url' => U('Admin/CommentManage/index'),
                         'order' => 7
-                    )
+                    )*/
                 )
             ),		
             'system' => array(
@@ -265,7 +270,7 @@ class MenuService{
                    
                 )
             ),
-            'Log' => array(
+            /*'Log' => array(
                 'name' => '信息记录',
                 //'icon' => 'u-icon-list',
                 'order' => 11,
@@ -291,8 +296,8 @@ class MenuService{
                         'order' => 3
                     )
                 )
-            ),
-			'Tuig' => array(
+            ),*/
+			/*'Tuig' => array(
                 'name' => '系统联盟',
                 //'icon' => 'u-icon-list',
                 'order' => 11,
@@ -318,7 +323,7 @@ class MenuService{
 						'order' => 6
 					),                   
                 )
-            ),
+            ),*/
             'Article' => array(
                 'name' => '运营管理',
                 //'icon' => 'u-icon-list',

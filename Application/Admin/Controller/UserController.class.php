@@ -3,6 +3,8 @@
 namespace Admin\Controller;
 
 use Admin\Controller\AdminController;
+use Think\Page;
+use Think\Think;
 
 /**
 
@@ -1975,6 +1977,149 @@ $data['time']=time();
   	$this -> adminDisplay("usercount");
 
   }
+    /*
+    * 查找互相关注的用户
+    * */
+    public function searchSub($uid)
+    {
+        $res = [];
+        $str = '';
+        $cnt = 0;
+
+        $model = D('UserSubscribe');
+
+        $my_subscribe_ids = $model->where(['fromuid' => $uid])->field('touid')->select(); //我的关注
+        $ids              = $model->where(['touid' => $uid])->field('fromuid')->select(); //关注我的
+
+        $my_subscribe_ids_arr  = array_column($my_subscribe_ids,'touid');
+        foreach ($ids as $v) {
+            if (in_array($v['fromuid'],$my_subscribe_ids_arr)) {
+                $cnt++;
+                $str .= $v['fromuid'].',';
+            }
+        }
+
+        $res = [
+            'ids' => substr($str,0,strlen($str) - 1),
+            'cnt' => $cnt,
+        ];
+
+        return $res;
+    }
+    /*
+     * 互相关注
+     * */
+    public function subscribe(){
+
+        include APP_PATH.'/Common/Library/PHPExcel-1.8/Classes/PHPExcel.php';
+
+        $model = D('UserSubscribe');
+
+        $page  = I('p',1);
+        $limit = I('limit',10);
+        $param = I('param.');
+
+        if (IS_POST) {
+            $PHPExcel = new \PHPExcel();
+            $PHPSheet = $PHPExcel->getActiveSheet();
+            $PHPSheet->setTitle('互相关注');
+            //设置文字水平居中
+            $PHPSheet->getDefaultStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $PHPSheet
+                ->setCellValue('A1', '编号')
+                ->setCellValue('B1', '用户ID')
+                ->setCellValue('C1', '关注的用户ID')
+                ->setCellValue('D1', '微信号码')
+                ->setCellValue('E1', '手机号码')
+                ->setCellValue('F1', '关注时间')
+                ->setCellValue('G1', 'VIP类型')
+                ->setCellValue('H1', '账号')
+                ->setCellValue('I1', '互相关注的总人数');
+
+            //设置宽度
+            $PHPSheet->getColumnDimension('A')->setWidth(10);
+            $PHPSheet->getColumnDimension('B')->setWidth(10);
+            $PHPSheet->getColumnDimension('C')->setWidth(18);
+            $PHPSheet->getColumnDimension('D')->setWidth(40);
+            $PHPSheet->getColumnDimension('E')->setWidth(30);
+            $PHPSheet->getColumnDimension('F')->setWidth(24);
+            $PHPSheet->getColumnDimension('G')->setWidth(18);
+            $PHPSheet->getColumnDimension('H')->setWidth(10);
+            $PHPSheet->getColumnDimension('I')->setWidth(20);
+
+            $where = [];
+            $where['_string'] = '(select count(id) from lx_user_subscribe where fromuid = s.touid and touid = s.fromuid) > 0';
+
+            $lists  = $model
+                ->alias('s')
+                ->join('lx_users u on u.id = s.fromuid')
+                ->join('lx_user_profile p on p.uid = u.id')
+                ->where($where)
+                ->field('s.*,u.id,p.weixin,u.user_login,u.user_number,u.rank_time,u.is_year_vip')
+                ->select();
+            //把相同的ID合并到一起
+            $unique_arr = [];
+            foreach ($lists as $k => $v) {
+                $sub_info = $this->searchSub($v['id']);
+                $unique_arr[$v['id']] = $v;
+                $unique_arr[$v['id']]['touid'] = $sub_info['ids'];
+                $unique_arr[$v['id']]['cnt']   = $sub_info['cnt'];
+            }
+            $unique_arr = array_merge($unique_arr);
+
+            foreach ($unique_arr as $k => $v) {
+                $vip_type = $v['rank_time'] > 0 ? ($v['is_year_vip'] ? 'YVIP' : 'MVIP') : '无';
+                $key = $k + 2;
+                $PHPSheet
+                    ->setCellValue('A'.$key,($k + 1))
+                    ->setCellValue('B'.$key,$v['id'])
+                    ->setCellValue('C'.$key,$v['touid'])
+                    ->setCellValue('D'.$key,$v['weixin'])
+                    ->setCellValue('E'.$key,$v['user_login'])
+                    ->setCellValue('F'.$key,timeFormat($v['time']))
+                    ->setCellValue('G'.$key,$vip_type)
+                    ->setCellValue('H'.$key,$v['user_number'])
+                    ->setCellValue('I'.$key,$v['cnt']);
+            }
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="互相关注-'.date('YmdHis').'.xlsx"');//告诉浏览器输出浏览器名称
+            header('Cache-Control: max-age=0');//禁止缓存
+            $ExcelWriter = \PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel2007')->save('php://output');
+            exit;
+        }
+
+        $where = [];
+        $where['_string'] = '(select count(id) from lx_user_subscribe where fromuid = s.touid and touid = s.fromuid) > 0';
+
+        if (!empty($param['search_type']) && !empty($param['keyword'])) {
+            $keyword = (int)trim($param['keyword']);
+            switch ($param['search_type']) {
+                case 'id':
+                    $where['id']  = $keyword;
+                    break;
+                case 'fromuid':
+                    $where['fromuid'] = $keyword;
+                    break;
+                case 'touid':
+                    $where['touid']  = $keyword;
+                    break;
+            }
+        }
+
+        $count  = $model->alias('s')->where($where)->count();
+        $lists  = $model->alias('s')->where($where)->field('*')->page($page,$limit)->select();
+
+        $pager  = new \Think\Page($count,$limit);
+        $show   = $pager->show();
+
+        $this->assign('param',$param);
+        $this->assign('page',$show);
+        $this->assign('lists',$lists);
+
+        $this -> adminDisplay("subscribe");
+
+    }
 
   
 

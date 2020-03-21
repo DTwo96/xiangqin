@@ -173,7 +173,11 @@
              <p>
                  <a href="{:U('Show/index', array('uid' => $info['idmd5']))}" style="<?php if ($info['rank_time'] > 0) {?>color: #f61a24<?php }?>" class="color000">{$info.user_nicename}</a>
                  <?php if ($info['rank_time'] > 0) {?>
-                    <span class="vip_logo"></span>
+                     <?php if ($info['is_year_vip'] == 1) {?>
+                        <img src="images/yvip.png" alt="" class="vip-logo">
+                     <?php } else {?>
+                        <img src="images/mvip.png" alt="" class="vip-logo">
+                     <?php }?>
                  <?php }?>
              </p>
              <p><img src="{$info.rank_icon}">{$info.rank_name}<!-- <a href="{:U('Show/index', array('uid' => $info['idmd5']))}">私密资料</a> --></p>

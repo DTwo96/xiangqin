@@ -16,6 +16,9 @@ class MenuModel {
         foreach ($list as $value) {
             $menu=array_merge_recursive((array)$menu,(array)$value);
         }
+        unset($menu['index']['menu'][1]);
+        unset($menu['Form']['menu'][0]);
+        unset($menu['Content']['menu'][1]);
         //排序菜单
         foreach ((array) $menu as $topKey => $top) {
             if (!empty($top['menu']) && is_array($top['menu'])) {    
@@ -31,6 +34,8 @@ class MenuModel {
                 $menu[$topKey]['menu'] = array_order($top['menu'], 'order', 'asc');
             }
         }
+
+        $menu['index']['menu'][1]['name'] = '系统首页';
         $menu=array_order($menu, 'order', 'asc');
         return $menu;
 	}

@@ -1,9 +1,10 @@
 <div class="sixin_header">
          <ul class="cb">
-           <li <!--{if condition="$nav2 eq 'sixin_a'"}-->class="hot"<!--{/if}--> ><a href="{:U('Wechat/sixin')}">私信</a><!--{if condition="$user_count.wdsxnum gt 0"}--><span>{$user_count.wdsxnum}</span><!--{/if}--></li>
+          <!-- <li &lt;!&ndash;{if condition="$nav2 eq 'sixin_a'"}&ndash;&gt;class="hot"&lt;!&ndash;{/if}&ndash;&gt; ><a href="{:U('Wechat/sixin')}">私信</a>&lt;!&ndash;{if condition="$user_count.wdsxnum gt 0"}&ndash;&gt;<span>{$user_count.wdsxnum}</span>&lt;!&ndash;{/if}&ndash;&gt;</li>
 		   
-           <li <!--{if condition="$nav2 eq 'sixin_b'"}-->class="hot"<!--{/if}-->><a href="{:U('Wechat/subscribe')}">关注</a><!--{if condition="$user_count.wdgznum gt 0"}--><span>{$user_count.wdgznum}</span><!--{/if}--></li>
-           <li <!--{if condition="$nav2 eq 'sixin_c'"}-->class="hot"<!--{/if}-->><a href="{:U('Gift/giftlist')}">收礼</a><!--{if condition="$user_count.wdgiftnum gt 0"}--><span>{$user_count.wdgiftnum}</span><!--{/if}--></li>
-           <li <!--{if condition="$nav2 eq 'sixin_d'"}-->class="hot"<!--{/if}-->><a href="{:U('Wechat/system')}">系统</a><!--{if condition="$user_count.wdsysnum gt 0"}--><span>{$user_count.wdsysnum}</span><!--{/if}--></li>
+           <li &lt;!&ndash;{if condition="$nav2 eq 'sixin_b'"}&ndash;&gt;class="hot"&lt;!&ndash;{/if}&ndash;&gt;><a href="{:U('Wechat/subscribe')}">关注</a>&lt;!&ndash;{if condition="$user_count.wdgznum gt 0"}&ndash;&gt;<span>{$user_count.wdgznum}</span>&lt;!&ndash;{/if}&ndash;&gt;</li>-->
+           <li style="width: 50%;" <!--{if condition="$nav2 eq 'sixin_c' && $type == 1"}-->class="hot"<!--{/if}-->><a href="{:U('Gift/giftlist',['type' => 1])}">收礼</a><!--{if condition="$user_count.wdgiftnum gt 0"}--><span>{$user_count.wdgiftnum}</span><!--{/if}--></li>
+             <li style="width: 50%;" <!--{if condition="$nav2 eq 'sixin_c' && $type == 2"}-->class="hot"<!--{/if}-->><a href="{:U('Gift/giftlist',['type' => 2])}">送礼</a><!--{if condition="$user_count.wdgiftnum gt 0"}--><span>{$user_count.wdgiftnum}</span><!--{/if}--></li>
+             <!--<li &lt;!&ndash;{if condition="$nav2 eq 'sixin_d'"}&ndash;&gt;class="hot"&lt;!&ndash;{/if}&ndash;&gt;><a href="{:U('Wechat/system')}">系统</a>&lt;!&ndash;{if condition="$user_count.wdsysnum gt 0"}&ndash;&gt;<span>{$user_count.wdsysnum}</span>&lt;!&ndash;{/if}&ndash;&gt;</li>-->
          </ul>
       </div>

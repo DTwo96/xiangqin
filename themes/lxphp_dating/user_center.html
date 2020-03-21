@@ -29,6 +29,10 @@
 	   .vip-block img {
 		   margin-top: 6px;
 	   }
+		.uesr_table .show-block td {
+			color: #666;
+			font-size: 12px;
+		}
 	</style>
 
 	<body>
@@ -46,33 +50,53 @@
 
 					<a href="{:U('saveAvatarList')}"><img src="{$uinfo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt="" class="uesr_tx_a"></a>
 					<a href="{:U('VipCenter')}">
-						<span class="gentalianx"><!--{eq name="uinfo.user_rank" value="0"}--><img src="images/vip1.png" alt="" style="width: 23px;">购买VIP<!--{else/}--><img src="images/vip.png" alt="" style="width: 23px;">VIP会员<!--{/eq}--></span>
+						<span class="gentalianx" <?php if ($uinfo['user_rank'] > 0) {?>style="text-decoration: none;"<?php }?>>
+							<!--{eq name="uinfo.user_rank" value="0"}-->
+								<img src="images/vip1.png" alt="" style="width: 23px;">购买VIP
+							<!--{else/}-->
+								<img src="images/vip.png" alt="" style="width: 23px; margin-right: -6px;">
+								<?php if ($uinfo['is_year_vip'] == 1) {?>
+									<img src="images/yvip.png" alt="" class="vip-logo">
+								<?php }else {?>
+									<img src="images/mvip.png" alt="" class="vip-logo">
+								<?php }?>
+							<!--{/eq}-->
+						</span>
 					</a>
 				</div>
 
 				<div class="uesr_zl">
-					<p class="uesr_zl1p"><a href="{:U('Home/User/basedata')}" style="color: #f61a24">{$uinfo.user_number|default='昵称未填写'}</a></p>
+					<p class="uesr_zl1p"><a href="{:U('Home/User/basedata')}" style="color: #f61a24">{$userProfile.real_name|default='真实姓名未定义'}</a></p>
+					<p class="uesr_zl1p"><a href="{:U('Home/User/basedata')}" style="color: #f61a24">{$uinfo.user_number|default='账号未定义'}</a></p>
 					<p class="uesr_zl2p">地区:&nbsp;&nbsp;{$uinfo.province_name|default='未知'}{$uinfo.city_name}&nbsp;&nbsp;&nbsp;年龄:&nbsp;&nbsp;{$uinfo.age|default='未知'}</p>
-					<!--{if condition="$userProfile['birthday']"}-->
-					<p class="uesr_zl3p">生日:&nbsp;&nbsp;{$userProfile.birthday|default='未知'}</p>
-					<!--{/if}-->
+					<p class="uesr_zl3p">
+						性别:
+						<!--{if condition="$uinfo['sex'] == 1"}-->
+						男
+						<!--{else /}-->
+						女
+						<!--{/if}-->
+						<!--{if condition="$userProfile['birthday']"}-->
+						&nbsp;生日:&nbsp;&nbsp;{$userProfile.birthday|default='未知'}</p>
+						<!--{/if}-->
+					</p>
 					<p class="uesr_zl4p"><img src="{$uinfo.rank_icon}">{$uinfo.rank_name}<!--{if condition="$isqd eq 0" }--><a style="cursor: pointer;" onclick="qiandao({$uinfo.id})">签到</a><!--{else/}--><a style="cursor: pointer;">已签到</a><!--{/if}--></p>
 				</div>
-				<div class="uesr_table">
+				<div class="uesr_table" style="margin-top: 10px;">
 					<table onmousedown="0" onmousemove="0" border="0">
 						<tr>
-							<td><a href="{:U('MySubscribe',array('type'=>1))}"><img src="images/user_03_16.png" alt=""></a></td>
+							<td><a href="{:U('MySubscribe',['type'=>2])}"><img src="images/user_03_16.png" alt=""></a></td>
 							<!--<td><img src="images/user_03_0{$uinfo.sex}.png" alt=""></td>-->
-							<td><a href="{:U('MyPhoto')}"><img src="images/user_03_20.png" alt=""></a></td>
-							<!--<td><a href="{:U('Home/Gift/giftlist')}"><img src="images/user_03_11.png" alt=""></a></td>-->
-							<td><a href="{:U('MyPhoto')}"><img src="images/user_03_18.png" alt=""></a></td>
+							<!--<td><a href="{:U('MyPhoto')}"><img src="images/user_03_20.png" alt=""></a></td>-->
+							<td><a href="{:U('Home/Gift/giftlist',['type' => 2])}"><img src="images/user_03_18.png" alt=""></a></td>
+							<td><a href="{:U('Home/Gift/giftlist',['type' => 1])}"><img src="images/user_03_11.png" alt=""></a></td>
 						</tr>
-						<tr>
-							<td>{$userCount.fansnum|default='0'}</td>
+						<tr class="show-block">
+							<td><a href="{:U('MySubscribe',['type'=>2])}">互相关注</a><!--{$userCount.fansnum|default='0'}--></td>
 							<!--<td>{$uinfo.jifen|default='0'}</td>-->
-							<td>{$userCount.photonum|default='0'}</td>
+							<td><a href="{:U('Home/Gift/giftlist',['type' => 2])}">我的送礼</a></td>
 							<!--<td>{$userCount.sumgift|default='0'}</td>-->
-							<td>{$userCount.zan|default='0'}</td>
+							<td><a href="{:U('Home/Gift/giftlist',['type' => 1])}">我的收礼</a></td>
 						</tr>
 					</table>
 

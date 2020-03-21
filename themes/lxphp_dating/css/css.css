@@ -20,6 +20,10 @@ h1   { font-size: 24px;}
 .f-active i ,.f-active p{
 	color: #f03b57;
 }
+.vip-logo {
+	width: 35px !important;
+	height: 15px !important;
+}
 
  /*上面的公告样式可以删除*/
 /*这块保留*/
@@ -166,7 +170,7 @@ h1   { font-size: 24px;}
 	border: none;
 	outline: none;
 	color: #fff;
-	width: 65%;
+	width: 62%;
 	    height: 37px;
     line-height: 40px;
 	
@@ -278,7 +282,7 @@ h1   { font-size: 24px;}
 	
 }
 .index_lise>li {
-	width: 33%;
+	width: 25%;
 	position: relative;
 	margin-top: 0px;
 	float: left;
@@ -330,7 +334,7 @@ h1   { font-size: 24px;}
 
 }
 
-.index_lise  li a span {
+/*.index_lise  li a span {
 	 position: absolute;
 	 left: 7px;
 	 bottom: 7px;
@@ -343,7 +347,7 @@ h1   { font-size: 24px;}
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+}*/
 
 .index_footer {
     width: 100%;
@@ -2054,6 +2058,8 @@ left: 19px;
     float: right;
     font-size: 12px;
     color: #999;
+	display: inline-block;
+	margin-top: 2px;
 }
 .zhanghaosheizhi ul li {
 	 padding:15px 10px;
@@ -5315,6 +5321,4 @@ animation-timing-function:cubic-bezier(0.175, .885, .32, 1)
     margin-top: 135px;
     display: block;
 }
-
-
 }

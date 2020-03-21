@@ -103,7 +103,7 @@ class AjaxController extends SiteController {
 
 		}		
 
-		$code = rand(1111,9999);
+		$code = rand(111111,999999);
 
 		$re = $this->send_mobcode($mob,$code);
 
@@ -189,6 +189,8 @@ class AjaxController extends SiteController {
 
 		}
 
+		$this->success('SUCCESS',U('Public/setInformation',['mob' => $mob,'pass' => $pass,'yzm' => I("post.yzm")]));
+
 		//if(!$age) $this->error('年龄必填');
 
 		$uid = D("Users")->reg($mob,$pass,$sex,$age);
@@ -249,58 +251,125 @@ class AjaxController extends SiteController {
     {
         if (IS_POST) {
             $param = I('post.');
+            $res   = D("Users")->reg($param);
+            if (!$res) {
+                $msg = D('Users')->getError() ? D('Users')->getError() :  '注册失败，请稍后再试';
+                $this->error($msg);
+            } else {
+                $uid = $res;
+                $re  = M("Users")->find($res);
 
-            if (empty($param['sex'])) $this->error('请选择性别');
-            if (empty($param['age'])) $this->error('请填写年龄');
-            if (empty($param['weixin'])) $this->error('请填写微信');
+                if ($re['parent_id'] > 0) {//上级奖励操作
+                    $ip = get_client_ip();
+                    $this->changejifen(C('gz_jifen'),5,'邀请好友'.$re['user_nicename'].'获得',$re['parent_id'],1,$uid,$ip);
+                    $this->send_parent_money($re['parent_id'],$re);
+                }
 
-            $info  = D("Users")->where(['id' => (int)$param['userid']])->field('id,avatar')->find();
+                $this->changemoney($uid,C('reg_send'),5,'注册奖励','','',1,$ip,0,1);
 
-            if (!$info) $this->error('没有此用户信息');
+                A("Public")->loginbyname($re,0);
 
-            if (empty($info['avatar'])) {
-                $this->error('请上传头像');
+                $field = $param['sex'] == 1 ? array('manUser'=>1,'manUserDay'=>1) : array('girlUser'=>1,'girlUserDay'=>1);
+
+                $this->setSystemTj($field);
+
+                cookie('renwu'.$uid,1,86400*30);
+
+                $this->success('SUCCESS');
             }
-
-            $pre = [];
-            $map = [];
-
-            $year = date('Y',time());
-
-            $age = $year - $param['age'];
-            if ($age > $year - 18) {
-                $this->error('年龄需满18岁或以上');
-            }
-            //更新副表数据
-            $pre['height']   = $param['height'];
-            $pre['code4']    = $param['code4'];
-            $pre['birthday'] = $param['birthday'];
-            $pre['weixin']   = $param['weixin'];
-            //更新主表数据
-            $map['age']          = $age;
-            $map['month_income'] = $param['month_income'];
-            $map['education']    = $param['education'];
-            $map['sex']          = $param['sex'];
-            $map['user_number']  = D('home/Users')->getUserNumber($param['userid'],$map['sex']);
-
-            M()->startTrans();
-
-            $rs1 = M("UserProfile")->where(['uid' => $info['id']])->save($pre);
-
-            $rs2 = M('Users')->where(['id' => $info['id']])->save($map);
-
-            if (!$rs1 || !$rs2) {
-                M()->rollback();
-                $this->error('ERROR');
-                return false;
-            }
-
-            M()->commit();
-
-            $this->success('SUCCESS');
-
         }
 	}
+    /**
+     * 设置用户头像
+     * @param int $userid 用户ID
+     * @param string $image
+     * @param string $thumb_image 缩略图
+     * @return bool
+     * @author：Enthusiasm
+     * @date：2020/2/18
+     * @time：13:52
+     */
+    public function uploadAvatar($userid = 0,$image = '',$thumb_image = '')
+    {
+        $uid = (int)$userid;
+
+        if ($uid < 1)  {
+            return false;
+        }
+        if(!$image || !$thumb_image) {
+            return false;
+        }
+
+        $imageArr[] = $image; $thumb_imageArr[] = $thumb_image;
+
+        $lastId = D('Users')->upPhoto($uid,"我上传了新的头像照片~",0,$imageArr,$thumb_imageArr);
+
+        if ($lastId) {
+            if (C('photo_flag')!=1) {
+                $this->tongji($uid, 'photonum',1);
+            } else {
+                $this->setSystemTj('photoFlag',1);
+            }
+        } else {
+            return false;
+        }
+
+        $ext       = explode('.',$image);
+        $file_path = ROOT_PATH.'Uploads/avatar/';
+
+        if (!is_dir($file_path)) {
+            mkdir($file_path,0777);
+        }
+
+        $file_name = '/Uploads/avatar/'.$uid.'_'.time().'.'.$ext[1];
+
+        $copy_file = ROOT_PATH.$image;
+        $copy_path = $file_path.$uid.'_'.time().'.'.$ext[1];
+        //固定尺寸缩放图片
+        $tool = new \Think\Image();
+        $tool->open($copy_file);
+        $tool->thumb(363, 363,6)->save($copy_path);
+
+        if (C('avatar_flag') > 0) {
+
+            $Auditmod = M('Audit');
+
+            $AudiData = $Auditmod->field('id,status')->where('uid = '.$uid.' and type = 0')->find();
+            $oid      = $AudiData['id'];
+
+            if ($oid) {
+                $name ='save';
+                $arr  = array('id'=>$oid,'created_time'=>time(),'text'=> $file_name,'status'=>0,'photoid'=>$lastId);
+            } else {
+                $name ='add';
+                $arr = array('uid'=>$uid,'created_time'=>time(),'text'=> $file_name,'type'=>0,'status'=>0,'photoid'=>$lastId);
+
+            }
+
+            $re = $Auditmod->$name($arr);
+
+            if ($re) {
+                if($name =='add' || (isset($AudiData['status']) && $AudiData['status'] >= 1)){
+                    $this->setSystemTj('avatarFlag',1);
+                }
+            }
+        } else {
+            $model = M('UserPhoto');
+            $re    = M('Users')->where('id='.$uid)->setField('avatar',$file_name);
+
+            if ($re) {
+                $model -> where('uid ='.$uid.' and isavatr = 1')->setField('isavatr',0);
+                $model -> where('photoid ='.$lastId)->setField('isavatr',1);
+            }
+        }
+
+        if ($re) {
+            $this->newbchange($uid,1);
+            return true;
+        }
+
+        return false;
+    }
     /**
      * 用户登录
      * @return array
@@ -318,7 +387,7 @@ class AjaxController extends SiteController {
 
 		$w['user_login']=$mob;
         //用户昵称
-        $w['user_nicename'] = $mob;
+        $w['user_number'] = $mob;
 		//或者查询
         $w['_logic'] = 'or';
 
@@ -360,7 +429,7 @@ class AjaxController extends SiteController {
             } else {
                 $user_login =  $re['user_login'];
                 //密码登录的时候
-                if ($re ['user_pass'] != md5 ( $user_login . $pass . C ( 'PWD_SALA' ) )){
+                if ($re['user_pass'] != md5 ( $user_login . $pass . C ( 'PWD_SALA' ) )){
                     $this->error("登录失败，请检查您的账户和密码是否正确！");
                 }
 
@@ -1440,7 +1509,8 @@ class AjaxController extends SiteController {
             $where  = A('Index')->getSearchWhere($param);
 
             $order_by = 'type desc,last_login_time desc,id desc';
-
+            //地区名称
+            $areaList = $this->get_area();
             if ($time == 'now') { //获取最新数据
 
                 $where['u.update_time'] = array('egt',time());
@@ -1450,21 +1520,26 @@ class AjaxController extends SiteController {
                           ->join('lx_user_profile p on p.uid = u.id')
                           ->where($where)
                           ->order($order_by)
-                          ->field('idmd5,avatar,user_nicename,sex,user_number')
+                          ->field('p.real_name,provinceid,age,cityid,idmd5,avatar,sex,user_number')
                           ->page($page,$limit)
                           ->select();
 
                 foreach ($lists as $k => $v) {
-                    $lists[$k]['show_url'] = U("Show/index", array("uid" => $v['idmd5']));
-                    $lists[$k]['avatar']   = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
-                    $lists[$k]['user_number']  = !empty($v['user_number']) ? $v['user_number'] : '昵称未填';
+                    $lists[$k]['show_url']     = U("Show/index", array("uid" => $v['idmd5']));
+                    $lists[$k]['avatar']       = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
+                    $lists[$k]['real_name']    = !empty($v['real_name']) ? $v['real_name'] : '真实姓名未定义';
+
                     $lists[$k]['sex'] = $v['sex'] == 1 ? '男' : '女';
+
+                    $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'];
+                    $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'];
+                    $lists[$k]['age']           = date('Y',time()) - $v['age'];
                 }
 
                 $res['status'] = 1;
                 $res['lists']  = !empty($lists) ? $lists : [];
 
-                return $this->ajaxReturn($res);
+                $this->ajaxReturn($res);
             }
 
             $cnt = M('Users')
@@ -1479,16 +1554,21 @@ class AjaxController extends SiteController {
                         ->alias('u')
                         ->join('lx_user_profile p on p.uid = u.id')
                         ->where($where)
-                        ->field('idmd5,avatar,user_nicename,sex,user_number')
+                        ->field('p.real_name,provinceid,age,cityid,idmd5,avatar,sex,user_number')
                         ->order($order_by)
                         ->page($page,$limit)
                         ->select();
 
             foreach ($lists as $k => $v) {
-                $lists[$k]['show_url'] = U("Show/index", array("uid" => $v['idmd5']));
-                $lists[$k]['avatar']   = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
-                $lists[$k]['user_number']  = !empty($v['user_number']) ? $v['user_number'] : '昵称未填';
+                $lists[$k]['show_url']     = U("Show/index", array("uid" => $v['idmd5']));
+                $lists[$k]['avatar']       = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
+                $lists[$k]['real_name']    = !empty($v['real_name']) ? $v['real_name'] : '真实姓名未定义';
+
                 $lists[$k]['sex'] = $v['sex'] == 1 ? '男' : '女';
+
+                $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'];
+                $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'];
+                $lists[$k]['age']           = date('Y',time()) - $v['age'];
             }
 
             $res['status'] = 1;
@@ -1709,6 +1789,113 @@ class AjaxController extends SiteController {
             } catch (\Exception $e) {
                 M()->rollback();
                 $this->error('绑定失败');
+            }
+        }
+    }
+    /**
+     * 阅读使用条款和注册协议
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/1
+     * @time：13:58
+     */
+    public function agreement()
+    {
+        $status = I('status',0);
+
+        cookie('agreement',$status);
+        $this->success('SUCCESS');
+    }
+    /**
+     * 修改手机号码
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/1
+     * @time：13:58
+     */
+    public function editPhone()
+    {
+        if (IS_POST) {
+            $action = I('action');
+            $param  = I('post.');
+
+            if ($action == 'get_yzm') { //获取验证码
+
+                $phone = $this->uinfo['user_login'];
+                $type  = 1;
+                if ($param['type'] == 'new_phone') {
+                    $phone = $param['phone'];
+                    $type  = 5;
+                }
+
+                $check_status = D('SmsLog')->checkSendStatus($phone,$type);
+                if (!$check_status) {
+                    $this->error(D('SmsLog')->getError());
+                }
+
+                $res = send_sms(5,$phone);
+                if ($res) {
+                    $this->success('发送成功');
+                } else {
+                    $this->error('发送失败');
+                }
+
+            } else if ($action == 'check_yzm') {
+                $yzm = $param['yzm'];
+                if (!$yzm) $this->error('请填写验证码');
+                if (empty($param['pwd'])) $this->error('请填写登录密码');
+                //检查登录密码
+                $sign = M('Users')->where(['id' => $this->uinfo['id']])->getField('user_pass');
+                $pwd  = md5($this->uinfo['user_login'].$param['pwd'].C ('PWD_SALA'));
+                if ($pwd != $sign) {
+                    $this->error('登录密码错误');
+                }
+                //检查验证码
+                $res = D('SmsLog')->checkYzm($this->uinfo['user_login'],$yzm,5);
+                if (!$res) {
+                    $this->error(D('SmsLog')->getError());
+                }
+
+                //返回用户的登录密码用于下一步新手机号码的加密
+                $this->success($param['pwd']);
+
+            } else if ($action == 'edit') {
+
+                if (!$param['phone'] || !is_mobile($param['phone'])) $this->error('请填写有效的手机号码');
+                if (!$param['yzm']) $this->error('请填写验证码');
+                if (empty($param['pwd'])) $this->error('请填写登录密码');
+
+                $check_yzm = D('SmsLog')->checkYzm($param['phone'],$param['yzm'],5);
+                if (!$check_yzm) {
+                    $this->error(D('SmsLog')->getError());
+                }
+
+                $check_phone = M('Users')->where(['user_login' => $param['phone']])->count();
+                if ($check_phone) {
+                    $this->error('此手机号码已被注册');
+                }
+                //检查登录密码
+                $sign = M('Users')->where(['id' => $this->uinfo['id']])->getField('user_pass');
+                $pwd  = md5($this->uinfo['user_login'].$param['pwd'].C ('PWD_SALA'));
+                if ($pwd != $sign) {
+                    $this->error('登录密码错误');
+                }
+
+                $sqlMap = [];
+                $sqlMap['user_login'] = $param['phone'];
+                //重新生成密码
+                $sqlMap['user_pass']  = md5($param['phone'].$param['pwd'].C ('PWD_SALA'));
+
+                $res = M('Users')->where(['user_login' => $this->uinfo['user_login']])->save($sqlMap);
+                if ($res) {
+                    //写入日志
+                    writeSystemLog('用户修改了手机号码',$this->uinfo['id']);
+                    //更新用户缓存
+                    $this->setUserinfo('user_login',$param['phone']);
+                    $this->success('修改成功');
+                } else {
+                    $this->error('修改失败');
+                }
             }
         }
     }

@@ -11,7 +11,7 @@
 <meta name="keywords" content="关健词">
 <meta name="description" content="描述">
 <title>{$media.title}</title>
-<link rel="stylesheet" type="text/css" href="css/css.css">
+<link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 </head>
 <style type="text/css">
@@ -37,16 +37,21 @@
          <ul class="fujin">
          	
          	<!--{if condition="!$list" }-->	
-         		<!--{if condition="$type" }-->	
+         		<!--{if condition="$type == 1" }-->
          			<div class="zanwushuju">
 	    					<img src="images/zanwushuju.png" alt="">
-	    					<p>您暂时没有粉丝，赶紧去秀出你的魅力吧~</p>
+	    					<p>暂时没有关注您的人，赶紧去秀出你的魅力吧~</p>
 	    				</div>
-         		<!--{else /}-->	
+         		<!--{elseif condition="$type == 2"/}-->
 						<div class="zanwushuju">
     					<img src="images/zanwushuju.png" alt="">
-    					<p>您暂时没有关注的人，赶紧去认识新朋友吧~</p>
-    				</div> 
+    					<p>您暂时没有相互关注的人，赶紧去秀出你的魅力吧~</p>
+    				</div>
+			 		<!--{else /}-->
+						 <div class="zanwushuju">
+							 <img src="images/zanwushuju.png" alt="">
+							 <p>您暂时没有关注的人，赶紧去认识新朋友吧~</p>
+						 </div>
     				<!--{/if}-->	
 					<!--{else /}-->	
 	          <!--{foreach name="list" item="vo" }-->
@@ -55,12 +60,25 @@
 	             	<div class="fl" style="margin-top: 3px;">
 	             	
 		             	<!--{if condition="$vo['vip']['user_rank'] gt 0"}-->   
-		             		<p class="wodefenxi_a">{$vo.user_nicename|default='昵称未定义'}<span style="top: 6px;">VIP</span><i>{$vo.time}</i></p><!-- 这个是有vip的字体显示粉色 -->               
+		             		<p class="wodefenxi_a">
+								{$vo.real_name|default='真实姓名未定义'} {$vo.user_number}
+								<?php if ($vo['is_year_vip'] == 1) {?>
+									<img src="images/yvip.png" alt="" class="vip-logo">
+								<?php }else {?>
+									<img src="images/mvip.png" alt="" class="vip-logo">
+								<?php }?>
+								<i style="margin-top: 2px;">{$vo.time}</i></p><!-- 这个是有vip的字体显示粉色 -->
 		              <!--{else/}-->
-		              	<p class="wodefenxi_a_a">{$vo.user_nicename|default='昵称未定义'}<i>{$vo.time}</i></p><!-- 这个是没有vip的字体显示黑色 -->
+		              	<p class="wodefenxi_a_a">{$vo.real_name|default='真实姓名未定义'} {$vo.user_number}<i style="margin-top: 2px;">{$vo.time}</i></p><!-- 这个是没有vip的字体显示黑色 -->
 		              <!--{/if}-->
 		               
-		              <p class="wodefenxi_b">{$vo.age}岁 {$vo.province_name|default='未知'}{$vo.city_name} {$vo.astro}              
+		              <p class="wodefenxi_b">
+						  <!--{if condition="$vo['sex'] == 1"}-->
+						  	男
+						  <!--{else/}-->
+						    女
+						  <!--{/if}-->
+						 	{$vo.age}岁 {$vo.province_name|default='未知'}{$vo.city_name} <!--{$vo.astro}-->
 			              <!--<span>
 				              &lt;!&ndash;{if condition="$vo['sex'] eq 2"}&ndash;&gt;
 				               	<img src="images/meilizhi_02.png" alt=""><i class="meili">{$vo.jifen|default='0'}</i>
@@ -125,22 +143,24 @@ var totalheight = 0;
 		*/
 		
 		                        var avatar = val.avatar?val.avatar:'__PUBLIC__/img/mrtx.jpg';
-		                        var user_nicename = val.user_nicename?val.user_nicename:'昵称未定义';
+		                        var user_nicename = val.real_name ? val.real_name:'真实姓名未定义';
 								var province_name = val.province_name?val.province_name:'未知';
+								var user_number   = val.user_number ? val.user_number : '账号未定义';
+								var sex = val.sex == 1 ? '男' : '女';
 								if(val.user_rank>0){
-								var	user_html = '<p class="wodefenxi_a">'+user_nicename+'<span>VIP</span><i>'+val.time+'</i></p>';
+								var	user_html = '<p class="wodefenxi_a">'+user_nicename+' ' + user_number +'<span>VIP</span><i>'+val.time+'</i></p>';
 								}else{
-								var	user_html = '<p class="wodefenxi_a_a">'+user_nicename+'<i>'+val.time+'</i></p>';
+								var	user_html = '<p class="wodefenxi_a_a">'+user_nicename+' ' + user_number +'<i>'+val.time+'</i></p>';
 								}
 								
 								
-								if(val.sex==2){
+								/*if(val.sex==2){
 								 var jifen = '<span><img src="images/meilizhi_02.png"alt=""><i class="meili">'+val.jifen+'</i></span>';	
 								}else{
 								 var jifen = '<span><img src="images/caifuzhi.png"alt=""><i class="caifu">'+val.jifen+'</i></span>';	
-								}
+								}*/
 
-								body = '<li class="cb"><div class="fl"><img src="'+avatar+'"></div><div class="fl">'+user_html+'<p class="wodefenxi_b">'+val.age+'岁'+province_name+val.city_name+val.astro+jifen+'</p><p class="wodefenxi_c">'+val.monolog+'</p></div></li>';
+								body = '<li class="cb"><div class="fl"><img src="'+avatar+'"></div><div class="fl">'+user_html+'<p class="wodefenxi_b">'+sex+' '+val.age+'岁'+province_name+val.city_name+'</p><p class="wodefenxi_c">'+val.monolog+'</p></div></li>';
 								main.append(body);							
 															
 							});

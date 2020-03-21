@@ -46,8 +46,16 @@ class TestController extends SiteController {
 
     public function test2()
     {
-        $sql = 'ALTER TABLE `xq`.`lx_user_profile` 
-ADD COLUMN `email` varchar(255) NOT NULL COMMENT \'邮箱\' AFTER `hobby`;';
+        $sql = 'CREATE TABLE `lx_system_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) DEFAULT NULL,
+  `ip` varchar(255) DEFAULT NULL COMMENT \'记录ip\',
+  `content` varchar(255) DEFAULT NULL COMMENT \'记录内容\',
+  `type` smallint(1) NOT NULL COMMENT \'日志类型 1.系统日志 2.用户日志\',
+  `input_time` int(11) NOT NULL COMMENT \'写入时间\',
+  `update_time` int(11) NOT NULL COMMENT \'更新时间\',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;';
 
         M()->query($sql);
     }

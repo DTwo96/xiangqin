@@ -31,7 +31,7 @@ class ShowController extends SiteController {
 			$uinfo = $umod->where("idmd5='".$uid."'")->find();
 			$uid =$uinfo["id"];			
 			unset($uinfo['pass']);
-			$media=$this->getMedia($uinfo['user_nicename'].'详情');
+			$media=$this->getMedia('用户详情');
     		$this->assign('media', $media);
     		
 			$area = $this->getuserarea($uinfo);
@@ -73,7 +73,10 @@ class ShowController extends SiteController {
 	
 			$giftlistmod = M("Giftlist");	
 			$giftlist = $giftlistmod->where("touid=".$uid)->order("giftlist_id desc")->limit(3)->select();
-			
+
+			//真实名字
+            $real_name = M('UserProfile')->where(['uid' => $uid])->getField('real_name');
+            $this->assign('real_name', $real_name);
 			$this->assign('info', $uinfo);
 			$this->assign('giftlist', $giftlist);
 			$this->get_gz_status($uid);
@@ -107,6 +110,32 @@ class ShowController extends SiteController {
 				}
 				$this->assign('miyu', $miyu);
 			}
+			//个人资料
+            $_config = C('UserInfo');
+            $base_info = [];
+			foreach ($_config as $k => $v) {
+			    if (in_array($k,['month_income','education'])) {
+                    if ($k == 'education') {
+                        $base_info[$v] = C('education')[$uinfo[$k]] ? C('education')[$uinfo[$k]] : '用户未填写';
+                    } else {
+                        $base_info[$v] = $uinfo[$k] ? $uinfo[$k].'元' : '用户未填写';
+                    }
+                } else {
+			        if ($k == 'height') {
+                        $base_info[$v] = $pinfo[$k] ? $pinfo[$k].'CM' : '用户未填写';
+                    } else if ($k == 'astro') {//星座
+                        $base_info[$v] = C('Constellation')[$pinfo[$k]] ? C('Constellation')[$pinfo[$k]] : '用户未填写';
+                    } else if ($k == 'house_info' || $k == 'car_info'){//是否有房 | 是否有车
+                        $ext_info = !empty($pinfo[$k]) ? unserialize($pinfo[$k]) : '';
+                        $_field   = $k == 'car_info' ? 'is_buy_car' : 'is_buy_house';
+                        $_temp    = $ext_info[$_field] ? ($ext_info['condition'] ? '有，全款' : '有，贷款') : '无';
+                        $base_info[$v] = $_temp;
+                    } else {
+                        $base_info[$v] = $pinfo[$k] ? $pinfo[$k] : '用户未填写';
+                    }
+                }
+            }
+            $this->assign('base_info',$base_info);
             //微信授权数据
             $map = [];
 			$map['type']        = 'wechat';

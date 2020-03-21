@@ -10,7 +10,7 @@
 		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 		<title>{$media.title}</title>
 		<link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
-		<link rel="stylesheet" type="text/css" href="css/css.css">
+		<link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
 		<link rel="stylesheet" type="text/css" href="/Public/layui-v2.5.6/css/layui.css">
 		<link rel="stylesheet" type="text/css" href="css/font/iconfont.css?t=<?php echo time();?>">
 		<link rel="stylesheet" href="/Public/mui/plugin/picker/dist/css/mui.picker.min.css">
@@ -142,6 +142,38 @@
 				vertical-align: middle;
 				margin-right: 2px;
 			}
+			#container .boxdiv span {
+				position: absolute;
+				/* left: 7px; */
+				bottom: 7px;
+				padding: 2px 3px;
+				background: rgba(102, 102, 102, 0.63);
+				color: #fff;
+				font-size: 14px;
+				border-radius: 3px;
+				max-width: 80%;
+				min-width: 80%;
+			}
+			#container .boxdiv span{
+				right: 4px !important;
+			}
+			#container .boxdiv span:nth-of-type(1) {
+				bottom: 34px;
+			}
+			#container .boxdiv span:nth-of-type(1) p {
+				color: #fff;
+			}
+			#container .boxdiv span:nth-of-type(1) .real-name {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				width: 64%;
+			}
+			#container .boxdiv span:nth-of-type(2) {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
 		</style>
 	</head>
 	<body>
@@ -178,6 +210,8 @@
 						<input name="city_index" type="hidden" value="{$param['city_index']|default=0}">
 						<input name="province_text" type="hidden" value="{$param['province_text']|default=''}">
 						<input name="city_text" type="hidden" value="{$param['city_text']|default=''}">
+
+						<input name="keyword" type="hidden" value="{$param['keyword']|default=''}">
 					</form>
 					<form class="layui-form" action="{:U('index')}">
 						<div id="xm-age" class="xm-select-item "></div>
@@ -187,6 +221,7 @@
 						<span id="next-btn-f" class="next-btn nav-btn">>></span>
 						<span id="pre-btn-f" class="pre-btn-one pre-btn nav-btn"><<</span>
 						<div id="xm-sex" class="xm-select-item"></div>
+						<input name="keyword" style="font-size:12px; padding: 5px; width: 210px; margin-left: 42px; margin-right: -200px;" type="text" placeholder="请输入用户手机号或账号或真实姓名" value="{$param['keyword']|default=''}">
 						<div id="xm-country" class="xm-select-item">
 							<!--{if condition="$param['province_text']"}-->
 								<?php $text = $param['province'] ? $param['province_text'].','.$param['city_text'] : $param['province_text'];?>
@@ -195,6 +230,8 @@
 								<input type="text" class="place-wrapper" value="地区">
 							<!--{/if}-->
 						</div>
+						<button type="button" class="mui-btn action-btn mui-btn-danger mui-btn-outlined clear-search-btn"><i class="iconfont iconjurassic_filtrate-none"></i>条件不限</button>
+						<button type="submit" class="sub-btn action-btn mui-btn mui-btn-danger"><i class="mui-icon mui-icon-search"></i>搜索</button>
 						<!--搜索表单隐藏域-->
 						<input name="province" type="hidden" value="{$param['province']|default=''}">
 						<input name="city" type="hidden" value="{$param['city']|default=''}">
@@ -202,9 +239,6 @@
 						<input name="city_index" type="hidden" value="{$param['city_index']|default=0}">
 						<input name="province_text" type="hidden" value="{$param['province_text']|default=''}">
 						<input name="city_text" type="hidden" value="{$param['city_text']|default=''}">
-
-						<button type="button" class="mui-btn action-btn mui-btn-danger mui-btn-outlined clear-search-btn"><i class="iconfont iconjurassic_filtrate-none"></i>条件不限</button>
-						<button type="submit" class="sub-btn action-btn mui-btn mui-btn-danger"><i class="mui-icon mui-icon-search"></i>搜索</button>
 					</form>
 				</div>
 				<!-- 导航 -->
@@ -215,7 +249,13 @@
 							<?php if (!empty($list1)) {?>
 							<!--{foreach name="list1" item="vo" }-->
 							<li class="box">
-								<div class="boxdiv"><!--<div class="div_taoxin"><img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;"></div>--><a href="{$vo.aurl}"><img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""><span>{$vo.user_number|default="昵称未填"}<!--{if condition='$vo.sex eq 1'}-->(男)<!--{else /}-->(女)<!--{/if}--></span></a></div>
+								<div class="boxdiv"><!--<div class="div_taoxin"><img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;"></div>-->
+									<a href="{$vo.aurl}">
+										<img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt="">
+										<span><p class="real-name mui-pull-left">{$vo.real_name|default="真实姓名未定义"}</p><p class="mui-pull-right"><!--{if condition='$vo.sex eq 1'}-->(男)<!--{else /}-->(女)<!--{/if}--></p></span>
+										<span>{$vo.age}岁 {$vo.province_name|default='未知'}{$vo.city_name}</span>
+									</a>
+								</div>
 							</li>
 
 							<!--{/foreach}-->
@@ -344,6 +384,8 @@
                     edu.setValue([]);
                     sex.setValue([]);
                     love.setValue([]);
+
+                    $('[name="keyword"]').val('');
 
                     $('[name="province"]').val('');
                     $('[name="city"]').val('');
@@ -507,7 +549,6 @@
 
                     $.post("<?php echo U('Ajax/getUserLists');?>",param + other,function (res) {
                         if (res.status && res.lists.length) {
-
                             var html = [];
                             for (var i = 0,l = res.lists.length;i < l;i++) {
                                 var item = res.lists[i];
@@ -516,7 +557,8 @@
                                     '<div class="boxdiv">',
                                     '<a class="user-preview" href="' + item.show_url + '">',
                                     '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
-                                    '<span>' + item.user_number + '(' + item.sex + ')' + '</span>',
+                                	'<span><p class="real-name mui-pull-left">' + item.real_name + '</p><p class="mui-pull-right">' + item.sex + '</p></span>',
+                                    '<span>' + item.age + '岁 ' + item.province_name + item.city_name + '</span>',
                                     '</a>',
                                     '</div>',
                                     '</li>'
@@ -557,7 +599,8 @@
                                     '<div class="boxdiv">',
                                     '<a class="user-preview" href="' + item.show_url + '">',
                                     '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
-                                    '<span>' + item.user_number + '(' + item.sex + ')' +'</span>',
+                                    '<span><p class="real-name mui-pull-left">' + item.real_name + '</p><p class="mui-pull-right">' + item.sex + '</p></span>',
+                                    '<span>' + item.age + '岁 ' + item.province_name + item.city_name + '</span>',
                                     '</a>',
                                     '</div>',
                                     '</li>'

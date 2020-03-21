@@ -21,7 +21,7 @@ class YueaiyuanController extends AdminController {
             'menu' => array(
             		array(
 	                    'name' => '管理首页',
-	                    'url' => U('Index/index'),
+	                    'url' => U('index'),
 	                    'icon' => 'dashboard',
                     )
                 ),

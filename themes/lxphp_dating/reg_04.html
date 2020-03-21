@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
     <link rel="stylesheet" href="/Public/mui/plugin/picker/dist/css/mui.picker.min.css">
+    <link rel="stylesheet" href="/Public/layui-v2.5.6/css/layui.css">
     <link rel="stylesheet" href="css/font/iconfont.css">
     <title>{$media.title}</title>
     <style type="text/css">
@@ -47,7 +48,7 @@
             margin-bottom: 15px;
         }
         .sex-item a {
-            margin-right: 20px;
+            margin-right: 30px;
             color: #c2c2c2;
         }
         .s-active {
@@ -80,16 +81,27 @@
         .avatar-item p {
             color: #c2c2c2;
         }
+        .unit {
+            color: #c2c2c2;
+            margin-left: -40px;
+        }
+        #back {
+            color: #f03b57 !important;
+        }
+        [data-id="btn-ok"] {
+            border: 1px solid red !important;
+            background-color: #f03b57 !important;
+        }
     </style>
 </head>
 <body>
 <header class="mui-bar mui-bar-nav">
-   <!-- <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
     <h1 id="title" class="mui-title">完善资料</h1>
 </header>
-<ul class="mui-content">
+<ul class="mui-content" style="padding-top: 64px; padding-bottom: 40px;">
     <li class="avatar-item">
-        <a class="avatar" href="{:U('home/User/saveAvatarList',['set_uid' => $userid,'source' => 1])}">
+        <a class="avatar" href="#">
             <img src="{$uinfo.avatar|default='Public/img/signIn_14.jpg'}" alt="" width="100%">
             <input type="hidden" name="avatar" value="{$uinfo.avatar|default='Public/img/signIn_14.jpg'}">
         </a>
@@ -97,24 +109,28 @@
     </li>
     <li class="sex-item">
         <span class="item-t">性别</span>
-        <a class="boy sex-btn" data-sex="1"><i class="iconfont iconnan2"></i>男</a>
-        <a class="girl sex-btn" data-sex="2"><i class="iconfont iconnv1"></i>女</a>
+        <a class="boy sex-btn" data-sex="1">男<i class="iconfont iconnan2"></i></a>
+        <a class="girl sex-btn" data-sex="2">女<i class="iconfont iconnv1"></i></a>
     </li>
     <li class="mui-input-row">
         <span class="item-t">年龄</span>
         <input type="number" placeholder="请填写年龄" name="age" class="mui-input-clear" oninput="javascript:if(this.value.length > 3)this.value=this.value.slice(0,3);">
+        <span class="unit">岁</span>
     </li>
     <li>
         <span class="item-t">生日</span>
         <input type="text" placeholder="请选择生日" name="birthday" data-options='{"type":"date","beginYear":1900,"endYear":<?php echo date("Y");?>}' class="btn">
+        <span class="unit">阳历</span>
     </li>
     <li class="mui-input-row">
         <span class="item-t">身高</span>
         <input type="number" placeholder="请填写身高" name="height" class="mui-input-clear" oninput="javascript:if(this.value.length > 3)this.value=this.value.slice(0,3);">
+        <span class="unit">CM</span>
     </li>
     <li class="mui-input-row">
         <span class="item-t">月收入</span>
         <input type="number" placeholder="请填写月收入" oninput="javascript:if(this.value.length > 5)this.value=this.value.slice(0,6);" name="month_income" class="mui-input-clear">
+        <span class="unit">元</span>
     </li>
     <li class="mui-input-row">
         <span class="item-t">微信号</span>
@@ -130,23 +146,53 @@
         </select>
     </li>
     <li>
-        <span class="item-t">婚姻状态</span>
+        <span class="item-t">婚姻状况</span>
 
         <select name="code4">
-            <option value="volvo">--请选择--</option>
+            <option value="">--请选择--</option>
             <!--{foreach name="code4" key="k" item="vo" }-->
             <option value="{$k}">{$vo}</option>
             <!--{/foreach}-->
         </select>
     </li>
-    <input type="hidden" name="userid"  value="{$userid}">
-
+    <input type="hidden" name="phone" value="{$reg_info['mob']|default=''}">
+    <input type="hidden" name="pwd" value="{$reg_info['pass']|default=''}">
+    <input type="hidden" name="yzm" value="{$reg_info['yzm']|default=''}">
     <button type="button" class="mui-btn mui-btn-danger sub-btn">提交</button>
 </ul>
 <script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/Public/layui-v2.5.6/layui.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/Public/mui/plugin/picker/dist/js/mui.picker.min.js"></script>
 <script>
+    //上传图片地址
+    var upload_file_url = "{:U('Home/Form/upload',array('slt'=>1))}";
+
+    layui.use(['jquery','layer','upload'],function () {
+        var $      = layui.$,
+            layer  = layui.layer,
+            upload = layui.upload;
+
+            upload.render({
+                elem:'.avatar',
+                url:upload_file_url,
+                done:function (res) {
+                    if (res.status) {
+                        layer.msg('上传成功');
+                        if ($('[name="thumb_image"]').length) {
+                            $('[name="thumb_image"]').val(res.data.url);
+                            $('[name="image"]').val(res.data.original);
+                        } else {
+                            $('.mui-content').append('<input type="hidden" name="thumb_image" value="'+ res.data.url+'"><input type="hidden" name="image" value="'+ res.data.original+'">');
+                        }
+                        $('.avatar img').attr('src',res.data.url);
+                    } else {
+                        layer.msg('上传失败');
+                    }
+                }
+            });
+    });
+
     (function($) {
         $.init();
         var btns = $('.btn');
@@ -215,7 +261,11 @@
                 ,month_income = $('[name="month_income"]').val()
                 ,userid       = $('[name="userid"]').val()
                 ,avatar       = $('[name="avatar"]').val()
-                ,weixin       = $('[name="weixin"]').val();
+                ,weixin       = $('[name="weixin"]').val()
+                ,image        = $('[name="image"]').val() || ''
+                ,thumb_image  = $('[name="thumb_image"]').val() || ''
+                ,phone        = $('[name="phone"]').val() || ''
+                ,pwd          = $('[name="pwd"]').val()   || '';
 
             var param = {
                 sex:sex,
@@ -227,26 +277,48 @@
                 month_income:month_income,
                 userid:userid,
                 weixin:weixin,
+                image:image,
+                thumb_image:thumb_image,
+                phone:phone,
+                pwd:pwd
             };
 
             if (lock) return false;
 
+            if (thumb_image == '') {
+                mui.toast('请上传头像',{ duration:'short'});
+                return false;
+            }
             if (sex == '') {
                 mui.toast('请选择性别',{ duration:'short'});
                 return false;
             }
-
             if (age == '') {
                 mui.toast('请填写年龄',{ duration:'short'});
                 return false;
             }
-            if (weixin == '') {
-                mui.toast('请填写微信',{ duration:'short'});
+            if (birthday == '') {
+                mui.toast('请选择生日',{ duration:'short'});
                 return false;
             }
-
-            if (avatar.indexOf('signIn_14.jpg') !== -1) {
-                mui.toast('请上传头像',{ duration:'short'});
+            if (height == '') {
+                mui.toast('请填写身高',{ duration:'short'});
+                return false;
+            }
+            if (month_income == '') {
+                mui.toast('请填写月收入',{ duration:'short'});
+                return false;
+            }
+            if (weixin == '') {
+                mui.toast('请填写微信号',{ duration:'short'});
+                return false;
+            }
+            if (education == '') {
+                mui.toast('请选择学历',{ duration:'short'});
+                return false;
+            }
+            if (code4 == '') {
+                mui.toast('请选择婚姻状况',{ duration:'short'});
                 return false;
             }
 
@@ -257,12 +329,12 @@
                 lock = false;
                 el.text('提交').removeClass('mui-disabled').attr('disable',false);
                 if (res.status) {
-                    mui.toast('保存成功，正在跳转到首页...',{ duration:'short'});
+                    layer.msg('注册成功，正在跳转到首页...',{ duration:'short'});
                     setTimeout(function () {
                         window.location.href = '{:U("Index/index")}';
                     },1000);
                 } else {
-                    mui.toast(res.info,{ duration:'short'});
+                    mui.toast(res.info,{duration:'short'});
                 }
             },'json')
 

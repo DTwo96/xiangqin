@@ -49,11 +49,43 @@
 		   width: 14px;
 	   }
 	.cb-item input:not([type="checkbox"]){
-		width: 60% !important;
+		width: 62% !important;
 	}
 	.cb-item-checkbox {
 		float: right !important;
-		margin-right: 40px !important;
+		margin-right: 30px !important;
+	}
+	.unit {
+		color: #c2c2c2;
+		margin-left: 4px;
+	}
+	.panel-item {
+		overflow: hidden;
+	}
+	.panel-item input{
+		vertical-align: middle;
+		margin-right: 20px;
+	}
+	.panel-content {
+		width: 100% !important;
+		display: none;
+	}
+	.panel-content p {
+		padding: 10px;
+		border-bottom: 1px dotted #ccc;
+		font-size: 14px;
+	}
+   .panel-content p:last-child {
+	   border: none;
+   }
+	.clearfix {
+		clear: both;
+	}
+	.phone-item a:active{
+		color: #f03b57 !important;
+	}
+	.jibenziliao .phone-item input {
+		width: 140px !important;
 	}
   </style>
 
@@ -87,6 +119,18 @@
 						<li><div>性别</div><span class="dede">男生<i style="margin-right: 40px;" data="1" <!--{if condition="$base['sex'] eq 1"}-->class="sheng"<!--{/if}--> ></i> 女生<i data="2" <!--{if condition="$base['sex'] eq 2"}-->class="sheng"<!--{/if}--> ></i></span>（如需修改，请联系客服）</li>
 						<input name="sex" type="hidden" id="sex" value="{$base.sex}" />
 						<!--<li><div>年龄</div><input type="text" name="age" value="{$base.age}" placeholder="请填写您的年龄" class="jibenziliao_input"></li>-->
+						<li class="cb-item phone-item"><div>手机号</div>
+							<input class="jibenziliao_input" placeholder="请填写手机号" readonly type="text" name="user_login" value="{$base['user_login']}">
+							<div class="cb-item-checkbox">
+								<a href="{:U('editPhone')}" style="font-size: 14px; color: #c2c2c2;">点击去修改手机号</a>
+							</div>
+						</li>
+						<li class="cb-item"><div>微信号</div>
+							<input class="jibenziliao_input" placeholder="请填写微信号，没有可以选择无" style="width: 60px;" type="text" name="weixin" value="{$base['weixin']}">
+							<div class="cb-item-checkbox">
+								无 <input type="checkbox" class="c-btn" value="">
+							</div>
+						</li>
 						<li class="cb-item"><div>QQ号</div>
 							<input class="jibenziliao_input" placeholder="请填写QQ号，没有可以选择无" style="width: 60px;" type="number" name="qq" value="{$base['qq']}">
 							<div class="cb-item-checkbox">
@@ -113,11 +157,12 @@
 			 		       		<!--{/foreach}--> 
 			 		   		</select>
 						</li>
-						
-						
+						<li><div>年龄</div>
+							<input class="jibenziliao_input" style="width: 60px;" type="number" name="age" value="{$base['age']}"><span class="unit">岁</span>
+						</li>
 						<li>
 							<div>生日</div>
-						    <input value="{$base.birthday}" class="jibenziliao_input" readonly="readonly" name="appDate" id="appDate" type="text" placeholder="请选择出生年月">	
+							<input style="width: 26%" value="{$base.birthday}" class="jibenziliao_input" readonly="readonly" name="appDate" id="appDate" type="text" placeholder="请选择出生年月"> <span class="unit">阳历</span>
 						</li>
 						
 						
@@ -138,7 +183,7 @@
 				         	</select>
 						</li>
 						<li><div>身高</div>
-							<input class="jibenziliao_input" style="width: 60px;" type="text" name="height" value="{$base['height']}"> CM
+							<input class="jibenziliao_input" style="width: 60px;" type="number" name="height" value="{$base['height']}"><span class="unit">CM</span>
 						</li>
 						<li>
 							<div>学历</div>
@@ -163,7 +208,7 @@
 							</div>
 						</li>
 						<li><div>月收入</div>
-							<input class="jibenziliao_input" style="width: 60px;" type="text" name="month_income" value="{$base['month_income']}"> 元
+							<input class="jibenziliao_input" style="width: 60px;" type="number" name="month_income" value="{$base['month_income']}"><span class="unit">元</span>
 						</li>
 						<!--{foreach name="profile" key="key" item="val"}-->
 							<!--{if condition="!in_array($key,['code2','code3'])"}-->
@@ -178,6 +223,25 @@
 								</li>
 							<!--{/if}-->
 						<!--{/foreach}-->
+						<li class="panel-item">
+							<div>是否有房</div>
+							有 <input type="radio" class="panel-btn" name="house_info[is_buy_house]" value="1" <?php if ($base['house_info']['is_buy_house']){?>checked<?php }?>>
+							无 <input type="radio" class="panel-btn" name="house_info[is_buy_house]" value="0" <?php if (!$base['house_info']['is_buy_house']){?>checked<?php }?>>
+							<div class="clearfix"></div>
+							<div class="panel-content">
+								<p>贷款 <input type="radio" name="house_info[condition]" value="0" <?php if (!$base['house_info']['condition']){?>checked<?php }?>></p>
+								<p>全款 <input type="radio" name="house_info[condition]" value="1" <?php if ($base['house_info']['condition']){?>checked<?php }?>></p>
+							</div>
+						</li>
+						<li class="panel-item"><div>是否有车</div>
+							有 <input type="radio" class="panel-btn" name="car_info[is_buy_car]" value="1" <?php if ($base['car_info']['is_buy_car']){?>checked<?php }?>>
+							无 <input type="radio" class="panel-btn" name="car_info[is_buy_car]" value="0" <?php if (!$base['car_info']['is_buy_car']){?>checked<?php }?>>
+							<div class="clearfix"></div>
+							<div class="panel-content">
+								<p>贷款 <input type="radio" name="car_info[condition]" value="0" <?php if (!$base['car_info']['condition']){?>checked<?php }?>></p>
+								<p>全款 <input type="radio" name="car_info[condition]" value="1" <?php if ($base['car_info']['condition']){?>checked<?php }?>></p>
+							</div>
+						</li>
 						<li class="xqah long-item"><div>兴趣爱好</div>
 							<textarea name="hobby" cols="45" rows="5" onkeyup="words_deal(2);" placeholder="添加兴趣爱好，不超过100个字…">{$base['hobby']}</textarea>
 							<div class="num-block">
@@ -215,6 +279,23 @@
 			
 			//省份选择事件
 			$(function(){
+			    $('.panel-btn').on('click',function () {
+					var v = $(this).val();
+					if (v == 1) {
+                        $(this).siblings('.panel-content').show();
+					} else {
+                        $(this).siblings('.panel-content').hide();
+					}
+                });
+                initPanelBtnAction();
+			    function initPanelBtnAction() {
+                    $('.panel-btn:checked').each(function (i,e) {
+                        var v = $(e).val();
+                        if (v == 1) {
+                            $(e).siblings('.panel-content').show();
+						}
+                    });
+                }
 				$('#provinceid').change(function(){
 					var url = "{:U('Home/Ajax/ajax_get_city')}";
 		    		var provinceid =  $(this).val();
@@ -316,11 +397,43 @@
                     var qq        = $('[name="qq"]').val();
                     var weibo     = $('[name="weibo"]').val();
                     var email     = $('[name="email"]').val();
+                    var weixin    = $('[name="weixin"]').val();
+                    var age       = $('[name="age"]').val();
+                    var car_info  = $('[name="car_info"]:checked').val();
+                    var is_buy_house =  $('[name="house_info[is_buy_house]"]:checked').val();
+                    var house_condition =  $('[name="house_info[condition]"]:checked').val();
+                    var is_buy_car =  $('[name="car_info[is_buy_car]"]:checked').val();
+                    var car_condition =  $('[name="car_info[condition]"]:checked').val();
+
+                    if (qq != '') {
+                        var rule = /^[1-9][0-9]{4,10}$/;
+						if (!rule.test(qq)) {
+                            alertmsg('请填写有效的QQ号码');
+                            unDisabled($('.jichubaoc'),'保存');
+                            return false;
+						}
+					}
+
+                    if (email != '') {
+                        var rule = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                        if (!rule.test(email)) {
+                            alertmsg('请填写有效的Email');
+                            unDisabled($('.jichubaoc'),'保存');
+                            return false;
+                        }
+                    }
+
+                    if (age != '') {
+                        var d = new Date();
+                        var y = d.getFullYear();
+
+                        age = y - age;
+					}
 					
 					$.ajax({
 						type:"post",
 						url:"{:U()}",
-						data:{qq:qq,weibo:weibo,email:email,hobby:hobby,monolog:monolog,university:university,work:work,real_name:real_name,education:education,height:height,month_income:month_income,uid:uid,user_nicename:user_nicename,sex:sex,astro:astro,birthday:birthday,provinceid:provinceid,cityid:cityid,code1:code1,code2:code2,code3:code3,code4:code4},
+						data:{is_buy_house:is_buy_house,house_condition:house_condition,is_buy_car:is_buy_car,car_condition:car_condition,weixin:weixin,age:age,qq:qq,weibo:weibo,email:email,hobby:hobby,monolog:monolog,university:university,work:work,real_name:real_name,education:education,height:height,month_income:month_income,uid:uid,user_nicename:user_nicename,sex:sex,astro:astro,birthday:birthday,provinceid:provinceid,cityid:cityid,code1:code1,code2:code2,code3:code3,code4:code4},
 						dataType: "json",
 						success:function(msg){
 							if( msg.type == 3 ){
