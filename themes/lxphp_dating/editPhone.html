@@ -52,6 +52,17 @@
         .line {
             color: #e2e2e2;
         }
+        @media screen and (max-width: 320px){
+            .mui-input-row label {
+                width: 34% !important;
+            }
+            .mui-input-row .yzm-l {
+                width: 28% !important;
+            }
+            [name="old_phone_yzm"] {
+                width: 72% !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -72,7 +83,7 @@
                     <input type="password" class="mui-input-password pwd" placeholder="请输入登录密码">
                 </div>
                 <div class="mui-input-row">
-                    <label>验证码</label>
+                    <label class="yzm-l">验证码</label>
                     <input name="old_phone_yzm" type="text" placeholder="请输入短信验证码">
                     <button type="button" data-type="old_phone" class="yzm-btn"><span class="line">|</span> 获取验证码</button>
                 </div>
