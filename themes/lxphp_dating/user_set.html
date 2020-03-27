@@ -33,8 +33,8 @@
 
       <div class="zhanghaosheizhi">
       	<ul>
-      		<li><a href="{:U('Home/User/changepwd')}" class="cb"><span class="fl">修改密码</span> <span class="fr"><img src="images/youjianhei.png"></span></a></li>
-            <li><a href="{:U('Home/User/wechat_bind')}" class="cb"><span class="fl">绑定微信</span> <span class="fr"><img src="images/youjianhei.png"></span></a></li>
+      		<li><a href="{:U('Home/User/changepwd')}" class="cb"><span class="fl">修改登录密码</span> <span class="fr"><img src="images/youjianhei.png"></span></a></li>
+            <li><a href="{:U('Home/User/wechat_bind')}" class="cb"><span class="fl">绑定与解绑微信</span> <span class="fr"><img src="images/youjianhei.png"></span></a></li>
       		<!--<li><a href="{:U('Home/User/bind')}" class="cb"><span class="fl">登录绑定</span> <span class="fr"><img src="images/youjianhei.png"></span></a></li>-->
       		<li style="display:none"><a href="{:U('Home/User/ShippingAddress')}" class="cb"><span class="fl">收货地址</span> <span class="fr"><img src="images/youjianhei.png"></span></a></li>
       		<li><a href="{:U('Home/Public/accountLogout')}" class="cb"><span class="fl">账号注销</span> <span class="fr"><img src="images/youjianhei.png"></span></a></li>
@@ -49,7 +49,7 @@
             $(function () {
                 $('.out-btn').on('click',function () {
                     var url = $(this).data('url');
-                    alertbox('确定要退出登陆吗？','是',url);
+                    alertbox('确定要退出登录吗？','是',url);
                     $('.sl_qf_yi').text('否');
                 });
             });

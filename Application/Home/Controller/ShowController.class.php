@@ -165,6 +165,7 @@ class ShowController extends SiteController {
 			}			
 			$umod = M("Users");			
 			$uinfo = $umod->where("id='".$uid."'")->find();
+            $uinfo['real_name'] = M('UserProfile')->where(['uid' => $uid])->getField('real_name');
 			$uinfo = $this->get_jifen_rank_name($uinfo);
 			$usercountmod =  M("User_count");	  			
 			$user_count = $usercountmod->where("uid=".$uid)->find();
@@ -176,13 +177,18 @@ class ShowController extends SiteController {
 			$gtphoto = $phohomod->where("uid='$uid' and photoid>".$phoarr['photoid'].' and phototype=0')->order('photoid asc')->find();
 			$ltphoto = $phohomod->where("uid='$uid' and photoid<".$phoarr['photoid'].' and phototype=0')->order('photoid desc')->find();
 			
-		
+
 			$this->assign('userCount', $user_count);
 			$this->assign('gtphoto', $gtphoto);
 			$this->assign('ltphoto', $ltphoto);
 			$this->assign('photo', $phoarr);
 			$this->assign('info', $uinfo);
-			$media=$this->getMedia($uinfo['user_nicename'].'的照片详情');
+
+			$real_name   = M('UserProfile')->where(['uid' => $uid])->getField('real_name');
+            $user_number = M('User')->where(['id' => $uid])->getField('user_number');
+
+			$media_title = $uid == $this->uinfo['id'] ? '我' : (!empty($real_name) ? $real_name : $user_number);
+			$media=$this->getMedia($media_title.'的照片详情');
 			
 			
 			$giftlistmod = M("Giftlist");	

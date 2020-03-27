@@ -12,6 +12,7 @@
 		<meta name="description" content="{$media.description}">
 		<title>{$media.title}</title>
 		<link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
+		<link rel="stylesheet" type="text/css" href="css/font/iconfont.css?t=<?php echo time();?>">
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 	</head>
 
@@ -33,6 +34,23 @@
 			color: #666;
 			font-size: 12px;
 		}
+		.uesr_wode_nav .zan-block {
+			margin: 0px auto;
+			background-color: #ff016f;
+		}
+	   .zan-block i {
+		   color: #fff;
+		   font-size: 22px;
+		   margin-top: 4px;
+		   display: inline-block;
+	   }
+	   .uesr_wode_nav .zan-second-item {
+			background: green;
+		}
+	   .uesr_wode_nav .zan-second-item i {
+		   margin-top: 6px;
+		   color: red;
+	   }
 	</style>
 
 	<body>
@@ -55,11 +73,12 @@
 								<img src="images/vip1.png" alt="" style="width: 23px;">购买VIP
 							<!--{else/}-->
 								<img src="images/vip.png" alt="" style="width: 23px; margin-right: -6px;">
-								<?php if ($uinfo['is_year_vip'] == 1) {?>
-									<img src="images/yvip.png" alt="" class="vip-logo">
+								<!--<?php if ($uinfo['is_year_vip'] == 1) {?>
+									<img src="images/viplogo.png" alt="" class="vip-logo">
 								<?php }else {?>
 									<img src="images/mvip.png" alt="" class="vip-logo">
-								<?php }?>
+								<?php }?>-->
+								<img src="images/viplogo.png" alt="">
 							<!--{/eq}-->
 						</span>
 					</a>
@@ -80,23 +99,27 @@
 						&nbsp;生日:&nbsp;&nbsp;{$userProfile.birthday|default='未知'}</p>
 						<!--{/if}-->
 					</p>
-					<p class="uesr_zl4p"><img src="{$uinfo.rank_icon}">{$uinfo.rank_name}<!--{if condition="$isqd eq 0" }--><a style="cursor: pointer;" onclick="qiandao({$uinfo.id})">签到</a><!--{else/}--><a style="cursor: pointer;">已签到</a><!--{/if}--></p>
+					<p class="uesr_zl4p"><img style="top: 0;" src="images/user_03_32.png"><span class="zan" style="margin-right: 4px;">{$userCount.zan|default="0"}</span>{$uinfo.rank_name|default="情窦初开"}<!--{if condition="$isqd eq 0" }--><a style="cursor: pointer;" class="qd-btn" onclick="qiandao({$uinfo.id})">签到</a><!--{else/}--><a style="cursor: pointer;">已签到</a><!--{/if}--></p>
 				</div>
 				<div class="uesr_table" style="margin-top: 10px;">
 					<table onmousedown="0" onmousemove="0" border="0">
 						<tr>
 							<td><a href="{:U('MySubscribe',['type'=>2])}"><img src="images/user_03_16.png" alt=""></a></td>
+							<td><a href="{:U('MySubscribe',['type'=>1])}"><img src="images/new_uesr_05.png" alt=""></a></td>
+							<td><a href="{:U('MySubscribe',['type'=>3])}"><img src="images/new_uesr_03.png" alt=""></a></td>
 							<!--<td><img src="images/user_03_0{$uinfo.sex}.png" alt=""></td>-->
-							<!--<td><a href="{:U('MyPhoto')}"><img src="images/user_03_20.png" alt=""></a></td>-->
+							<!--<td><a href="{:U('MyPhoto')}"><img src="images/user_03_20.png" alt=""></a></td>
 							<td><a href="{:U('Home/Gift/giftlist',['type' => 2])}"><img src="images/user_03_18.png" alt=""></a></td>
-							<td><a href="{:U('Home/Gift/giftlist',['type' => 1])}"><img src="images/user_03_11.png" alt=""></a></td>
+							<td><a href="{:U('Home/Gift/giftlist',['type' => 1])}"><img src="images/user_03_11.png" alt=""></a></td>-->
 						</tr>
 						<tr class="show-block">
 							<td><a href="{:U('MySubscribe',['type'=>2])}">互相关注</a><!--{$userCount.fansnum|default='0'}--></td>
+							<td><a href="{:U('MySubscribe',['type'=>1])}">关注我的</a><!--{$userCount.fansnum|default='0'}--></td>
+							<td><a href="{:U('MySubscribe',['type'=>3])}">我的关注</a><!--{$userCount.fansnum|default='0'}--></td>
 							<!--<td>{$uinfo.jifen|default='0'}</td>-->
-							<td><a href="{:U('Home/Gift/giftlist',['type' => 2])}">我的送礼</a></td>
+							<!--<td><a href="{:U('Home/Gift/giftlist',['type' => 2])}">我的送礼</a></td>-->
 							<!--<td>{$userCount.sumgift|default='0'}</td>-->
-							<td><a href="{:U('Home/Gift/giftlist',['type' => 1])}">我的收礼</a></td>
+							<!--<td><a href="{:U('Home/Gift/giftlist',['type' => 1])}">我的收礼</a></td>-->
 						</tr>
 					</table>
 
@@ -157,15 +180,20 @@
 						</a>
 					</li>
 					<li>
-						<a href="{:U('MySubscribe',array('type'=>1))}" class="cb">
-							<img src="images/new_uesr_05.png" alt=""><br>关注我的
-
+						<a href="{:U('likeLists',array('type' => 1))}" class="cb">
+							<div class="vip-block zan-block" style="">
+								<i class="iconfont icondianzan3"></i>
+							</div>
+							我赞的人
 						</a>
 					</li>
 					
 					<li>
-						<a href="{:U('MySubscribe')}" class="cb">
-							<img src="images/new_uesr_03.png" alt=""><br>我的关注
+						<a href="{:U('likeLists',array('type' => 2))}" class="cb">
+							<div class="vip-block zan-block zan-second-item">
+								<i class="iconfont icondianzan2"></i>
+							</div>
+							赞我的人
 						</a>
 					</li>
 					
@@ -227,10 +255,18 @@
 				type:"post",
 				url:"{:U('Home/Public/sign')}",
 				data:"id="+id,
-				success:function(str){
-					alertbox(eval(str));
+				success:function(res){
+				    var _d = JSON.parse(res);
+				    if (_d.status) { //签到成功
+						var num = parseInt($('.zan').text());
+                        $('.zan').text(num + 1);
+                        $('.qd-btn').removeAttr('onclick').text('已签到');
+                        alertbox(_d.info);
+					} else {
+                        alertbox(_d.info);
+					}
 				}
-			});
+			},'json');
 		}
 	</script>
 </html>

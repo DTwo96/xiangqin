@@ -24,7 +24,14 @@ h1   { font-size: 24px;}
 	width: 35px !important;
 	height: 15px !important;
 }
-
+.uesr_table table td {
+	width: 32.5% !important;
+}
+@media screen and (max-width: 320px){
+	.touxiang_bj_img {
+		height: 280px;
+	}
+}
  /*上面的公告样式可以删除*/
 /*这块保留*/
 .fl { float:left}
@@ -282,7 +289,7 @@ h1   { font-size: 24px;}
 	
 }
 .index_lise>li {
-	width: 25%;
+	width: 33%;
 	position: relative;
 	margin-top: 0px;
 	float: left;
@@ -658,7 +665,7 @@ h1   { font-size: 24px;}
 	padding: 5px 5px
 }
 .uesr_zl4p img { 
- width: 16px;
+ width: 22px;
  padding-right: 3px;
  position: relative;
  top: -2px;
@@ -883,7 +890,7 @@ color: #999;
 }
 .uesr_xiangqing_a div:nth-child(2) p:nth-child(2) img {
 
-	width: 18px;
+	width: 22px;
 	position: relative;
 	top:-2px;
 	margin-right: 3px;

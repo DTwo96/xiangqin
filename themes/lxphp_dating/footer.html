@@ -45,7 +45,7 @@
  <!--欠费提醒-->
 		
 	
-<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/common.js?t=<?php echo time();?>"></script>
 <script>
 $(function(){
 	var dw = '{$dw}';
@@ -109,7 +109,9 @@ $(function(){
 	$.post("{:U('Ajax/clickzan')}",{pid:pid},function(data){
 		if(data.status==1){
 			$(o).find(".zan").html(data.info);
-		}
+		} else {
+		    alertmsg(data.info);
+        }
 	},'json')
 }	
 zhuanwu();

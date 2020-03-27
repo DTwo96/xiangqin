@@ -76,6 +76,7 @@ class ArticleController extends AdminController{
         }
 
         $lists = D('Article')->where($where)->page($page,$limit)->order('id desc')->select();
+        
 
         $count = D('Article')->where($where)->count();
 
@@ -183,6 +184,8 @@ class ArticleController extends AdminController{
         $info = D('Article')->where(array('id' => $id))->find();
 
         if (!$info) $this->error('没有这条数据!');
+
+        $info['content'] = htmlspecialchars_decode($info['content']);
 
         if (IS_POST) {
 

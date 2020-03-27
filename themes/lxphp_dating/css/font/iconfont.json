@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "77697",
+      "name": "点赞",
+      "font_class": "dianzan",
+      "unicode": "e68c",
+      "unicode_decimal": 59020
+    },
+    {
+      "icon_id": "849179",
+      "name": "点赞",
+      "font_class": "z-like",
+      "unicode": "e6bf",
+      "unicode_decimal": 59071
+    },
+    {
+      "icon_id": "3315408",
+      "name": "点赞",
+      "font_class": "dianzan1",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "5662559",
+      "name": "点赞",
+      "font_class": "dianzan2",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "6337455",
+      "name": "点赞",
+      "font_class": "dianzan3",
+      "unicode": "ec7f",
+      "unicode_decimal": 60543
+    },
+    {
+      "icon_id": "8574940",
+      "name": "点赞",
+      "font_class": "dianzan4",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "11592817",
+      "name": "点赞",
+      "font_class": "danyehuaban",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
       "icon_id": "705695",
       "name": "眼睛",
       "font_class": "yanjing",

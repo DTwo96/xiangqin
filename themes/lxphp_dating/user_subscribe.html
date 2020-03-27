@@ -62,11 +62,7 @@
 		             	<!--{if condition="$vo['vip']['user_rank'] gt 0"}-->   
 		             		<p class="wodefenxi_a">
 								{$vo.real_name|default='真实姓名未定义'} {$vo.user_number}
-								<?php if ($vo['is_year_vip'] == 1) {?>
-									<img src="images/yvip.png" alt="" class="vip-logo">
-								<?php }else {?>
-									<img src="images/mvip.png" alt="" class="vip-logo">
-								<?php }?>
+								<span style="line-height: 20px;"></span>
 								<i style="margin-top: 2px;">{$vo.time}</i></p><!-- 这个是有vip的字体显示粉色 -->
 		              <!--{else/}-->
 		              	<p class="wodefenxi_a_a">{$vo.real_name|default='真实姓名未定义'} {$vo.user_number}<i style="margin-top: 2px;">{$vo.time}</i></p><!-- 这个是没有vip的字体显示黑色 -->

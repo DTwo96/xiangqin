@@ -9,7 +9,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>{$media.title}</title>
-<link rel="stylesheet" type="text/css" href="css/css.css?11 ">
+<link rel="stylesheet" type="text/css" href="css/css.css?12 ">
 <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 
@@ -154,13 +154,14 @@
      <script type="text/javascript">
            var shuji = 0;
            $(".dianzan").click(function(){
-           	if(shuji > 0){
+           	/*if(shuji > 0){
            		alertmsg("只能对同一作品点赞一次")
            		
            	}else{
            		$("#xiaoguo").addClass("zoomOutUp");
            		shuji++
-           	}
+           	}*/
+               $("#xiaoguo").addClass("zoomOutUp");
            })
      </script>
      <!-- 点赞结束 -->
@@ -171,16 +172,12 @@
            <div style="margin-right: 2%;"><a href="{:U('Show/index', array('uid' => $info['idmd5']))}"><img src="{$info.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""></a></div>
            <div style="    width: 48%;">
              <p>
-                 <a href="{:U('Show/index', array('uid' => $info['idmd5']))}" style="<?php if ($info['rank_time'] > 0) {?>color: #f61a24<?php }?>" class="color000">{$info.user_nicename}</a>
+                 <a href="{:U('Show/index', array('uid' => $info['idmd5']))}" style="<?php if ($info['rank_time'] > 0) {?>color: #f61a24<?php }?>" class="color000">{$info.real_name|default="真实姓名未定义"}</a>
                  <?php if ($info['rank_time'] > 0) {?>
-                     <?php if ($info['is_year_vip'] == 1) {?>
-                        <img src="images/yvip.png" alt="" class="vip-logo">
-                     <?php } else {?>
-                        <img src="images/mvip.png" alt="" class="vip-logo">
-                     <?php }?>
+                    <img src="images/viplogo.png" width="24px" alt="">
                  <?php }?>
              </p>
-             <p><img src="{$info.rank_icon}">{$info.rank_name}<!-- <a href="{:U('Show/index', array('uid' => $info['idmd5']))}">私密资料</a> --></p>
+             <p><img src="{$info.rank_icon}" alt=""><span>{$info.rank_name|default="情窦初开"}</span><!-- <a href="{:U('Show/index', array('uid' => $info['idmd5']))}">私密资料</a> --></p>
 <!--
              <p><img src="images/user_03.png" alt=""><span class="gznum">{$userCount.fansnum|default='0'}</span>个粉丝<a href="javascript:gz('{$info.id}');" class="gz"><?php if($User_subscribe==1) echo '已关注'; elseif($User_subscribe==2) echo '相互关注'; else echo '关注TA';?></a></p>
 -->

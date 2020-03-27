@@ -824,6 +824,40 @@ function remove_xss($string) {
     }
     return $string;
 }
+/**
+ * 升级用户等级
+ * @return bool
+ * @author：Enthusiasm
+ * @date：2020/3/8
+ * @time：18:29
+ */
+function upgrade_level($uid) {
+    $user_info = M('UserCount')->where(['uid' => (int)$uid])->find();
+    if (!$user_info) {
+        return false;
+    }
+
+    $zan_num    = (int)$user_info['zan'];
+    $next_level = 0;
+    $level_name = '';
+
+    if ($zan_num >= 520) {
+        $level_name = '恋爱高手';
+        $next_level = 1314;
+    } else if($zan_num >= 1314) {
+        $level_name = '幸福达人';
+        $next_level = 9999;
+    } else {
+        $level_name = '情窦初开';
+        $next_level = 520;
+    }
+
+    if ($zan_num == 0 || ($zan_num >= $next_level && $next_level != 9999)) {
+        M('Users')->where(['id' => $uid])->save(['rank_name' => $level_name]);
+    }
+
+    return true;
+}
 
 
 

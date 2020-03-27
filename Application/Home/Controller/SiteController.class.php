@@ -1171,7 +1171,7 @@ protected function sitefetch($name='') {
 
         }else{
 
-            $title=C('SITE_TITLE').' - '.$title.' - '.C('SITE_SUBTITLE');
+            $title=C('SITE_TITLE').' - '.$title/*.' - '.C('SITE_SUBTITLE')*/;
 
         }
 
@@ -1685,7 +1685,7 @@ protected function curlp($post_url,$xjson){//php post
 
 
 
-		$rank = C('rank');
+		/*$rank = C('rank');
 
 		if($rank){
 
@@ -1725,11 +1725,20 @@ protected function curlp($post_url,$xjson){//php post
 
              $uinfo['rank_ltfl'] = $rank[$uinfo['sex']][$num]['ltfl'];
 
-		}
+		}*/
 
+        $level_num = M('UserCount')->where(['uid' => $uinfo['id']])->getField('zan');
 
-
-
+        if ($level_num < 500) {
+            $uinfo['rank_name'] = '情窦初开';
+            $uinfo['rank_icon'] = 'themes/lxphp_dating/images/rank/1-x1.png';
+        } else if ($level_num >= 500 &&  $level_num < 1314){
+            $uinfo['rank_name'] = '恋爱高手';
+            $uinfo['rank_icon'] = 'themes/lxphp_dating/images/rank/46-x2.png';
+        } else {
+            $uinfo['rank_name'] = '幸福达人';
+            $uinfo['rank_icon'] = 'themes/lxphp_dating/images/rank/25-x2.png';
+        }
 
 		return $uinfo;
 

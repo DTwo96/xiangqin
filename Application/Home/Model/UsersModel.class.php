@@ -156,7 +156,11 @@ class UsersModel extends Model {
 
             M("User_profile")->add($pro);
             //上传用户头像
-            A('Ajax')->uploadAvatar($res,$param['image'],$param['thumb_image']);
+            $u_check = A('Ajax')->uploadAvatar($res,$param['image'],$param['thumb_image']);
+            if ($u_check) {
+                //更新等级名称
+                upgrade_level($res);
+            }
             return $res;
         }
         return false;

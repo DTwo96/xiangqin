@@ -587,7 +587,7 @@ class PublicController extends SiteController {
 
 	
 
-	//签到************
+	/*//签到************
 
 	public function sign(){
 
@@ -707,9 +707,64 @@ class PublicController extends SiteController {
 
 		}
 
-	}
+	}*/
 
-	
+	//签到
+    public function sign(){
+
+        $money = C('qd_config');
+
+        if(!$money) $this->error('签到未开启');
+
+        $uid = $this->uinfo["id"];	//接收用户id
+
+        if(!$uid) $this->error('您未登录！');
+
+        $list = M('Qiandao') -> where(['uid' => $uid]) -> find(); //查询用户信息
+
+        if (!$list) { //第一次签到
+
+            $data['uid']           = $uid;
+            $data['continue_days'] = 1;
+            $data['last_time']     = time();
+
+            $result = M('Qiandao')->add($data);
+            if($result){
+                M('UserCount')->where(['uid' => $uid])->setInc('zan');
+                //升级等级
+                upgrade_level($uid);
+                $this -> success('签到成功！明天不见不散~');
+            }else{
+                $this -> success('系统正忙！请稍后再试！');
+            }
+        } else {
+            //签到时间
+            $sign_time = date('Ymd',$list['last_time']);
+
+            if ($sign_time == date('Ymd')) {
+                $this -> error('您今天已经签到过了');
+            }
+            if ($sign_time == date('Ymd',strtotime("-1 day")) ){  //判断最后签到日期和昨天是否为同一天
+                $data['continue_days'] = $list['continue_days'] + 1;
+            }else{
+                $data['continue_days'] = 1;
+            }
+
+            $data['last_time'] = time();  //将上次签到时间换成现在的时间
+
+            $result = M('Qiandao') -> where('uid = '.$uid) -> save($data);
+
+            if ($result) {
+                //升级等级
+                upgrade_level($uid);
+                M('UserCount')->where(['uid' => $uid])->setInc('zan');
+                $this -> success('签到成功！明天不见不散~');
+            } else {
+                $this -> error('系统正忙！请稍后再试！');
+            }
+        }
+
+    }
 
 	
 
@@ -1570,7 +1625,7 @@ class PublicController extends SiteController {
             } else if ($param['action'] == 'account_logout') {//账号注销
                 $yzm = $param['yzm'];
                 if (!$yzm) {
-                    $this->error('请输入验证码');
+                    $this->error('请输入短信验证码');
                 }
                 $check_yzm = D('SmsLog')->checkYzm($this->uinfo['user_login'],$yzm,4);
                 if (!$check_yzm) {

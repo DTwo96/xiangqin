@@ -147,12 +147,12 @@
 				/* left: 7px; */
 				bottom: 7px;
 				padding: 2px 3px;
-				background: rgba(102, 102, 102, 0.63);
+				background: rgba(102, 102, 102, 0.2);
 				color: #fff;
 				font-size: 14px;
 				border-radius: 3px;
-				max-width: 80%;
-				min-width: 80%;
+				max-width: 94%;
+				min-width: 94%;
 			}
 			#container .boxdiv span{
 				right: 4px !important;
@@ -163,16 +163,29 @@
 			#container .boxdiv span:nth-of-type(1) p {
 				color: #fff;
 			}
-			#container .boxdiv span:nth-of-type(1) .real-name {
+			/*#container .boxdiv span:nth-of-type(1) .real-name {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				width: 64%;
-			}
+			}*/
 			#container .boxdiv span:nth-of-type(2) {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
+			}
+			[name="keyword"] {
+				color: green;
+			}
+			@media screen and (max-width: 375px){
+				[name="keyword"] {
+					width: 190px !important;
+				}
+			}
+			@media screen and (max-width: 320px){
+				[name="keyword"] {
+					width: 140px !important;
+				}
 			}
 		</style>
 	</head>
@@ -252,8 +265,8 @@
 								<div class="boxdiv"><!--<div class="div_taoxin"><img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;"></div>-->
 									<a href="{$vo.aurl}">
 										<img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt="">
-										<span><p class="real-name mui-pull-left">{$vo.real_name|default="真实姓名未定义"}</p><p class="mui-pull-right"><!--{if condition='$vo.sex eq 1'}-->(男)<!--{else /}-->(女)<!--{/if}--></p></span>
-										<span>{$vo.age}岁 {$vo.province_name|default='未知'}{$vo.city_name}</span>
+										<span><p class="real-name mui-pull-left">{$vo.real_name|default="姓名未填"}<!--{if condition='$vo.sex eq 1'}-->(男)<!--{else /}-->(女)<!--{/if}--></p></span>
+										<span>{$vo.age}岁 {$vo.province_name|default='地区未填'}{$vo.city_name}</span>
 									</a>
 								</div>
 							</li>
@@ -281,7 +294,6 @@
 		<script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="/Public/mui/plugin/picker/dist/js/mui.picker.min.js"></script>
 		<script>
-
 			var page = 2;
 
             var refresh_lock_1 = '<?php echo ($list1 ? "true" : "false");?>';
@@ -290,6 +302,9 @@
 
             var province_index = '{$param["province_index"]|default=0}';
             var city_index     = '{$param["city_index"]|default=0}';
+
+            var site_title = "{:C('SITE_TITLE')}";
+            var media_title = "{$media.title}";
 
 			refreshInit();
             initHeaderNavWidth();
@@ -400,6 +415,13 @@
 
                     mui.toast('已设置为条件不限');
 
+                });
+
+                $('[name="keyword"]').focus(function () {
+					$('title').text(site_title + ' - 用户搜索');
+                });
+                $('[name="keyword"]').blur(function () {
+                    $('title').text(media_title);
                 });
 				/*
 				* 初始化xm选中的值
@@ -557,7 +579,7 @@
                                     '<div class="boxdiv">',
                                     '<a class="user-preview" href="' + item.show_url + '">',
                                     '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
-                                	'<span><p class="real-name mui-pull-left">' + item.real_name + '</p><p class="mui-pull-right">' + item.sex + '</p></span>',
+                                	'<span><p class="real-name mui-pull-left">' + item.real_name + '(' + item.sex +')</p></span>',
                                     '<span>' + item.age + '岁 ' + item.province_name + item.city_name + '</span>',
                                     '</a>',
                                     '</div>',
@@ -599,7 +621,7 @@
                                     '<div class="boxdiv">',
                                     '<a class="user-preview" href="' + item.show_url + '">',
                                     '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
-                                    '<span><p class="real-name mui-pull-left">' + item.real_name + '</p><p class="mui-pull-right">' + item.sex + '</p></span>',
+                                    '<span><p class="mui-pull-left">' + item.real_name + '(' + item.sex +')</p></span>',
                                     '<span>' + item.age + '岁 ' + item.province_name + item.city_name + '</span>',
                                     '</a>',
                                     '</div>',

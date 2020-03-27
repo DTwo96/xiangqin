@@ -76,6 +76,12 @@
             font-weight: normal;
             margin-right: 4px;
         }
+        .notice-t {
+            display: none;
+        }
+        .bind-notice p {
+            color: green !important;
+        }
     </style>
 </head>
 <body>
@@ -86,12 +92,10 @@
 </header>
 <div class="mui-content">
     <div class="mui-content-padded">
-        <!--{if condition="$wxUserInfo['bind_status'] eq 1"}-->
-        <div class="bind-block">
+        <div class="bind-block" <?php if ($wxUserInfo['bind_status'] != 1){?>style="display:none;"<?php }?>>
             <p><i class="iconfont icondagou"></i>您已绑定</p>
         </div>
-        <!--{else /}-->
-        <div class="avatar-block mui-clearfix">
+        <div class="avatar-block mui-clearfix" <?php if ($wxUserInfo['bind_status'] == 1){?>style="display:none;"<?php }?>>
             <div class="avatar-item mui-pull-left">
                 <div class="avatar-item-img">
                     <img src="{$wxUserInfo.headimgurl|default=''}" alt="">
@@ -106,37 +110,71 @@
                 </div>
             </div>
         </div>
-        <!--{/if}-->
-        <div class="notice">
-            <!--{if condition="$wxUserInfo['bind_status'] eq 1"}-->
-                <p>您可以享受以下特权</p>
-            <!--{else /}-->
-                <p>绑定后您可以享受以下特权</p>
-            <!--{/if}-->
+        <div class="notice <?php if ($wxUserInfo['bind_status'] == 1) {?>bind-notice<?php }?>" >
+            <p class="notice-t bind-notice-t" <?php if ($wxUserInfo['bind_status'] == 1){?>style="display:block;"<?php }?>>您可以享受以下特权</p>
+            <p class="notice-t unbind-notice-t" <?php if ($wxUserInfo['bind_status'] != 1){?>style="display:block;"<?php }?>>绑定后您可以享受以下特权</p>
             <p>1.购买VIP服务</p>
             <p>2.微信一键登录</p>
         </div>
-        <!--{if condition="$wxUserInfo['bind_status'] neq 1"}-->
-            <button type="button" class="mui-btn mui-btn-danger sub-btn">立即绑定</button>
-        <!--{/if}-->
+        <?php if ($wxUserInfo['bind_status'] == 1) {?>
+            <button type="button" class="mui-btn mui-btn-danger sub-btn" data-status="0">取消绑定</button>
+        <?php } else {?>
+            <button type="button" class="mui-btn mui-btn-danger sub-btn" data-status="1">立即绑定</button>
+        <?php }?>
     </div>
 </div>
+
 
 <script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
 <script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
 <script>
     var url   = '{:U("ajax/wechat_bind")}';
     var param = JSON.parse('<?php echo json_encode($wxUserInfo);?>');
+
+    var lock  = false;
+
+    var flag  = false;
+
     $(function () {
         mui.init();
         //立即绑定
         $('.sub-btn').on('click',function () {
+            var self   = $(this),
+                status = self.attr('data-status'),
+                _t     = status == '1' ? '取消绑定' : '立即绑定';
+
+            if (lock) return;
+
+            param.status = status;
+            lock         = true;
+
+            self.attr('disabled',true);
+
             $.post(url,param,function (res) {
+                self.attr('disabled',false);
+                lock = false;
+
                 if (res.status) {
                     mui.toast(res.info);
-                    setTimeout(function () {
+
+                    if (status == '1') {
+                        $('.bind-block').show();
+                        $('.avatar-block').hide();
+                        $('.notice').addClass('bind-notice');
+                        $('.bind-notice-t').show();
+                        $('.unbind-notice-t').hide();
+                    } else {
+                        $('.bind-block').hide();
+                        $('.avatar-block').show();
+                        $('.notice').removeClass('bind-notice');
+                        $('.unbind-notice-t').show();
+                        $('.bind-notice-t').hide();
+                    }
+
+                    self.attr('data-status',status == '1' ? '0' : '1').text(_t);
+                    /*setTimeout(function () {
                         history.back(-1);
-                    },1000);
+                    },1000);*/
                 } else {
                     mui.toast(res.info);
                 }

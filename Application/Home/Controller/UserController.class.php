@@ -96,7 +96,7 @@ class UserController extends SiteController {
 
 		$this->setUserinfo('user_status',$uinfo['user_status']);
 
-		$uinfo = $this->get_jifen_rank_name($uinfo);
+		//$uinfo = $this->get_jifen_rank_name($uinfo);
 
 		if($userCount['wdsxnum']>0 || $userCount['wdgznum']>0 || $userCount['wdsysnum']>0 || $userCount['wdgiftnum']>0){
 
@@ -108,9 +108,11 @@ class UserController extends SiteController {
 
 		$this->assign ( 'userCount', $userCount );		
 
-		if( S('qiandaotime'.$this->uinfo["id"]) == date('Ymd',time()) )
+		$sign_time = M('Qiandao')->where(['uid' => $this->uinfo["id"]])->getField('last_time');
 
-		$this->assign ( 'isqd', 1 );
+		if (date('Ymd',$sign_time) == date('Ymd')) {
+            $this->assign ( 'isqd', 1 );
+        }
 
 		if($this->uinfo['last_login_time']<time()-86400){
 
@@ -147,11 +149,54 @@ class UserController extends SiteController {
 		$this->siteDisplay ( 'user_center' );
 
 	}
+    /**
 
-	
+     * 点赞
 
-	
+     */
+    public function likeLists()
+    {
+        $type    = I('type',1,'intval');
+        $title   = $type == 1 ? '我赞的人' : '赞我的人';
+        $media   = $this->getMedia($title);
+        $_fields = $type == 1 ? 'z.touid' : 'z.uid';
 
+        $page  = I('page',1);
+        $limit = I('limit',10);
+
+        $sqlMap = [];
+        if ($type == 1) {
+            $sqlMap['z.uid']   = $this->uinfo['id'];
+        } else {
+            $sqlMap['z.touid'] = $this->uinfo['id'];
+        }
+
+        $areaList = $this->get_area();
+        $list = M('DianzanLog')
+                        ->alias('z')
+                        ->join('lx_users u on u.id = '.$_fields)
+                        ->join('lx_user_profile p on p.uid = u.id')
+                        ->join('lx_user_count c on p.uid = c.uid')
+                        ->where($sqlMap)
+                        ->field($_fields.','.'u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,c.zan')
+                        ->group($_fields)
+                        ->page($page,$limit)
+                        ->select();
+
+        foreach ($list as $k => $v) {
+            $list[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'];
+            $list[$k]['city_name']     = $areaList[$v['cityid']]['areaname'];
+            $list[$k]['input_time']    = date('Y-m-d H:i:s',$v['input_time']);
+            $list[$k]['age']           = date('Y',time()) - $v['age'];
+            $list[$k]['real_name']     = mb_strlen($v['real_name']) > 5 ? (substr($v['real_name'],0,5).'...') : $v['real_name'];
+        }
+
+        $this->assign ( 'type', $type );
+        $this->assign ( 'list', $list );
+        $this->assign ( 'media', $media );
+        $this->assign ( 'navTitle', $title );
+        $this->siteDisplay ( 'likeLists' );
+    }
 	/**
 
 	 * 我的关注/我的粉丝
@@ -162,7 +207,7 @@ class UserController extends SiteController {
 
 		
 
-		$mod =M('UserSubscribe');
+		$mod = M('UserSubscribe');
 
 		
 
@@ -2426,6 +2471,12 @@ $ext=strrchr($url,".");
 	    $name = array('ConfigVip','ConfigCredit');
 
 	    $list = M('ConfigVip')->select();
+
+	    foreach ($list as $k => $v) {
+            if ($v['day'] != 360) {
+                unset($list[$k]);
+            }
+        }
 	    /*if($type==0){
 
 	    	foreach ($list as $v){
@@ -3351,7 +3402,7 @@ public function deletebind(){
      */
     public function wechat_bind()
     {
-        $media = $this->getMedia('绑定微信');
+        $media = $this->getMedia('绑定与解绑微信');
 
         if (!iswx()) {
             $this->error('请使用微信浏览器打开');
@@ -3361,7 +3412,7 @@ public function deletebind(){
         $where['bind_status'] = 1;
         $where['type']        = 'wechat';
 
-        $wxUserInfo = M('UserOauth')->where($where)->field('bind_status')->find();
+        $wxUserInfo = M('UserOauth')->where($where)->field('openid,nickname,sex,province,city,country,headimgurl,unionid,bind_status')->find();
 
         if (!$wxUserInfo) {
             $wxOauth = new WechatOauthController();

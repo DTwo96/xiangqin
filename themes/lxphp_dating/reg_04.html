@@ -125,7 +125,7 @@
     <li class="mui-input-row">
         <span class="item-t">身高</span>
         <input type="number" placeholder="请填写身高" name="height" class="mui-input-clear" oninput="javascript:if(this.value.length > 3)this.value=this.value.slice(0,3);">
-        <span class="unit">CM</span>
+        <span class="unit">厘米</span>
     </li>
     <li class="mui-input-row">
         <span class="item-t">月收入</span>
@@ -319,6 +319,13 @@
             }
             if (code4 == '') {
                 mui.toast('请选择婚姻状况',{ duration:'short'});
+                return false;
+            }
+
+            let wxRule = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/;
+
+            if (!wxRule.test(weixin)) {
+                mui.toast('请填写正确的微信号',{ duration:'short'});
                 return false;
             }
 

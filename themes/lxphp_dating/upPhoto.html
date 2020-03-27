@@ -10,15 +10,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>{$media.title}</title>
 <link rel="stylesheet" type="text/css" href="css/css.css">
+<link rel="stylesheet" type="text/css" href="/Public/layui-v2.5.6/css/layui.css">
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-
+<script type="text/javascript" src="/Public/layui-v2.5.6/layui.js"></script>
 </head>
  <style type="text/css">
            .fx_header {
               position: fixed;
               top: 0px;
                 }
- 
+            .upload-block {
+                display: none;
+            }
      </style>
 
 <body>
@@ -39,34 +42,37 @@
         </div>
 
 
-      <div class="shangchuanzhaopian">
-      上传到: 公开相册&nbsp;&nbsp;<i  data="0" <!--{if condition="$type eq 0"}-->class="sheng" <!--{/if}--> ></i><!--<i data="1" &lt;!&ndash;{if condition="$type eq 1"}&ndash;&gt;class="sheng" &lt;!&ndash;{/if}&ndash;&gt; ></i>私密照相册-->
-      <input type="hidden" name="uptype" value="{$type|default='0'}" />
+      <div class="shangchuanzhaopian layui-form">
+<!--
+      上传到: 公开相册&nbsp;&nbsp;<i  data="0" &lt;!&ndash;{if condition="$type eq 0"}&ndash;&gt;class="sheng" &lt;!&ndash;{/if}&ndash;&gt; ></i>&lt;!&ndash;<i data="1" &lt;!&ndash;{if condition="$type eq 1"}&ndash;&gt;class="sheng" &lt;!&ndash;{/if}&ndash;&gt; ></i>私密照相册&ndash;&gt;
+-->
+          上传到: 公开相册&nbsp;&nbsp;<input type="checkbox" lay-skin="primary" <!--{if condition="$type eq 0"}-->checked<!--{/if}-->>
+          <input type="hidden" name="uptype" value="{$type|default='0'}" />
       </div>
-      <div class="shangchuanzhaopian_b">
-         <ul class="cb upimg">
-           <li>
-              <input id="fileupload" type="file" name="files[]" multiple="multiple" style="display:none;">
-              <img src="images/shangchuan_03.jpg" alt="" onclick="fileuploadshow()" class="">
-           </li>
-  
-         </ul>
-        
+      <div class="upload-block" <!--{if condition="$type eq 0"}-->style="display:block;"<!--{/if}-->>
+          <div class="shangchuanzhaopian_b">
+              <ul class="cb upimg">
+                  <li>
+                      <input id="fileupload" type="file" name="files[]" multiple="multiple" style="display:none;">
+                      <img src="images/shangchuan_03.jpg" alt="" onclick="fileuploadshow()" class="">
+                  </li>
+
+              </ul>
+
+          </div>
+          <input  name="button" value="确认上传"  readonly="readonly" class="shangchuanzhaopian_a upsub" />
+          <!-- a href="javascript:;" class="shangchuanzhaopian_a upsub">确认上传</a-->
+          <div class="shangchuanzhaopian_c" >
+              <p>照片尺寸不大于30M</p>
+              <!-- <p>每天上传一张公开照可得{$config.up_photo_gk}{$config.money_name}， {$config.up_photo_gk_num}张封顶！</p>
+               <p>每天上传一张私密照可得{$config.up_photo_sm}{$config.money_name}， {$config.up_photo_sm_num}张封顶！</p>-->
+              <!--<p>私密照可在个人中心->我的相册中设置访问需达到的亲密度，或对方需花费的{$config.money_name}</p>
+              <p>禁止上传淫秽色情及非自拍图片，一经发现将扣除收 益直至封停账号！</p>-->
+
+              <!--<p>私密照可在个人中心->我的相册中设置访问需达到的亲密度</p>-->
+              <p>禁止上传淫秽色情及非本人的照片，一经发现将封停账号！</p>
+          </div>
       </div>
-      <input  name="button" value="确认上传"  readonly="readonly" class="shangchuanzhaopian_a upsub" />
-      <!-- a href="javascript:;" class="shangchuanzhaopian_a upsub">确认上传</a-->
-      <div class="shangchuanzhaopian_c" >
-        <p>照片尺寸不大于10M</p>
-       <!-- <p>每天上传一张公开照可得{$config.up_photo_gk}{$config.money_name}， {$config.up_photo_gk_num}张封顶！</p>
-        <p>每天上传一张私密照可得{$config.up_photo_sm}{$config.money_name}， {$config.up_photo_sm_num}张封顶！</p>-->
-        <!--<p>私密照可在个人中心->我的相册中设置访问需达到的亲密度，或对方需花费的{$config.money_name}</p>
-        <p>禁止上传淫秽色情及非自拍图片，一经发现将扣除收 益直至封停账号！</p>-->
-
-          <!--<p>私密照可在个人中心->我的相册中设置访问需达到的亲密度</p>-->
-          <p>禁止上传淫秽色情及非本人的照片，一经发现将封停账号！</p>
-      </div>
-
-
       <!--#include file="footer.html"-->
 	      
   </div>
@@ -74,6 +80,18 @@
 	<script src="__ROOT__/upimg/js/jquery.iframe-transport.js"></script>
 	<script src="__ROOT__/upimg/js/jquery.fileupload.js"></script>
 	<script>
+        layui.use('form',function () {
+            var form = layui.form;
+
+            form.on('checkbox()',function (data) {
+                if (data.elem.checked) {
+                    $('.upload-block').show();
+                } else {
+                    $('.upload-block').hide();
+                }
+            });
+        });
+
 		$(function () {
     	'use strict';
    		 var  url = "{:U('Home/Form/upload',array('slt'=>1))}";

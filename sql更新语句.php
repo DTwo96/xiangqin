@@ -160,6 +160,29 @@ ADD COLUMN `house_info` varchar(255) NOT NULL COMMENT \'购房信息\' AFTER `em
 ADD COLUMN `car_info` varchar(255) NOT NULL COMMENT \'购车信息\' AFTER `house_info`;';
 
 M()->query($sql);
+//点赞记录表
+$sql = 'CREATE TABLE `lx_dianzan_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT \'用户id\',
+  `touid` int(11) NOT NULL COMMENT \'点赞的用户id\',
+  `pid` int(11) NOT NULL COMMENT \'点赞的照片id\',
+  `input_time` int(11) NOT NULL COMMENT \'写入时间\',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT=\'点赞记录表\';';
+
+M()->query($sql);
+
+$sql = 'ALTER TABLE `lx_article` 
+MODIFY COLUMN `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL AFTER `title`;';
+
+M()->query($sql);
+
+$sql = 'ALTER TABLE `lx_dianzan_log` CHANGE `pid` `pid` VARCHAR(255) NOT NULL COMMENT \'点赞的照片id\';';
+M()->query($sql);
+
+$sql = 'ALTER TABLE `xq`.`lx_users` 
+ADD COLUMN `rank_name` varchar(255) NULL COMMENT \'等级称号\' AFTER `is_year_vip`;';
+M()->query($sql);
 ?>
 
 

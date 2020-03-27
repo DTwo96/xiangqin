@@ -52,13 +52,18 @@
         </div>
 
         <div class="uesr_zl">
-            <p class="uesr_zl1p">{$real_name|default='真实名字未定义'}</p>
+            <p class="uesr_zl1p">
+                {$real_name|default='真实名字未定义'}
+                <?php if ($info['rank_time'] > 0){?>
+                    <img src="images/viplogo.png" alt="" style="width: 24px;">
+                <?php }?>
+            </p>
             <p class="uesr_zl1p">{$info.user_number|default='账号未定义'}</p>
             <p class="uesr_zl3p">性别：<!--{if condition="$info.sex eq 2"}-->女
                 <!--{else /}-->男<!--{/if}-->&nbsp;&nbsp;生日:&nbsp;{$pinfo.birthday}</p>
             <p class="uesr_zl2p">地区:&nbsp;&nbsp;{$area|default='未知'}&nbsp;&nbsp;&nbsp;年龄:&nbsp;&nbsp;{$age}岁</p>
             <p class="uesr_zl4p"><img src="{$info.rank_icon}">
-                {$info.rank_name}
+                <span style="margin-left: -4px;">{$info.rank_name}</span>
                 <!--{if condition="$info.id neq $uid"}-->
                     <a href="javascript:;"  class="gz">
                         <?php if($User_subscribe==1) echo '已关注'; elseif($User_subscribe==2) echo '相互关注'; else echo '未关注';?>
@@ -194,7 +199,7 @@
                         <!--{if condition="$info.id neq $uid"}-->
                             <!--{if condition="$uinfo.user_rank gt 0"}-->
                                 <p class="info-gz user-info" style="<?php if ($User_subscribe < 1) { echo 'display:block';}?>">请先关注对方</p>
-                                <p class="u-info user-info"  style="<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$info.user_login|default="用户未公开"}</p>
+                                <p class="u-info user-info"  style="color: green;<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$info.user_login|default="用户未公开"}</p>
                             <!--{else /}-->
                                 ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                             <!--{/if}-->
@@ -209,7 +214,7 @@
                         <!--{if condition="$info.id neq $uid"}-->
                             <!--{if condition="$uinfo.user_rank gt 0"}-->
                             <p class="info-gz user-info" style="<?php if ($User_subscribe < 1) { echo 'display:block';}?>">请先关注对方</p>
-                            <p class="u-info user-info"  style="<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.weixin|default="用户未公开"}</p>
+                            <p class="u-info user-info"  style="color: green;<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.weixin|default="用户未公开"}</p>
                             <!--{else /}-->
                             ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                             <!--{/if}-->
@@ -224,7 +229,7 @@
                         <!--{if condition="$info.id neq $uid"}-->
                         <!--{if condition="$uinfo.user_rank gt 0"}-->
                         <p class="info-gz user-info" style="<?php if ($User_subscribe < 1) { echo 'display:block';}?>">请先关注对方</p>
-                        <p class="u-info user-info"  style="<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.qq|default="用户未填写"}</p>
+                        <p class="u-info user-info"  style="color: green;<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.qq|default="用户未填写"}</p>
                         <!--{else /}-->
                         ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                         <!--{/if}-->
@@ -239,7 +244,7 @@
                         <!--{if condition="$info.id neq $uid"}-->
                         <!--{if condition="$uinfo.user_rank gt 0"}-->
                         <p class="info-gz user-info" style="<?php if ($User_subscribe < 1) { echo 'display:block';}?>">请先关注对方</p>
-                        <p class="u-info user-info"  style="<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.email|default="用户未填写"}</p>
+                        <p class="u-info user-info"  style="color: green;<?php if ($User_subscribe >= 1) { echo 'display:block';}?>">{$pinfo.email|default="用户未填写"}</p>
                         <!--{else /}-->
                         ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                         <!--{/if}-->

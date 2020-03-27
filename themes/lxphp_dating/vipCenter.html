@@ -26,6 +26,10 @@
         margin-bottom: 0px;
         color: green;
     }
+    .shengji,.xuznze4 p {
+        color: green !important;
+        border-color: green !important;
+    }
 </style>
 <body>
 <div class="hd_main" style="background: #fff;">
@@ -98,11 +102,12 @@
         <!--{if condition="$info['rank_time'] gt 0"}-->
         <div class="fl huiyuan_vip_new">
             {$info.real_name|default='真实姓名未定义'}
-            <?php if ($info['is_year_vip'] == 1) {?>
+            <span>VIP</span>
+            <!--<?php if ($info['is_year_vip'] == 1) {?>
             <img src="images/yvip.png" alt="" class="vip-logo">
             <?php }else {?>
             <img src="images/mvip.png" alt="" class="vip-logo">
-            <?php }?>
+            <?php }?>-->
         </div>
         <div class="fr chongzhizhongxin_vip">VIP特权余期 :<span>{$info.rank_time} 天</span></div>
         <!--{else/}-->
@@ -138,8 +143,10 @@
         <!--{/if}-->
     </div>
     <div class="xuznze4" style="margin-top: 15px;">
-        <p style="color: #f03b57">&nbsp;VIP特权介绍</p>
-        {$vip_info}
+        <p style="color: #f03b57 !important;">&nbsp;VIP特权介绍</p>
+        <p class="vip-rule">
+            {$vip_info}
+        </p>
         <!--{if condition="empty($config['buyvipintro'])"}-->
         <!--<p>&nbsp;VIP会员每天签到获更多{$config.money_name}(VIP+{$config.vipqd})</p>
         <p>&nbsp;VIP会员商城购买礼物享受特权折扣价(VIP{$config.vipgiftzhe}折)</p>

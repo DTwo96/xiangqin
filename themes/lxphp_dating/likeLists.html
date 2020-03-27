@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/Public/mui/dist/css/mui.css">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+	<link rel="stylesheet" type="text/css" href="css/font/iconfont.css?t=<?php echo time();?>">
+	<title>{$media.title}</title>
+	<style type="text/css">
+		.mui-bar-nav {
+			background-color: #f03b57;
+		}
+		.mui-icon-left-nav,.mui-title {
+			color: #fff;
+		}
+		.content {
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.mui-table-view-chevron .mui-table-view-cell {
+			padding-right: 15px;
+		}
+		.show-block {
+			margin-top: 6px;
+		}
+		.mui-table-view {
+			background-color: #efeff4;
+		}
+		.no-data-notice {
+			text-align: center;
+			font-size: 18px;
+			margin-top: 50%;
+		}
+		.no-data-notice i {
+			margin-right: 4px;
+		}
+		.mui-table-view:before,.mui-table-view:after {
+			height: 0px;
+		}
+		#pullrefresh {
+			height: 93%;
+			position: relative;
+		}
+		.source {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-o-text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 240px;
+		}
+		.love {
+			width: 20px;
+			margin-right: 2px;
+		}
+	</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 id="title" class="mui-title">{$navTitle}</h1>
+</header>
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+	<div class="mui-scroll">
+		<!--{if condition="$list"}-->
+		<!--数据列表-->
+		<ul class="mui-table-view mui-table-view-chevron">
+			<div class="sixin_div">
+				<div class="sixin_div_a">
+					<ul class="fujin">
+						<!--{foreach name="list" item="vo" }-->
+						<li class="cb" data-idmd5="{$vo.idmd5}" onclick="window.location.href='{:U('Show/index', array('uid' => $vo['idmd5']))}'">
+							<div class="fl"><img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""></div>
+							<div class="fl" style="margin-top: 3px;">
+
+								<!--{if condition="$vo['rank_time'] gt 0"}-->
+								<p class="wodefenxi_a">
+									{$vo.real_name|default='姓名未填'} {$vo.user_number}
+									<span style="line-height: 20px;">VIP</span>
+									<i>
+										<img class="love" src="images/user_03_32.png" alt=""><font>{$vo.zan}</font>
+									</i></p><!-- 这个是有vip的字体显示粉色 -->
+								<!--{else/}-->
+								<p class="wodefenxi_a_a">{$vo.real_name|default='姓名未填'} {$vo.user_number}<i style="margin-top: -2px;"><img class="love" src="images/user_03_32.png" alt=""><font>{$vo.zan}</font></i></p><!-- 这个是没有vip的字体显示黑色 -->
+								<!--{/if}-->
+
+								<p class="wodefenxi_b" <?php if (!$vo['monolog']){ echo 'style="margin-top: 10px;"';}?>>
+									<!--{if condition="$vo['sex'] == 1"}-->
+									男
+									<!--{else/}-->
+									女
+									<!--{/if}-->
+									{$vo.age}岁 {$vo.province_name|default='地区未填'}{$vo.city_name} <!--{$vo.astro}-->
+									<span style="float: right;">点赞时间：{$vo.input_time}</span>
+								</p>
+								<p class="wodefenxi_c">{$vo.monolog}</p>
+							</div>
+						</li>
+						<!--{/foreach}-->
+					</ul>
+				</div>
+			</div>
+		</ul>
+		<!--{else /}-->
+		<p class="no-data-notice"><i class="iconfont iconmeiyoudingdan-01"></i>暂无数据</p>
+		<!--{/if}-->
+	</div>
+</div>
+<script type="text/javascript" charset="UTF-8" src="/Public/js/jquery.js"></script>
+<script type="text/javascript" charset="UTF-8" src="/Public/mui/dist/js/mui.js"></script>
+<script type="text/javascript">
+
+    var page   = 2
+        ,url   = '<?php echo U("Show/index")?>'
+        ,type  = '{$type}'
+        ,lists = '<?php echo ($list) ? "true" : "false";?>';
+
+    mui.init({
+        pullRefresh : {
+            container:'#pullrefresh',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+            down: {
+                callback: pulldown,
+            },
+            up : {
+                contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内
+                contentnomore:'没有更多数据了',
+                callback :pullUp //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+            },
+        }
+    });
+    refreshEngine();
+    //解决因为上拉加载或者下拉刷新导致绑定的点击事件失效
+    mui("#pullrefresh").on("tap","li",function(){
+        var id = $(this).data('idmd5');
+        //跳转详情页
+        window.location.href = url + '&uid=' + id;
+    });
+
+    //refreshEngine();
+
+    //下拉刷新
+    function pulldown() {
+
+        setTimeout(function() {
+            var param = {
+                type:type, //数据类型 【1】我赞的人 【2】赞我的人
+                time:'now',
+            };
+            $.post("<?php echo U('Ajax/getDianzanLists');?>",param,function (res) {
+                if (res.status && res.lists.length) {
+
+                    for (var i = 0,l = res.lists.length;i < l;i++) {
+                        var val = res.lists[i];
+                        var avatar        = val.avatar ? val.avatar : '__PUBLIC__/img/mrtx.jpg';
+                        var user_nicename = val.real_name ? val.real_name : '姓名未填';
+                        var user_number   = val.user_number ? val.user_number : '账号未定义';
+                        var sex           = val.sex == 1 ? '男' : '女';
+                        var _t            = val.monolog ? '' : 'style="margin-top: 10px;"';
+
+                        if (val.rank_time > 0) {
+                            var	user_html = '<p class="wodefenxi_a">' + user_nicename + ' ' + user_number +'<span style="line-height: 20px;">VIP</span><i><img class="love" src="images/user_03_32.png" alt=""><font>'+val.zan+'</font></i></p>';
+                        } else {
+                            var	user_html = '<p class="wodefenxi_a_a">' + user_nicename +' ' + user_number + '<i style="margin-top: -2px;"><img class="love" src="images/user_03_32.png" alt=""><font>'+ val.zan +'</font></i></p>';
+                        }
+
+                        body = '<li class="cb"><div class="fl"><img src="' + avatar + '"></div><div class="fl">'+user_html+'<p class="wodefenxi_b" '+ _t +'>'+sex+' '+val.age+'岁 '+ val.province_name + val.city_name + '<span style="float: right;">点赞时间：'+ val.input_time + '</span></p><p class="wodefenxi_c">'+val.monolog+'</p></div></li>';
+
+                        $('.fujin').prepend(body);
+                    }
+                    //请求完成 隐藏加载动画
+                    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                } else {
+                    mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                }
+
+            },'json');
+
+        }, 500);
+    }
+    //上拉加载
+    function pullUp(){
+
+        var param = {
+            type:type, //数据类型 【1】我赞的人 【2】赞我的人
+            limit:10,
+            page:page,
+        };
+        //延迟请求数据 作用：避免加载动画还没有结束，数据就已经被渲染了
+        setTimeout(function() {
+
+            $.post("<?php echo U('Ajax/getDianzanLists');?>",param,function (res) {
+
+                if (res.status && res.hasNextPage) {
+                    //启用上拉加载
+                    mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+
+                    page++;
+
+                    for (var i = 0,l = res.lists.length;i < l;i++) {
+                        var val = res.lists[i];
+                        var avatar        = val.avatar ? val.avatar : '__PUBLIC__/img/mrtx.jpg';
+                        var user_nicename = val.real_name ? val.real_name : '姓名未填';
+                        var user_number   = val.user_number ? val.user_number : '账号未定义';
+                        var sex           = val.sex == 1 ? '男' : '女';
+                        var _t            = val.monolog ? '' : 'style="margin-top: 10px;"';
+
+                        if (val.rank_time > 0) {
+                            var	user_html = '<p class="wodefenxi_a">' + user_nicename + ' ' + user_number +'<span style="line-height: 20px;">VIP</span><i><img class="love" src="images/user_03_32.png" alt=""><font>'+ val.zan +'</font></i></p>';
+                        } else {
+                            var	user_html = '<p class="wodefenxi_a_a">' + user_nicename +' ' + user_number + '<i style="margin-top: -2px;"><img class="love" src="images/user_03_32.png" alt=""><font>'+ val.zan +'</font></i></p>';
+                        }
+
+                        body = '<li class="cb"><div class="fl"><img src="' + avatar + '"></div><div class="fl">'+user_html+'<p class="wodefenxi_b" '+ _t +'>'+sex+' '+val.age+'岁 '+ val.province_name + val.city_name + '<span style="float: right;">点赞时间：'+ val.input_time + '</span></p><p class="wodefenxi_c">'+val.monolog+'</p></div></li>';
+
+                        $('.fujin').append(body);
+                    }
+
+                    mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+                } else {
+                    mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+                    setTimeout(function () {
+                        //禁用上拉加载  作用：隐藏掉没有数据时的提示文字
+                        mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                    },1000);
+                }
+
+            },'json');
+
+        }, 500);
+    }
+
+    function refreshEngine() {
+        //!注意这里延迟两秒是为了防止mui还没有加载完成调用方法报错
+        var Timer = setTimeout(function () {
+            if (lists == 'false') {
+                mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                mui('#pullrefresh').pullRefresh().disablePulldownToRefresh();
+            } else {
+                clearTimeout(Timer);
+            }
+        },200);
+    }
+
+</script>
+<!--#include file="footer.html"-->
+</body>
+</html>

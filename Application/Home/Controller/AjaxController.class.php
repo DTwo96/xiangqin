@@ -407,7 +407,7 @@ class AjaxController extends SiteController {
             //当是短信登录的时候
             if ($login_type == 'message') {
                 if (empty($pass)) {
-                    $this->error('请输入验证码');
+                    $this->error('请输入短信验证码');
                 }
                 //检查验证码是否正确
                 $where = array();
@@ -1247,38 +1247,54 @@ class AjaxController extends SiteController {
 
 		$pid =  I('post.pid',0,'trim');
 
-		if(!$pid) $this->error('err');
+		if(!$pid) $this->error('参数错误');
 
 		$phohomod = M("User_photo");
 
 		$phoarr = $phohomod->where("idmd5='$pid'")->find();
 
-		if(cookie('pidzan'.$pid))
+        if(!$phoarr) $this->error('没有查询到相关数据');
+		//点赞的是否是自己的作品
+        if ($phoarr['uid'] == $this->uinfo['id']) {
+            $this->error('自己不能赞自己哟');
+        }
 
-		$this->success($phoarr['hits']);
+        $zan_cnt = M('DianzanLog')->where(['uid' => $this->uinfo['id'],'pid' => $phoarr['idmd5']])->count();
+        if ($zan_cnt) {
+            $this->error('同一照片只能点赞一次');
+        }
 
-		if(!$phoarr) $this->error('err');
 
-		$re = $phohomod->where("idmd5='$pid'")->setInc('hits');
+        try {
+            M()->startTrans();
 
-		if($re){
+            $rs     = [];
+            $sqlMap = [];
 
-			cookie('pidzan'.$pid,1,3600);
+            $sqlMap['uid']   = $this->uinfo['id'];
+            $sqlMap['touid'] = $phoarr['uid'];
+            $sqlMap['pid']   = $phoarr['idmd5'];
+            $sqlMap['input_time']   = time();
 
-			$tongji['sevenzan']=1;
+            $rs[0] = $phohomod->where(['photoid' => $phoarr['photoid']])->setInc('hits');
+            $rs[1] = M('DianzanLog')->add($sqlMap);
+            $rs[2] = $this->tongjiarr($phoarr['uid'],['zan' => 1]);
 
-			$tongji['zan']=1;
+            foreach ($rs as $k => $v) {
+                if (!$v) {
+                    M()->rollback();
+                    $this->error('服务器繁忙，请稍后再试');
+                }
+            }
 
-			$this->tongjiarr($phoarr['uid'],$tongji);
+            M()->commit();
 
-			$this->success($phoarr['hits']+1);
+            $this->success($phoarr['hits'] + 1);
 
-		}		
-
-		else
-
-		$this->error('err');
-
+        } catch (\Exception $e) {
+            M()->rollback();
+            $this->error($e->getMessage());
+        }
 	}
 
 	/**
@@ -1502,7 +1518,7 @@ class AjaxController extends SiteController {
         if (IS_POST) {
 
             $page   = I('page',1);
-            $limit  = I('limit',10);
+            $limit  = I('limit',12);
             $time   = I('time');
             $param  = I('post.');
 
@@ -1527,12 +1543,12 @@ class AjaxController extends SiteController {
                 foreach ($lists as $k => $v) {
                     $lists[$k]['show_url']     = U("Show/index", array("uid" => $v['idmd5']));
                     $lists[$k]['avatar']       = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
-                    $lists[$k]['real_name']    = !empty($v['real_name']) ? $v['real_name'] : '真实姓名未定义';
+                    $lists[$k]['real_name']    = !empty($v['real_name']) ? $v['real_name'] : '姓名未填';
 
                     $lists[$k]['sex'] = $v['sex'] == 1 ? '男' : '女';
 
-                    $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'];
-                    $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'];
+                    $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '';
+                    $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '地区未填';
                     $lists[$k]['age']           = date('Y',time()) - $v['age'];
                 }
 
@@ -1562,13 +1578,117 @@ class AjaxController extends SiteController {
             foreach ($lists as $k => $v) {
                 $lists[$k]['show_url']     = U("Show/index", array("uid" => $v['idmd5']));
                 $lists[$k]['avatar']       = !empty($v['avatar']) ? $v['avatar'] : '/Public/img/mrtx.jpg';
-                $lists[$k]['real_name']    = !empty($v['real_name']) ? $v['real_name'] : '真实姓名未定义';
+                $lists[$k]['real_name']    = !empty($v['real_name']) ? $v['real_name'] : '姓名未填';
 
                 $lists[$k]['sex'] = $v['sex'] == 1 ? '男' : '女';
 
-                $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'];
-                $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'];
+                $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '';
+                $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '地区未填';
                 $lists[$k]['age']           = date('Y',time()) - $v['age'];
+            }
+
+            $res['status'] = 1;
+            $res['lists']  = !empty($lists) ? $lists : [];
+            $res['hasNextPage'] = ($page > $pages) ? false : true;
+
+            $this->ajaxReturn($res);
+
+        } else {
+
+            $res['status'] = 0;
+            $res['lists']  = [];
+            $res['hasNextPage'] = false;
+
+            $this->ajaxReturn($res);
+        }
+    }
+    /**
+     * 获取点赞列表数据
+     * @param int $page 当前页数
+     * @param int $limit 显示的数据条数
+     * @param string $time 获取最新数据的时候用到
+     * @param array $param 查询参数
+     * @return array
+     * @author：Enthusiasm
+     * @date：2020/2/5
+     * @time：12:31
+     */
+    public function getDianzanLists()
+    {
+        $res = array();
+
+        if (IS_POST) {
+
+            $page   = I('page',1);
+            $limit  = I('limit',10);
+            $type   = I('type',1,'intval');
+            $time   = I('time');
+            $where  = [];
+
+            $_fields  = $type == 1 ? 'z.touid' : 'z.uid';
+
+            if ($type == 1) {
+                $where['z.uid']   = $this->uinfo['id'];
+            } else {
+                $where['z.touid'] = $this->uinfo['id'];
+            }
+            //地区名称
+            $areaList = $this->get_area();
+
+            if ($time == 'now') { //获取最新数据
+
+                $where['z.input_time'] = array('egt',time());
+
+                $lists = M('DianzanLog')
+                        ->alias('z')
+                        ->join('lx_users u on u.id = '.$_fields)
+                        ->join('lx_user_profile p on p.uid = u.id')
+                        ->join('lx_user_count c on p.uid = c.uid')
+                        ->where($where)
+                        ->field($_fields.','.'u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,c.zan')
+                        ->group($_fields)
+                        ->page($page,$limit)
+                        ->select();
+
+                foreach ($lists as $k => $v) {
+                    $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'] ? $areaList[$v['provinceid']]['areaname'] : '地区未填';
+                    $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '';
+                    $lists[$k]['input_time']    = date('Y-m-d H:i:s',$v['input_time']);
+                    $lists[$k]['age']           = date('Y',time()) - $v['age'];
+                    $lists[$k]['real_name']     = mb_strlen($v['real_name']) > 5 ? (substr($v['real_name'],0,5).'...') : $v['real_name'];
+                }
+
+                $res['status'] = 1;
+                $res['lists']  = !empty($lists) ? $lists : [];
+
+                $this->ajaxReturn($res);
+            }
+
+            $cnt = M('DianzanLog')
+                    ->alias('z')
+                    ->where($where)
+                    ->group($_fields)
+                    ->select();
+
+            $pages = ceil(count($cnt) / $limit);
+
+            $lists = M('DianzanLog')
+                ->alias('z')
+                ->join('lx_users u on u.id = '.$_fields)
+                ->join('lx_user_profile p on p.uid = u.id')
+                ->join('lx_user_count c on p.uid = c.uid')
+                ->where($where)
+                ->field($_fields.','.'u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,c.zan')
+                ->group($_fields)
+                ->page(1,1)
+                ->select();
+
+            foreach ($lists as $k => $v) {
+                $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'] ? $areaList[$v['provinceid']]['areaname'] : '地区未填';
+                $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '';
+                $lists[$k]['input_time']    = date('Y-m-d H:i:s',$v['input_time']);
+                $lists[$k]['age']           = date('Y',time()) - $v['age'];
+                $lists[$k]['real_name']     = mb_strlen($v['real_name']) > 5 ? (substr($v['real_name'],0,5).'...') : $v['real_name'];
             }
 
             $res['status'] = 1;
@@ -1741,54 +1861,72 @@ class AjaxController extends SiteController {
     public function wechat_bind()
     {
         if (IS_POST) {
-            $param = I('post.');
+            $param  = I('post.');
+            $status = I('post.status',1,'intval');
 
             if (!$this->uinfo) {
                 $this->error('请先登录');
             }
-            if (empty($param['openid'])) {
+            if ($status && empty($param['openid'])) {
                 $this->error('参数错误');
             }
+            $where = [];
+            $where['userid']      = $this->uinfo['id'];
+            $where['type']        = 'wechat';
+            $where['bind_status'] = 1;
 
-            $check = D('Home/UserOauth')->isBind($this->uinfo['id']);
+            $check = D('Home/UserOauth')->where($where)->find();
 
-            if ($check) {
-                $this->error('该用户已绑定过微信');
+            if (!$status && !$check) {
+                $this->error('您还未绑定微信，请先绑定');
+            }
+            if ($status && $check) {
+                $this->error('您已绑定过微信，请先解除绑定');
             }
 
-            $sqlMap = [];
-            $sqlMap['type']        = 'wechat';
-            $sqlMap['userid']      = $this->uinfo['id'];
-            $sqlMap['openid']      = $param['openid'];
-            $sqlMap['nickname']    = $param['nickname'];
-            $sqlMap['sex']         = $param['sex'];
-            $sqlMap['province']    = $param['province'];
-            $sqlMap['city']        = $param['city'];
-            $sqlMap['country']     = $param['country'];
-            $sqlMap['headimgurl']  = $param['headimgurl'];
-            $sqlMap['unionid']     = $param['unionid'];
-            $sqlMap['bind_time']   = time();
-            $sqlMap['bind_status'] = 1;
+            $_method = $status ? 'add' : 'save';
+            $sqlMap  = [];
+            $res     = [];
+
+            if ($status == 1) {//绑定微信
+                $sqlMap['type']        = 'wechat';
+                $sqlMap['userid']      = $this->uinfo['id'];
+                $sqlMap['openid']      = $param['openid'];
+                $sqlMap['nickname']    = $param['nickname'];
+                $sqlMap['sex']         = $param['sex'];
+                $sqlMap['province']    = $param['province'];
+                $sqlMap['city']        = $param['city'];
+                $sqlMap['country']     = $param['country'];
+                $sqlMap['headimgurl']  = $param['headimgurl'];
+                $sqlMap['unionid']     = $param['unionid'];
+                $sqlMap['bind_time']   = time();
+                $sqlMap['bind_status'] = 1;
+            } else {
+                $sqlMap['id'] = $check['id'];
+                $sqlMap['bind_status'] = -1; //取消绑定
+            }
+
+            $openID  = $status ? $param['openid'] : '';
+            $suc_msg = $status ? '绑定成功' : '解绑成功';
+            $err_msg = $status ? '绑定失败' : '解绑失败';
 
             try {
                 M()->startTrans();
 
-                $res = [];
-
-                $res[1] = M('Users')->where(['id' => $this->uinfo['id']])->save(['weixin' => $param['openid']]);
-                $res[2] = M('UserOauth')->add($sqlMap);
+                $res[1] = M('Users')->where(['id' => $this->uinfo['id']])->save(['weixin' => $openID]);
+                $res[2] = M('UserOauth')->$_method($sqlMap);
                 foreach ($res as $v) {
                     if (!$v) {
                         M()->rollback();
-                        $this->error('绑定失败');
+                        $this->error($err_msg);
                     }
                 }
 
                 M()->commit();
-                $this->success('绑定成功');
+                $this->success($suc_msg);
             } catch (\Exception $e) {
                 M()->rollback();
-                $this->error('绑定失败');
+                $this->error($err_msg.':'.$e->getMessage());
             }
         }
     }

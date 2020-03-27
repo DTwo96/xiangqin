@@ -64,6 +64,11 @@
 		.e-active {
 			color: green;
 		}
+		@media screen and (max-width: 375px) {
+			#pass {
+				width: 54% !important;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -87,7 +92,7 @@
 		<div class="message-input input-block">
 			<div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号" maxlength="11"></div>
 			<div class="baikuang">
-				<input type="number" id="pass" placeholder="请输入验证码">
+				<input type="number" id="pass" placeholder="请输入短信验证码">
 				<span class="line">|</span>
 				<input type="button" id="yzm-btn" value="获取验证码"/>
 			</div>
@@ -95,11 +100,12 @@
 		<div class="wangji cb"> <a href="{:U('reg')}" style="margin-left: 20px;" class="fl">立即注册</a><a href="{:U('Home/Public/getpwd')}" style="margin-right: 20px;" class="fr">忘记密码？</a></div>
 		<a href="javascript:;" id="ljlogin">马上登录</a>
 		<div class="weixinlogin">
-			<!--{if condition="$iswx"}-->
+
 			<span></span><span></span><font class="wx-t">社交账号登录</font>
 			<p class="weixinlogin_A">
 				<a href="{:U('dowxlogin')}"><img src="images/weilogin_03.png" alt=""></a>
 			</p>
+			<!--{if condition="$iswx"}-->
 			<!--{/if}-->
 
 

@@ -77,7 +77,6 @@ class ArticleModel extends Model {
             $rs['code'] = 0;
         }
 
-
         if ($this->create($param)) {
             $res = $this->save();
             if ($res) {

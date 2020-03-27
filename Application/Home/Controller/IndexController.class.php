@@ -33,7 +33,7 @@ class IndexController extends SiteController {
 
         }
 
-        $media=$this->getMedia('用户推荐');
+        $media=$this->getMedia('会员列表');
 
         $this->assign('media', $media);
 
@@ -142,7 +142,7 @@ class IndexController extends SiteController {
 
 
         $page  = I('page',1);
-        $limit = I('limit',10);
+        $limit = I('limit',12);
 
         $param = I('param.');
 

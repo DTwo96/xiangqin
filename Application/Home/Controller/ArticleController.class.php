@@ -14,7 +14,7 @@ class ArticleController extends SiteController {
     {
         $type = $nav = I('type',1);
         //标题
-        $navTitle = $type == 1 ? '情感文章' : ($type == 2 ? '线下活动' : '招商合作');
+        $navTitle = $type == 1 ? '情感美文' : ($type == 2 ? '约会活动' : '招商合作');
 
         $num = M('Article')->where(['type' => $type])->count();
 
@@ -35,11 +35,14 @@ class ArticleController extends SiteController {
      */
     public function articleInfo()
     {
-        $this->assign('media', $this->getMedia('详情'));
-
         $id = (int) I('id');
 
         $info = D('Admin/Article')->_info($id);
+
+        //标题
+        $navTitle = $info['type'] == 1 ? '情感美文' : ($info['type'] == 2 ? '约会活动' : '招商合作');
+
+        $this->assign('media', $this->getMedia($navTitle.'详情'));
 
         $this->assign('info',$info);
 
