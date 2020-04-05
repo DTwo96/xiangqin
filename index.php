@@ -27,6 +27,5 @@ define('DUX_TIME', '201510');
 //强制手机版
 define('MOBILE',True);
 
-
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';

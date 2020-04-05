@@ -58,6 +58,15 @@
 			width: 20px;
 			margin-right: 2px;
 		}
+		@media screen and (max-width: 320px){
+			.like-time {
+				width: 130px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+
 	</style>
 </head>
 <body>
@@ -96,7 +105,7 @@
 									女
 									<!--{/if}-->
 									{$vo.age}岁 {$vo.province_name|default='地区未填'}{$vo.city_name} <!--{$vo.astro}-->
-									<span style="float: right;">点赞时间：{$vo.input_time}</span>
+									<span class="like-time" style="float: right;">点赞时间：{$vo.input_time}</span>
 								</p>
 								<p class="wodefenxi_c">{$vo.monolog}</p>
 							</div>

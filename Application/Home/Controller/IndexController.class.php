@@ -170,8 +170,8 @@ class IndexController extends SiteController {
                 ->alias('u')
                 ->join('lx_user_profile p on p.uid = u.id')
                 ->where($where)
-                ->field('p.real_name,provinceid,age,cityid,avatar,idmd5,user_number,sex')
-                ->order('type desc,last_login_time desc,id desc')
+                ->field('p.real_name,provinceid,age,cityid,avatar,idmd5,user_number,sex,user_rank')
+                ->order('user_rank desc,last_login_time desc,id desc')
                 ->page($page,$limit)
                 ->select();
 

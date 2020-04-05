@@ -100,9 +100,9 @@
         <div class="fl touxiang_new"><img src="{$info.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt=""></div>
 
         <!--{if condition="$info['rank_time'] gt 0"}-->
-        <div class="fl huiyuan_vip_new">
+        <div class="fl huiyuan_vip_new" style="position: relative">
             {$info.real_name|default='真实姓名未定义'}
-            <span>VIP</span>
+            <span style="position: absolute; top: 0; left: 2px;">VIP</span>
             <!--<?php if ($info['is_year_vip'] == 1) {?>
             <img src="images/yvip.png" alt="" class="vip-logo">
             <?php }else {?>
@@ -120,7 +120,7 @@
     <div class="gai_vip cb">
         <ul>
             <!--{foreach  name="list" item="vo"}-->
-            <!--{if condition="$vo['day'] eq 365"}-->
+            <!--{if condition="$vo['day'] eq 999"}-->
             <li class="cb">
                 <div class="fl"><img src="images/vip{$vo.day}.png">
                     <p class="nian_ww">1年&nbsp;&nbsp; {$vo.price}元</p>
@@ -131,7 +131,7 @@
             <li class="cb">
                 <div class="fl">{$vo.description}</div>
                 <div class="left">¥{$vo.price}</div>
-                <a href="javascript:;" data-group="{$vo.id}" dataValue="{$vo.id}" class="fr shengji tj">升级</a></li>
+                <a href="javascript:;" data-group="{$vo.id}" dataValue="{$vo.id}" class="fr shengji tj" style="width: 70px;">购买升级</a></li>
             <!--{/if}-->
             <!--{/foreach}-->
         </ul>

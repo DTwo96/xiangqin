@@ -16,18 +16,28 @@ class ArticleController extends AdminController{
     protected function _infoModule(){
         return array(
             'info' => array(
-                'name' => '情感文章管理',
-                'description' => '用于情感文章展示',
+                'name' => '情感美文管理',
+                'description' => '用于情感美文展示',
             ),
             'menu' => array(
                 array(
-                    'name' => '文章列表',
-                    'url' => U('articleLists'),
+                    'name' => '约会活动',
+                    'url' => U('admin/Activity/lists'),
                     'icon' => 'list',
                 ),
                 array(
-                    'name' => '添加情感文章',
-                    'url' => U('articleAdd'),
+                    'name' => '添加约会活动',
+                    'url' => U('admin/Activity/add'),
+                    'icon' => 'plus',
+                ),
+                array(
+                    'name' => '情感美文',
+                    'url' => U('admin/Article/articleLists'),
+                    'icon' => 'list',
+                ),
+                array(
+                    'name' => '添加情感美文',
+                    'url' => U('admin/Article/articleAdd'),
                     'icon' => 'plus',
                 ),
             ),

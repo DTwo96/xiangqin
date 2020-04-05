@@ -64,9 +64,9 @@ class ShowController extends SiteController {
 				}
 			}
 			
-			$photoarr = $photomod->where("uid=".$uid.' and flag=1 and phototype=0')->order("photoid desc")->limit(3)->select();			
+			$photoarr = $photomod->where("uid=".$uid.' and flag=1 and phototype=0')->order("photoid desc")->select();
 			$simi = $photomod->where("uid=".$uid.' and flag=1 and phototype=1')->order("photoid desc")->limit(3)->select();
-			
+
 
 			$this->assign('simiphoto', $simi);
 			$this->assign('photoarr', $photoarr);
@@ -122,7 +122,7 @@ class ShowController extends SiteController {
                     }
                 } else {
 			        if ($k == 'height') {
-                        $base_info[$v] = $pinfo[$k] ? $pinfo[$k].'CM' : '用户未填写';
+                        $base_info[$v] = $pinfo[$k] ? $pinfo[$k].'厘米' : '用户未填写';
                     } else if ($k == 'astro') {//星座
                         $base_info[$v] = C('Constellation')[$pinfo[$k]] ? C('Constellation')[$pinfo[$k]] : '用户未填写';
                     } else if ($k == 'house_info' || $k == 'car_info'){//是否有房 | 是否有车

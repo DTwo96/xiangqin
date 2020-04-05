@@ -6,6 +6,7 @@ namespace Home\Controller;
 
 
 use Home\Controller\SiteController;
+use PHPMailer\PHPMailer\PHPMailer;
 use Think\Log;
 use Wechat\Controller\WechatOauthController;
 
@@ -57,7 +58,7 @@ class UserController extends SiteController {
 		$usermod = M('Users');
 
 		$uinfo =$usermod->where(' id ='.$this->uinfo['id'])->find();
-
+        $uinfo = $this->get_jifen_rank_name($uinfo);
 		if(!$uinfo || $uinfo['user_status']==0) redirect(U('Public/dologout'));
 
 		$uinfo['age'] = date('Y',time())-$uinfo['age'];
@@ -157,7 +158,7 @@ class UserController extends SiteController {
     public function likeLists()
     {
         $type    = I('type',1,'intval');
-        $title   = $type == 1 ? '我赞的人' : '赞我的人';
+        $title   = $type == 1 ? '我赞的人' : ($type == 2 ? '赞我的人' : '互赞的人');
         $media   = $this->getMedia($title);
         $_fields = $type == 1 ? 'z.touid' : 'z.uid';
 
@@ -169,6 +170,9 @@ class UserController extends SiteController {
             $sqlMap['z.uid']   = $this->uinfo['id'];
         } else {
             $sqlMap['z.touid'] = $this->uinfo['id'];
+            if ($type == 3) { //互相点赞
+                $sqlMap['_string'] = "(select count(*) from lx_dianzan_log where uid = {$this->uinfo['id']} and touid = z.uid) > 0";
+            }
         }
 
         $areaList = $this->get_area();
@@ -178,7 +182,7 @@ class UserController extends SiteController {
                         ->join('lx_user_profile p on p.uid = u.id')
                         ->join('lx_user_count c on p.uid = c.uid')
                         ->where($sqlMap)
-                        ->field($_fields.','.'u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,c.zan')
+                        ->field('u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,z.uid,z.touid,c.zan')
                         ->group($_fields)
                         ->page($page,$limit)
                         ->select();
@@ -186,7 +190,7 @@ class UserController extends SiteController {
         foreach ($list as $k => $v) {
             $list[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'];
             $list[$k]['city_name']     = $areaList[$v['cityid']]['areaname'];
-            $list[$k]['input_time']    = date('Y-m-d H:i:s',$v['input_time']);
+            $list[$k]['input_time']    = get_like_time($v['uid'],$v['touid']);
             $list[$k]['age']           = date('Y',time()) - $v['age'];
             $list[$k]['real_name']     = mb_strlen($v['real_name']) > 5 ? (substr($v['real_name'],0,5).'...') : $v['real_name'];
         }
@@ -2473,7 +2477,7 @@ $ext=strrchr($url,".");
 	    $list = M('ConfigVip')->select();
 
 	    foreach ($list as $k => $v) {
-            if ($v['day'] != 360) {
+            if ($v['day'] != 365) {
                 unset($list[$k]);
             }
         }
@@ -3550,5 +3554,24 @@ public function deletebind(){
         $this->assign('info',$this->uinfo);
         $this->assign('media',$media);
         $this->siteDisplay('editPhone');
+    }
+    /**
+     * 修改手机号码
+     * @return mixed
+     * @author：Enthusiasm
+     * @date：2020/2/28 0028
+     * @time：13:18
+     */
+    public function editEmail()
+    {
+        $media = $this->getMedia('修改邮箱账号');
+
+        if (!$this->uinfo) {
+            $this->error('请先登录');
+        }
+
+        $this->assign('info',$this->uinfo);
+        $this->assign('media',$media);
+        $this->siteDisplay('edit_email');
     }
 }

@@ -1261,7 +1261,7 @@ class AjaxController extends SiteController {
 
         $zan_cnt = M('DianzanLog')->where(['uid' => $this->uinfo['id'],'pid' => $phoarr['idmd5']])->count();
         if ($zan_cnt) {
-            $this->error('同一照片只能点赞一次');
+            $this->error('同一照片只能点赞一次哟');
         }
 
 
@@ -1524,7 +1524,7 @@ class AjaxController extends SiteController {
 
             $where  = A('Index')->getSearchWhere($param);
 
-            $order_by = 'type desc,last_login_time desc,id desc';
+            $order_by = 'user_rank desc,last_login_time desc,id desc';
             //地区名称
             $areaList = $this->get_area();
             if ($time == 'now') { //获取最新数据
@@ -1536,7 +1536,7 @@ class AjaxController extends SiteController {
                           ->join('lx_user_profile p on p.uid = u.id')
                           ->where($where)
                           ->order($order_by)
-                          ->field('p.real_name,provinceid,age,cityid,idmd5,avatar,sex,user_number')
+                          ->field('p.real_name,provinceid,age,cityid,idmd5,avatar,sex,user_number,user_rank')
                           ->page($page,$limit)
                           ->select();
 
@@ -1570,7 +1570,7 @@ class AjaxController extends SiteController {
                         ->alias('u')
                         ->join('lx_user_profile p on p.uid = u.id')
                         ->where($where)
-                        ->field('p.real_name,provinceid,age,cityid,idmd5,avatar,sex,user_number')
+                        ->field('p.real_name,provinceid,age,cityid,idmd5,avatar,sex,user_number,user_rank')
                         ->order($order_by)
                         ->page($page,$limit)
                         ->select();
@@ -1631,6 +1631,9 @@ class AjaxController extends SiteController {
                 $where['z.uid']   = $this->uinfo['id'];
             } else {
                 $where['z.touid'] = $this->uinfo['id'];
+                if ($type == 3) { //互相点赞
+                    $sqlMap['_string'] = "(select count(*) from lx_dianzan_log where uid = {$this->uinfo['id']} and touid = z.uid) > 0";
+                }
             }
             //地区名称
             $areaList = $this->get_area();
@@ -1645,7 +1648,7 @@ class AjaxController extends SiteController {
                         ->join('lx_user_profile p on p.uid = u.id')
                         ->join('lx_user_count c on p.uid = c.uid')
                         ->where($where)
-                        ->field($_fields.','.'u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,c.zan')
+                        ->field('u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,z.uid,z.touid,c.zan')
                         ->group($_fields)
                         ->page($page,$limit)
                         ->select();
@@ -1653,7 +1656,7 @@ class AjaxController extends SiteController {
                 foreach ($lists as $k => $v) {
                     $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'] ? $areaList[$v['provinceid']]['areaname'] : '地区未填';
                     $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '';
-                    $lists[$k]['input_time']    = date('Y-m-d H:i:s',$v['input_time']);
+                    $lists[$k]['input_time']    = get_like_time($v['uid'],$v['touid']);
                     $lists[$k]['age']           = date('Y',time()) - $v['age'];
                     $lists[$k]['real_name']     = mb_strlen($v['real_name']) > 5 ? (substr($v['real_name'],0,5).'...') : $v['real_name'];
                 }
@@ -1678,15 +1681,15 @@ class AjaxController extends SiteController {
                 ->join('lx_user_profile p on p.uid = u.id')
                 ->join('lx_user_count c on p.uid = c.uid')
                 ->where($where)
-                ->field($_fields.','.'u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,c.zan')
+                ->field('u.avatar,u.id,u.rank_time,u.user_number,u.sex,u.age,u.idmd5,u.provinceid,u.cityid,p.monolog,p.real_name,z.input_time,z.uid,z.touid,c.zan')
                 ->group($_fields)
-                ->page(1,1)
+                ->page($page,$limit)
                 ->select();
 
             foreach ($lists as $k => $v) {
                 $lists[$k]['province_name'] = $areaList[$v['provinceid']]['areaname'] ? $areaList[$v['provinceid']]['areaname'] : '地区未填';
                 $lists[$k]['city_name']     = $areaList[$v['cityid']]['areaname'] ? $areaList[$v['cityid']]['areaname'] : '';
-                $lists[$k]['input_time']    = date('Y-m-d H:i:s',$v['input_time']);
+                $lists[$k]['input_time']    = get_like_time($v['uid'],$v['touid']);
                 $lists[$k]['age']           = date('Y',time()) - $v['age'];
                 $lists[$k]['real_name']     = mb_strlen($v['real_name']) > 5 ? (substr($v['real_name'],0,5).'...') : $v['real_name'];
             }
@@ -2030,6 +2033,70 @@ class AjaxController extends SiteController {
                     writeSystemLog('用户修改了手机号码',$this->uinfo['id']);
                     //更新用户缓存
                     $this->setUserinfo('user_login',$param['phone']);
+                    $this->success('修改成功');
+                } else {
+                    $this->error('修改失败');
+                }
+            }
+        }
+    }
+    /**
+     * 修改手机号码
+     * @return void
+     * @author：Enthusiasm
+     * @date：2020/3/1
+     * @time：13:58
+     */
+    public function editEmail()
+    {
+        if (IS_POST) {
+            $action = I('action');
+            $param  = I('post.');
+
+            if ($action == 'get_yzm') { //获取验证码
+
+                if (!is_email($param['email'])) {
+                    $this->error('请填写有效的邮箱');
+                }
+
+                $res = send_email($param['email']);
+
+                if ($res) {
+                    $this->success('发送成功');
+                } else {
+                    $this->error('发送失败');
+                }
+
+            } else if ($action == 'edit') {
+
+                if (!$param['email'] || !is_email($param['email'])) $this->error('请填写有效的邮箱');
+                if (!$param['yzm']) $this->error('请填写验证码');
+                if (empty($param['pwd'])) $this->error('请填写登录密码');
+
+                //检查登录密码
+                $sign = M('Users')->where(['id' => $this->uinfo['id']])->getField('user_pass');
+                $pwd  = md5($this->uinfo['user_login'].$param['pwd'].C ('PWD_SALA'));
+                if ($pwd != $sign) {
+                    $this->error('登录密码错误');
+                }
+
+                $check_yzm = D('EmailLog')->checkYzm($param['email'],$param['yzm'],3);
+                if (!$check_yzm) {
+                    $this->error(D('EmailLog')->getError());
+                }
+
+                $check_phone = M('UsersProfile')->where(['email' => $param['email']])->count();
+                if ($check_phone) {
+                    $this->error('此邮箱已被占用');
+                }
+
+                $sqlMap = [];
+                $sqlMap['email'] = $param['email'];
+
+                $res = M('UserProfile')->where(['uid' => $this->uinfo['id']])->save($sqlMap);
+                if ($res) {
+                    //写入日志
+                    writeSystemLog('用户修改了邮箱',$this->uinfo['id']);
                     $this->success('修改成功');
                 } else {
                     $this->error('修改失败');

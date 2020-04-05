@@ -14,24 +14,77 @@ class AboutCompanyController extends AdminController{
      * 当前模块操作项参数
      */
     protected function _infoModule(){
-        return array(
-            'info' => array(
+        if (I('type') == 1) {
+            $arr = [
+                'name' => '联系红娘',
+                'description' => '展示红娘信息',
+            ];
+        } else if (I('type') == 2){
+            $arr = [
                 'name' => '公司简介',
                 'description' => '展示公司信息',
-            ),
+            ];
+        }
+
+        $res = array(
+            'info' => $arr,
             'menu' => array(
                 array(
-                    'name' => '公司简介',
-                    'url' => U('introduction'),
+                    'name' => '联系红娘',
+                    'url' => U('admin/AboutCompany/hongniang',['type' => 1]),
                     'icon' => 'list',
                 ),
                 array(
-                    'name' => '红娘联系方式',
-                    'url' => U('hongniang'),
+                    'name' => '公司简介',
+                    'url' => U('admin/AboutCompany/introduction',['type' => 2]),
+                    'icon' => 'list',
+                ),
+                array(
+                    'name' => '招商合作',
+                    'url' => U('admin/Company/lists'),
+                    'icon' => 'list',
+                ),
+                array(
+                    'name' => '添加招商合作',
+                    'url' => U('admin/Company/add'),
                     'icon' => 'list',
                 ),
             ),
         );
+
+        if (I('type' == 99)) {
+            $res = [
+                'menu' => array(
+                    array(
+                        'name' => '立即注册',
+                        'url' => U('Home/Public/index'),
+                        'icon' => 'list',
+                    ),
+                    array(
+                        'name' => '马上登录',
+                        'url' => U('Home/Public/index'),
+                        'icon' => 'list',
+                    ),
+                ),
+            ];
+        }
+
+        return $res;
+    }
+    /**
+     * 
+     * @return 
+     * @param
+     * @author：Enthusiasm
+     * @date：2020/4/5
+     * @time：17:30
+     */
+    public function tuodan()
+    {
+        //定位当前位置
+        $breadCrumb = array('我要脱单' => U(''));
+
+        $this->adminDisplay();
     }
     /**
      * 公司简介
@@ -61,7 +114,7 @@ class AboutCompanyController extends AdminController{
     public function hongniang()
     {
         //定位当前位置
-        $breadCrumb = array('红娘联系方式' => U(''));
+        $breadCrumb = array('联系红娘' => U(''));
 
         $this->assign('breadCrumb',$breadCrumb);
 

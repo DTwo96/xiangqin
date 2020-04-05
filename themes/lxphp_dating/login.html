@@ -66,6 +66,9 @@
 		}
 		@media screen and (max-width: 375px) {
 			#pass {
+				width: 80% !important;
+			}
+			#yzm {
 				width: 54% !important;
 			}
 		}
@@ -85,14 +88,14 @@
 		<div class="account-input input-block">
 			<div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号或账号" maxlength="11"></div>
 			<div class="baikuang">
-				<input type="password" id="pass" placeholder="请输入6至16位密码">
+				<input type="password" id="pass" placeholder="请输入设置6至16位登录密码">
 				<i class="iconfont iconyanjing eye-btn"></i>
 			</div>
 		</div>
 		<div class="message-input input-block">
 			<div class="baikuang"><input type="text" id="mob" placeholder="请输入手机号" maxlength="11"></div>
 			<div class="baikuang">
-				<input type="number" id="pass" placeholder="请输入短信验证码">
+				<input type="number" id="yzm" placeholder="请输入短信验证码">
 				<span class="line">|</span>
 				<input type="button" id="yzm-btn" value="获取验证码"/>
 			</div>

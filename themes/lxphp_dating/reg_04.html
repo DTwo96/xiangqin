@@ -97,7 +97,7 @@
 <body>
 <header class="mui-bar mui-bar-nav">
     <a id="back" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <h1 id="title" class="mui-title">完善资料</h1>
+    <h1 id="title" class="mui-title">注册资料</h1>
 </header>
 <ul class="mui-content" style="padding-top: 64px; padding-bottom: 40px;">
     <li class="avatar-item">
@@ -111,6 +111,10 @@
         <span class="item-t">性别</span>
         <a class="boy sex-btn" data-sex="1">男<i class="iconfont iconnan2"></i></a>
         <a class="girl sex-btn" data-sex="2">女<i class="iconfont iconnv1"></i></a>
+    </li>
+    <li class="mui-input-row">
+        <span class="item-t">真实姓名</span>
+        <input type="text" placeholder="请填写真实姓名" name="real_name" class="mui-input-clear">
     </li>
     <li class="mui-input-row">
         <span class="item-t">年龄</span>
@@ -265,7 +269,8 @@
                 ,image        = $('[name="image"]').val() || ''
                 ,thumb_image  = $('[name="thumb_image"]').val() || ''
                 ,phone        = $('[name="phone"]').val() || ''
-                ,pwd          = $('[name="pwd"]').val()   || '';
+                ,pwd          = $('[name="pwd"]').val()   || ''
+                ,real_name    = $('[name="real_name"]').val();
 
             var param = {
                 sex:sex,
@@ -280,7 +285,8 @@
                 image:image,
                 thumb_image:thumb_image,
                 phone:phone,
-                pwd:pwd
+                pwd:pwd,
+                real_name:real_name,
             };
 
             if (lock) return false;
@@ -291,6 +297,10 @@
             }
             if (sex == '') {
                 mui.toast('请选择性别',{ duration:'short'});
+                return false;
+            }
+            if (real_name == '') {
+                mui.toast('请填写真实姓名',{ duration:'short'});
                 return false;
             }
             if (age == '') {
@@ -322,7 +332,40 @@
                 return false;
             }
 
-            let wxRule = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/;
+            if (real_name != '') {
+                var rule_1 = /^[\u4E00-\u9FA5]+$/,
+                    rule_2 = /^[A-Za-z]+$/;
+
+                if (!rule_1.test(real_name) && !rule_2.test(real_name)) {
+                    layer.msg('真实姓名只能为纯汉字或纯英文字母');
+                    return false;
+                } else {
+                    let _l   = real_name.length,
+                        rule = /^[\u4E00-\u9FA5]+$/;
+
+                    if (rule.test(real_name)) {
+                        if (_l > 8) {
+                            layer.msg('中文姓名的最大长度为8位');
+                            return false;
+                        }
+                        if (_l < 2) {
+                            layer.msg('中文姓名的最小长度为2位');
+                            return false;
+                        }
+                    } else {
+                        if (_l > 16) {
+                            layer.msg('英文姓名的最大长度为16位');
+                            return false;
+                        }
+                        if (_l < 4) {
+                            layer.msg('英文姓名的最小长度为4位');
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            let wxRule = /^[a-zA-Z]([_|a-zA-Z0-9]{5,19})+$/;
 
             if (!wxRule.test(weixin)) {
                 mui.toast('请填写正确的微信号',{ duration:'short'});

@@ -33,8 +33,11 @@
 			<div style="height:40px;display:none ;" class="appdiv fx_header_new"></div>
   <!--#include file="app_share.html"-->
 			<div class="siliao_header">
-					<!--{eq name="phototype" value="0"}-->公开相册<!--{else/}-->私密相册 <!--{/eq}-->
-				  <a href="javascript:history.go(-1);" class="fl" id="ddd"><img src="images/zuojian.png" style="width:11px;">返回</a>
+					<span class="siliao-header-t">
+						<!--{eq name="phototype" value="0"}-->公开相册<!--{else/}-->私密相册 <!--{/eq}-->
+					</span>
+
+				  <a style="position: absolute; left: 10px;" href="javascript:history.go(-1);" class="fl" id="ddd"><img src="images/zuojian.png" style="width:11px;">返回</a>
 				<!--{if condition="$source != 1"}-->
 					<a href="{:U('UpPhoto',array('type'=>$phototype))}"  class="fr"><img src="themes/lxphp_dating/images/shangchuan.png" style="width: 25px;    padding-right: 0px;"></a>
 				<!--{/if}-->

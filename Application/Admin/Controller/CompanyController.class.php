@@ -17,18 +17,28 @@ class CompanyController extends AdminController{
         return array(
             'info' => array(
                 'name' => '招商合作管理',
-                'description' => '用于招商项目展示',
+                'description' => '展示招商合作',
             ),
             'menu' => array(
                 array(
-                    'name' => '招商项目列表',
-                    'url' => U('lists'),
+                    'name' => '联系红娘',
+                    'url' => U('admin/AboutCompany/hongniang'),
+                    'icon' => 'list',
+                ),
+                array(
+                    'name' => '公司简介',
+                    'url' => U('admin/AboutCompany/introduction'),
+                    'icon' => 'list',
+                ),
+                array(
+                    'name' => '招商合作',
+                    'url' => U('admin/Company/lists'),
                     'icon' => 'list',
                 ),
                 array(
                     'name' => '添加招商项目',
-                    'url' => U('add'),
-                    'icon' => 'plus',
+                    'url' => U('admin/Company/add'),
+                    'icon' => 'list',
                 ),
             ),
         );
@@ -43,7 +53,7 @@ class CompanyController extends AdminController{
     public function lists()
     {
         //定位当前位置
-        $breadCrumb = array('招商项目列表' => U(''));
+        $breadCrumb = array('招商合作列表' => U(''));
 
         $this->assign('breadCrumb',$breadCrumb);
 
@@ -101,7 +111,7 @@ class CompanyController extends AdminController{
     public function add()
     {
         //定位当前位置
-        $breadCrumb = array('添加招商项目' => U('add'));
+        $breadCrumb = array('添加招商合作' => U('add'));
 
         $this->assign('breadCrumb',$breadCrumb);
 

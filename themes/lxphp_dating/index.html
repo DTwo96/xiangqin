@@ -136,7 +136,7 @@
 				right: 4px;
 			}
 			.clear-search-btn {
-				right: 62px;
+				right: 56px;
 			}
 			.clear-search-btn i {
 				vertical-align: middle;
@@ -177,14 +177,57 @@
 			[name="keyword"] {
 				color: green;
 			}
+			.v-img {
+				width: 24px !important;
+				float: right;
+				margin-top: 2px;
+			}
+			.x-btn:active {
+				color: red;
+			}
+			.action-btn:not(a) {
+				font-size: 12px;
+			}
+			.x-item {
+				position: absolute;
+				left:32px;
+				display: none;
+				width: 228px;
+			}
+			.x-item input{
+				font-size: 12px;
+				margin-bottom: 0px;
+				padding: 10px 2px;
+			}
+			.x-btn {
+				color: red;
+				line-height: 40px;
+				font-size: 18px;
+				position: absolute;
+				z-index:9999;
+				right: 14px;
+				top:0;
+			}
 			@media screen and (max-width: 375px){
 				[name="keyword"] {
-					width: 190px !important;
+					width: 218px !important;
+				}
+				.action-btn {
+					padding: 0px 2px;
+				}
+				.clear-search-btn {
+					right: 48px;
 				}
 			}
 			@media screen and (max-width: 320px){
 				[name="keyword"] {
-					width: 140px !important;
+					width: 216px !important;
+				}
+				.boxdiv span,.boxdiv p {
+					font-size: 12px !important;
+				}
+				.clear-search-btn {
+					right: 47px;
 				}
 			}
 		</style>
@@ -234,7 +277,11 @@
 						<span id="next-btn-f" class="next-btn nav-btn">>></span>
 						<span id="pre-btn-f" class="pre-btn-one pre-btn nav-btn"><<</span>
 						<div id="xm-sex" class="xm-select-item"></div>
-						<input name="keyword" style="font-size:12px; padding: 5px; width: 210px; margin-left: 42px; margin-right: -200px;" type="text" placeholder="请输入用户手机号或账号或真实姓名" value="{$param['keyword']|default=''}">
+						<script>
+							$('.x-btn').on('click',function () {
+								$('[name="keyword"]').val('');
+                            });
+						</script>
 						<div id="xm-country" class="xm-select-item">
 							<!--{if condition="$param['province_text']"}-->
 								<?php $text = $param['province'] ? $param['province_text'].','.$param['city_text'] : $param['province_text'];?>
@@ -243,7 +290,14 @@
 								<input type="text" class="place-wrapper" value="地区">
 							<!--{/if}-->
 						</div>
-						<button type="button" class="mui-btn action-btn mui-btn-danger mui-btn-outlined clear-search-btn"><i class="iconfont iconjurassic_filtrate-none"></i>条件不限</button>
+						<div class="x-item">
+							<!--
+                                                        <input name="keyword" style="font-size:12px; padding: 5px; width: 210px; margin-left: 42px; margin-right: -200px;" type="text" placeholder="请输入用户手机号或账号或真实姓名" value="{$param['keyword']|default=''}">
+                            -->
+							<input name="keyword" type="text" placeholder="请输入用户手机号或账号或真实姓名" value="{$param['keyword']|default=''}">
+							<a href="javascript:;" class="x-btn" data-flag="x">x</a>
+						</div>
+						<button type="button" class="mui-btn action-btn mui-btn-danger mui-btn-outlined clear-search-btn" data-flag="clear"><i class="iconfont iconjurassic_filtrate-none"></i>条件不限</button>
 						<button type="submit" class="sub-btn action-btn mui-btn mui-btn-danger"><i class="mui-icon mui-icon-search"></i>搜索</button>
 						<!--搜索表单隐藏域-->
 						<input name="province" type="hidden" value="{$param['province']|default=''}">
@@ -265,7 +319,12 @@
 								<div class="boxdiv"><!--<div class="div_taoxin"><img src="/Public/img/taoxin1.png" class="img_taoxin" style="width:1.7rem;"></div>-->
 									<a href="{$vo.aurl}">
 										<img onerror="javascript:this.src='__PUBLIC__/img/mrtx.jpg'" src="{$vo.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt="">
-										<span><p class="real-name mui-pull-left">{$vo.real_name|default="姓名未填"}<!--{if condition='$vo.sex eq 1'}-->(男)<!--{else /}-->(女)<!--{/if}--></p></span>
+										<span>
+											<p class="real-name mui-pull-left">{$vo.real_name|default="姓名未填"}<!--{if condition='$vo.sex eq 1'}-->(男)<!--{else /}-->(女)<!--{/if}--></p>
+											<!--{if condition='$vo.user_rank gt 0'}-->
+												<img src="images/viplogo.png" alt="" class="v-img">
+											<!--{/if}-->
+										</span>
 										<span>{$vo.age}岁 {$vo.province_name|default='地区未填'}{$vo.city_name}</span>
 									</a>
 								</div>
@@ -393,7 +452,14 @@
 
                 initXmSelectValue();
 
+				$('.x-btn').on('click',function () {
+					$('[name="keyword"]').val('');
+                });
+
                 $('.clear-search-btn').on('click',function () {
+                    var flag =  $(this).data('flag');
+
+                    if (flag == 'x') return;
                     age.setValue([]);
                     height.setValue([]);
                     edu.setValue([]);
@@ -514,9 +580,14 @@
 
                 refreshEngine();
 				//跳转到会员详情
-                m('.boxdiv').on('tap','a',function () {
+                m('body').on('tap','.index_footer > a',function () {
 					var url = $(this).attr('href');
 					window.location.href = url;
+                });
+
+                m('body').on('tap','.boxdiv > a',function () {
+                    var url = $(this).attr('href');
+                    window.location.href = url;
                 });
 
                 var btns = m('.place-wrapper');
@@ -573,13 +644,15 @@
                         if (res.status && res.lists.length) {
                             var html = [];
                             for (var i = 0,l = res.lists.length;i < l;i++) {
-                                var item = res.lists[i];
+                                var item   = res.lists[i],
+									v_html = item.user_rank > 0 ? '<img src="images/viplogo.png" alt="" class="v-img">' : '';
+
                                 html.push(
                                     '<li class="box">',
                                     '<div class="boxdiv">',
                                     '<a class="user-preview" href="' + item.show_url + '">',
                                     '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
-                                	'<span><p class="real-name mui-pull-left">' + item.real_name + '(' + item.sex +')</p></span>',
+                                	'<span><p class="real-name mui-pull-left">' + item.real_name + '(' + item.sex +')</p>' + v_html + '</span>',
                                     '<span>' + item.age + '岁 ' + item.province_name + item.city_name + '</span>',
                                     '</a>',
                                     '</div>',
@@ -615,13 +688,14 @@
 
                             var html = [];
                             for (var i = 0,l = res.lists.length;i < l;i++) {
-                                var item = res.lists[i];
+                                var item   = res.lists[i],
+                                	v_html = item.user_rank > 0 ? '<img src="images/viplogo.png" alt="" class="v-img">' : '';
                                 html.push(
                                     '<li class="box">',
                                     '<div class="boxdiv">',
                                     '<a class="user-preview" href="' + item.show_url + '">',
                                     '<img onerror="javascript:this.src=\'/Public/img/mrtx.jpg\'" src="' + item.avatar + '" alt="">',
-                                    '<span><p class="mui-pull-left">' + item.real_name + '(' + item.sex +')</p></span>',
+                                    '<span><p class="mui-pull-left">' + item.real_name + '(' + item.sex +')</p>' + v_html + '</span>',
                                     '<span>' + item.age + '岁 ' + item.province_name + item.city_name + '</span>',
                                     '</a>',
                                     '</div>',
@@ -654,6 +728,7 @@
                     _w = _w * 2;
                     $(this).hide();
                     $('.action-btn').show();
+                    $('.x-item').show();
 				}
 
 				$('.index_nav').animate({
@@ -671,6 +746,7 @@
                     _l = '-' + _w;
                     if (_m >= _w * 2) {
                         $('.action-btn').hide();
+                        $('.x-item').hide();
 					}
 				} else {
                     $(this).hide();
@@ -698,6 +774,10 @@
 					_w = (device_width - 30) / 3;
 
 				$('.xm-select-item').width(_w);
+				//兼容小屏手机
+				if (device_width <= 320) {
+					$('.clear-search-btn').text('x').css('width','25px');
+				}
             }
             //初始化高度
             function refreshInit() {

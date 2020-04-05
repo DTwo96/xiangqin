@@ -330,25 +330,25 @@ class MenuService{
                 'order' => 11,
                 'menu' => array(
                     array(
-                        'name' => '公司简介',
-                        'url' => U('/Admin/AboutCompany/introduction'),
+                        'name' => '我要脱单',
+                        'url' => U('/Admin/AboutCompany/tuodan',['type' => 99]),
                         'order' => 1
                     ),
                     array(
-                        'name' => '情感文章管理',
-                        'url' => U('/Admin/Article/articleLists'),
+                        'name' => '月老寻缘',
+                        'url' => U('/Admin/Activity/lists'),
                         'order' => 2
                     ),
                     array(
-                        'name' => '线下活动管理',
-                        'url' => U('/Admin/Activity/lists'),
+                        'name' => '关于我们',
+                        'url' => U('/Admin/AboutCompany/hongniang',['type' => 1]),
                         'order' => 3
                     ),
-                    array(
+                    /*array(
                         'name' => '招商合作管理',
                         'url' => U('/Admin/Company/lists'),
                         'order' => 4
-                    ),
+                    ),*/
                 )
             ),
         );

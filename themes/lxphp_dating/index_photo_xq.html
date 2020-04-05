@@ -9,7 +9,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>{$media.title}</title>
-<link rel="stylesheet" type="text/css" href="css/css.css?12 ">
+<link rel="stylesheet" type="text/css" href="css/css.css?13 ">
 <link rel="stylesheet" type="text/css" href="css/font/iconfont.css">
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 
@@ -257,8 +257,10 @@
 		 $.post('{:U("Home/Ajax/commentZan")}',{cid:cid},function(data){
 			    if(data.status==1){
 			    	o.text(data.info);
+                    $('.cehngsongcg').css({'color':'lime','font-size':'16px'});
 			    }else{
 			    	alertbox(data.info);
+                    $('.cehngsongcg').css({'color':'lime','font-size':'16px'});
 			    }  
 		  },'json');
 

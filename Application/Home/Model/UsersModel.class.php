@@ -81,6 +81,10 @@ class UsersModel extends Model {
             $this->error = '请选择性别';
             return false;
         }
+        if (empty($param['real_name'])) {
+            $this->error = '请填写真实姓名';
+            return false;
+        }
         if (empty($param['age'])) {
             $this->error = '请填写年龄';
             return false;
@@ -140,11 +144,12 @@ class UsersModel extends Model {
 
         if($res) {//更新副表数据和头像
             $pro = [];
-            $pro['uid']      = $res;
-            $pro['height']   = $param['height'];
-            $pro['code4']    = $param['code4'];
-            $pro['birthday'] = $param['birthday'];
-            $pro['weixin']   = $param['weixin'];
+            $pro['uid']       = $res;
+            $pro['height']    = $param['height'];
+            $pro['code4']     = $param['code4'];
+            $pro['birthday']  = $param['birthday'];
+            $pro['weixin']    = $param['weixin'];
+            $pro['real_name'] = $param['real_name'];
 
             $arr = array('mob'=>'hot','qq'=>'hot','weixin'=>'hot');
             $pro['lxfs_config'] = serialize($arr);

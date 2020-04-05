@@ -16,18 +16,28 @@ class ActivityController extends AdminController{
     protected function _infoModule(){
         return array(
             'info' => array(
-                'name' => '线下活动管理',
-                'description' => '用于线下活动展示',
+                'name' => '约会活动管理',
+                'description' => '用于约会活动展示',
             ),
             'menu' => array(
                 array(
-                    'name' => '线下活动列表',
-                    'url' => U('lists'),
+                    'name' => '约会活动',
+                    'url' => U('admin/Activity/lists'),
                     'icon' => 'list',
                 ),
                 array(
-                    'name' => '添加线下活动',
-                    'url' => U('add'),
+                    'name' => '添加约会活动',
+                    'url' => U('admin/Activity/add'),
+                    'icon' => 'plus',
+                ),
+                array(
+                    'name' => '情感美文',
+                    'url' => U('admin/Article/articleLists'),
+                    'icon' => 'list',
+                ),
+                array(
+                    'name' => '添加情感美文',
+                    'url' => U('admin/Article/articleAdd'),
                     'icon' => 'plus',
                 ),
             ),
@@ -43,7 +53,7 @@ class ActivityController extends AdminController{
     public function lists()
     {
         //定位当前位置
-        $breadCrumb = array('线下活动列表' => U(''));
+        $breadCrumb = array('约会活动列表' => U(''));
 
         $this->assign('breadCrumb',$breadCrumb);
 
@@ -101,7 +111,7 @@ class ActivityController extends AdminController{
     public function add()
     {
         //定位当前位置
-        $breadCrumb = array('添加线下活动' => U('add'));
+        $breadCrumb = array('添加约会活动' => U('add'));
 
         $this->assign('breadCrumb',$breadCrumb);
 

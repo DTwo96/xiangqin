@@ -10,7 +10,9 @@
     <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
     <title>{$media.title}</title>
     <link rel="stylesheet" type="text/css" href="css/css.css?t=<?php echo time();?>">
+    <link rel="stylesheet" type="text/css" href="/Public/swiper-5.3.6/package/css/swiper.min.css">
     <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/Public/swiper-5.3.6/package/js/swiper.min.js"></script>
 </head>
 <style type="text/css">
     .fx_header {
@@ -31,6 +33,29 @@
     .user-info {
         display: none;
     }
+    .swiper-container{
+        --swiper-theme-color: green;/* 设置Swiper风格 */
+        --swiper-navigation-color: green;/* 单独设置按钮颜色 */
+        --swiper-navigation-size: 30px;/* 设置按钮大小 */
+    }
+    .swiper-button-prev {
+        left: 21px;
+    }
+    .swiper-button-next {
+        right: 1px;
+    }
+    .swiper-button-prev:after,.swiper-button-next:after {
+        font-size: 20px;
+        color: green;
+        font-weight: bold;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        margin-top: 30px !important;
+        background-color: rgba(0,0,0,.1);
+    }
+    .lianxifangshi_new p {
+        font-size: 14px;
+    }
 </style>
 
 
@@ -46,6 +71,9 @@
         <div class="uesr_tx">
 
             <img src="{$info.avatar|default='__PUBLIC__/img/mrtx.jpg'}" alt="" class="uesr_tx_a">
+            <?php if ($info['rank_time'] > 0){?>
+                <img src="images/viplogo.png" alt="" style="width: 24px; position: absolute;">
+            <?php }?>
             <!--<a href="{:U('Wechat/index',array('uid'=>$info[idmd5]))}">
                 <span class="gentalianx"><img src="images/user_03_06.png" alt="">跟TA聊天</span>
             </a>-->
@@ -54,16 +82,13 @@
         <div class="uesr_zl">
             <p class="uesr_zl1p">
                 {$real_name|default='真实名字未定义'}
-                <?php if ($info['rank_time'] > 0){?>
-                    <img src="images/viplogo.png" alt="" style="width: 24px;">
-                <?php }?>
             </p>
             <p class="uesr_zl1p">{$info.user_number|default='账号未定义'}</p>
             <p class="uesr_zl3p">性别：<!--{if condition="$info.sex eq 2"}-->女
-                <!--{else /}-->男<!--{/if}-->&nbsp;&nbsp;生日:&nbsp;{$pinfo.birthday}</p>
+                <!--{else /}-->男<!--{/if}-->&nbsp;&nbsp;生日:&nbsp;{$pinfo.birthday} (阳历)</p>
             <p class="uesr_zl2p">地区:&nbsp;&nbsp;{$area|default='未知'}&nbsp;&nbsp;&nbsp;年龄:&nbsp;&nbsp;{$age}岁</p>
             <p class="uesr_zl4p"><img src="{$info.rank_icon}">
-                <span style="margin-left: -4px;">{$info.rank_name}</span>
+                <span>{$info.rank_name}</span>
                 <!--{if condition="$info.id neq $uid"}-->
                     <a href="javascript:;"  class="gz">
                         <?php if($User_subscribe==1) echo '已关注'; elseif($User_subscribe==2) echo '相互关注'; else echo '未关注';?>
@@ -135,10 +160,10 @@
     <!--{if condition="$photoarr"}-->
     <div class="new_simizhao">
         <div class="new_simizhao_div">公开照</div>
-        <div class="new_simizhao_ulli">
-            <ul>
+        <div class="new_simizhao_ulli swiper-container">
+            <ul class="swiper-wrapper">
                 <!--{foreach name="photoarr" item="vo" }-->
-                <li>
+                <li class="swiper-slide">
                     <a href="{:U('photo',array('pid'=>$vo[idmd5]))}">
                         <img src="{$vo.thumbfiles}" alt="">
                         <span>
@@ -150,8 +175,10 @@
                 <!--{/foreach}-->
             </ul>
         </div>
-        <a href="{:U('photolist',array('uid'=>$info[idmd5],'phototype' => 0))}" class="simizhao_luanbo"><img
-                src="images/youjianhei.png" alt=""></a>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      <!--  <a href="{:U('photolist',array('uid'=>$info[idmd5],'phototype' => 0))}" class="simizhao_luanbo"><img
+                src="/themes/lxphp_dating/images/youjianhei.png" alt=""></a>-->
     </div>
 
     <!--{else /}-->
@@ -204,7 +231,7 @@
                                 ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                             <!--{/if}-->
                         <!--{else /}-->
-                            <p>{$info.user_login|default="您未公开"}</p>
+                            <p style="color: green;">{$info.user_login|default="您未公开"}</p>
                         <!--{/if}-->
                     </div>
                 </li>
@@ -219,7 +246,7 @@
                             ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                             <!--{/if}-->
                         <!--{else /}-->
-                            <p>{$pinfo.weixin|default="您未公开"}</p>
+                            <p style="color: green;">{$pinfo.weixin|default="您未公开"}</p>
                         <!--{/if}-->
                     </div>
                 </li>
@@ -234,7 +261,7 @@
                         ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                         <!--{/if}-->
                         <!--{else /}-->
-                        <p>{$pinfo.qq|default="您还未填写"}</p>
+                        <p style="color: green;">{$pinfo.qq|default="您还未填写"}</p>
                         <!--{/if}-->
                     </div>
                 </li>
@@ -249,7 +276,7 @@
                         ****<a href="{:U('User/VipCenter')}">VIP可见</a>
                         <!--{/if}-->
                         <!--{else /}-->
-                        <p>{$pinfo.email|default="您还未填写"}</p>
+                        <p style="color: green;">{$pinfo.email|default="您还未填写"}</p>
                         <!--{/if}-->
                     </div>
                 </li>
@@ -283,6 +310,14 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script src="js/user_xq_ad.js"></script>
     <script>
+
+        new Swiper('.swiper-container',{
+            slidesPerView : 3,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
         /*var ad1 = new AdMove("ad1");
         ad1.Run();*/
         var rank_time = '{$rank_time}',
@@ -315,12 +350,14 @@
                         $(".gz").html("已关注");
                         self.text('取消关注');
                         alertmsg('关注成功');
+                        $('.cehngsongcg').css({'color':'lime','font-size':'16px'});
                         $('.info-gz').hide();
                         $('.u-info').show();
                     } else {
                         $(".gz").html("关注TA");
                         self.text('关注TA');
                         alertmsg('取消成功');
+                        $('.cehngsongcg').css({'color':'lime','font-size':'16px'});
                         $('.info-gz').show();
                         $('.u-info').hide();
                         $(".gznum").html(Number($(".gznum").text()) - 1);

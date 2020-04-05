@@ -51,6 +51,9 @@
 		   margin-top: 6px;
 		   color: red;
 	   }
+	   .uesr_wode_nav .h-item{
+		   background-color: #ff77b2;
+	   }
 	</style>
 
 	<body>
@@ -87,7 +90,7 @@
 				<div class="uesr_zl">
 					<p class="uesr_zl1p"><a href="{:U('Home/User/basedata')}" style="color: #f61a24">{$userProfile.real_name|default='真实姓名未定义'}</a></p>
 					<p class="uesr_zl1p"><a href="{:U('Home/User/basedata')}" style="color: #f61a24">{$uinfo.user_number|default='账号未定义'}</a></p>
-					<p class="uesr_zl2p">地区:&nbsp;&nbsp;{$uinfo.province_name|default='未知'}{$uinfo.city_name}&nbsp;&nbsp;&nbsp;年龄:&nbsp;&nbsp;{$uinfo.age|default='未知'}</p>
+					<p class="uesr_zl2p">地区:&nbsp;&nbsp;{$uinfo.province_name|default='未知'}{$uinfo.city_name}&nbsp;&nbsp;&nbsp;年龄:&nbsp;&nbsp;{$uinfo.age|default='未知'}岁</p>
 					<p class="uesr_zl3p">
 						性别:
 						<!--{if condition="$uinfo['sex'] == 1"}-->
@@ -96,10 +99,11 @@
 						女
 						<!--{/if}-->
 						<!--{if condition="$userProfile['birthday']"}-->
-						&nbsp;生日:&nbsp;&nbsp;{$userProfile.birthday|default='未知'}</p>
+						&nbsp;生日:&nbsp;&nbsp;{$userProfile.birthday|default='未知'} (阳历)</p>
 						<!--{/if}-->
 					</p>
-					<p class="uesr_zl4p"><img style="top: 0;" src="images/user_03_32.png"><span class="zan" style="margin-right: 4px;">{$userCount.zan|default="0"}</span>{$uinfo.rank_name|default="情窦初开"}<!--{if condition="$isqd eq 0" }--><a style="cursor: pointer;" class="qd-btn" onclick="qiandao({$uinfo.id})">签到</a><!--{else/}--><a style="cursor: pointer;">已签到</a><!--{/if}--></p>
+
+					<p class="uesr_zl4p"><img style="margin-right: 4px;" src="{$uinfo.rank_icon}" alt=""><img style="top: 0; width: 18px;" src="images/user_03_32.png"><span class="zan" style="margin-left: -2px;margin-right: 4px; color: #f03b57;">{$userCount.zan|default="0"}</span>{$uinfo.rank_name|default="情窦初开"}<!--{if condition="$isqd eq 0" }--><a style="margin-left:4px;cursor: pointer;" class="qd-btn" onclick="qiandao({$uinfo.id})">签到</a><!--{else/}--><a style="cursor: pointer;">已签到</a><!--{/if}--></p>
 				</div>
 				<div class="uesr_table" style="margin-top: 10px;">
 					<table onmousedown="0" onmousemove="0" border="0">
@@ -172,11 +176,11 @@
 
 					-->
 					<li>
-						<a href="{:U('VipCenter')}" class="cb" style="display: inline-block;">
-							<div class="vip-block">
-								<img src="images/vip.png" alt="" style="width: 23px;">
+						<a href="{:U('likeLists',array('type' => 3))}" class="cb" style="display: inline-block;">
+							<div class="vip-block zan-block h-item">
+								<i class="iconfont icondianzan5" style="font-size: 28px;"></i>
 							</div>
-							VIP会员
+							互赞的人
 						</a>
 					</li>
 					<li>
@@ -237,7 +241,14 @@
 							<img src="images/new_uesr_20.png" alt=""><br>账号设置
 						</a>
 					</li>
-					
+					<li>
+						<a href="{:U('VipCenter')}" class="cb" style="display: inline-block;">
+							<div class="vip-block">
+								<img src="images/vip.png" alt="" style="width: 23px;">
+							</div>
+							VIP会员
+						</a>
+					</li>
 					
 					<!--<li>
 						<a href="{:U('Home/Public/NewbieGuide')}" class="cb">
